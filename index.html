@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>MyLoaders — Free / Pro + VIP + Магазин + Профиль + Google Auth</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0f1a;--card:#10162a;--muted:#8a95b5;--text:#e6eaf5;--border:rgba(255,255,255,.08);
+    --grad1:#7c4dff;--grad2:#00d4ff;--accent:#7c4dff;--ok:#13d06b;--warn:#ffb200;
+    --white:#fff;--shadow:0 18px 60px rgba(0,0,0,.25)
+  }
+  *{box-sizing:border-box} html,body{height:100%}
+  body{margin:0;font-family:'Inter',system-ui,Arial;background:var(--bg);color:var(--text);line-height:1.6}
+  a{color:inherit}
+  .container{width:min(1120px,92%);margin:0 auto}
+  header.site{position:sticky;top:0;z-index:50;background:rgba(11,15,26,.55);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+  .head{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:900}
+  .glyph{color:var(--grad2)} .chip{font-size:12px;padding:2px 8px;border-radius:999px;border:1px solid var(--border)}
+  nav.top a, nav.top button{margin-left:14px;text-decoration:none;color:var(--text);font-weight:800;background:none;border:none;cursor:pointer}
+  .mainpad{padding:64px 0}
+  /* sections */
+  .tabs{display:flex;gap:10px;flex-wrap:wrap;margin:0 auto 18px;justify-content:center}
+  .tabs button{padding:10px 14px;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,.02);color:var(--text);cursor:pointer}
+  .tabs button.active{background:linear-gradient(90deg,var(--grad1),var(--grad2));color:#fff;border:none}
+  section.page{display:none} section.page.active{display:block}
+  /* hero */
+  #stars{position:fixed;inset:0;z-index:-1}
+  .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center}
+  .grad{background:linear-gradient(90deg,var(--grad1),var(--grad2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .lead{color:var(--muted)}
+  .btn, .btn-soft, .btn-outline{
+    display:inline-block;font-weight:800;padding:12px 18px;border-radius:12px;text-decoration:none;cursor:pointer
+  }
+  .btn{background:linear-gradient(90deg,var(--grad1),var(--grad2));color:#fff;border:none}
+  .btn-soft{background:rgba(124,77,255,.12);color:#d5caff;border:1px solid rgba(124,77,255,.35)}
+  .btn-outline{border:1px solid var(--border);color:var(--text);background:rgba(255,255,255,.02)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:18px;box-shadow:var(--shadow)}
+  .card header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+  .price{display:flex;align-items:baseline;gap:6px;margin-top:10px}
+  .amount{font-size:24px;font-weight:900}
+  .chip-pro{background:rgba(124,77,255,.18);border-color:rgba(124,77,255,.4)}
+  .ribbon{position:absolute;top:12px;right:12px;background:linear-gradient(90deg,var(--grad1),var(--grad2));color:#fff;padding:6px 10px;border-radius:999px;font-weight:900}
+  /* profile */
+  .two{display:grid;grid-template-columns:300px 1fr;gap:18px}
+  .avatar-wrap{position:relative;display:inline-block}
+  .avatar{width:120px;height:120px;border-radius:50%;border:4px solid rgba(255,255,255,.15);object-fit:cover}
+  .crown{position:absolute;right:-6px;top:-10px;font-size:28px;filter:drop-shadow(0 0 12px rgba(255,215,0,.8))}
+  .frame{position:absolute;inset:-6px;border-radius:50%;pointer-events:none}
+  .frame.pulse{border:3px dashed rgba(124,77,255,.8);animation:spin 12s linear infinite}
+  .aura{position:absolute;inset:-20px;border-radius:50%;background:radial-gradient(120px 70px at 30% 30%,rgba(124,77,255,.45),transparent),radial-gradient(120px 70px at 70% 70%,rgba(0,212,255,.45),transparent);filter:blur(8px);opacity:.7;pointer-events:none}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .decor label{display:block;margin:8px 0}
+  .badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .badge{font-size:12px;padding:4px 8px;border-radius:999px;border:1px solid var(--border)}
+  .badge.gold{background:linear-gradient(90deg,#ffd65b,#ff9c00);color:#2a1b00;border:none}
+  .badge.purple{background:rgba(124,77,255,.15);color:#e6dcff;border-color:rgba(124,77,255,.35)}
+  .badge.blue{background:rgba(0,212,255,.12);color:#d4f6ff;border-color:rgba(0,212,255,.35)}
+  /* shop */
+  .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+  .filters button{padding:8px 12px;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,.02);color:var(--text);cursor:pointer}
+  .filters button.active{background:linear-gradient(90deg,var(--grad1),var(--grad2));border:none;color:#fff}
+  .items{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
+  .item{position:relative}
+  .item.vip::after{content:"👑 VIP";position:absolute;top:10px;right:10px;background:gold;color:#000;font-weight:900;padding:2px 8px;border-radius:999px}
+  .preview{height:120px;border-radius:12px;border:1px dashed rgba(255,255,255,.2);background:repeating-linear-gradient(45deg,rgba(255,255,255,.06) 0 10px,transparent 10px 20px)}
+  /* dialogs */
+  dialog.modal{border:none;border-radius:16px;padding:0;background:transparent}
+  dialog::backdrop{background:rgba(0,0,0,.6)}
+  .modal-box{width:min(860px,96vw);background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+  .modal-head,.modal-foot{display:flex;align-items:center;justify-content:space-between;padding:14px;border-bottom:1px solid var(--border)}
+  .modal-foot{border-top:1px solid var(--border);border-bottom:none}
+  .modal-body{padding:16px}
+  .icon-btn{background:none;border:1px solid var(--border);border-radius:10px;color:var(--text);cursor:pointer;padding:6px 10px}
+  .checkout{display:grid;grid-template-columns:1fr 1.2fr;gap:16px}
+  .status{margin-top:10px;color:var(--muted)}
+  .hidden{display:none}
+  /* responsive */
+  @media(max-width:900px){.hero{grid-template-columns:1fr}.two{grid-template-columns:1fr}.checkout{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<canvas id="stars" aria-hidden="true"></canvas>
+<header class="site">
+  <div class="container head">
+    <a class="brand" href="#"><span class="glyph">◆</span><span>MyLoaders</span><span class="chip">VIP</span></a>
+    <nav class="top">
+      <a href="#" onclick="setTab('home')">Главная</a>
+      <a href="#" onclick="setTab('download')">Загрузки</a>
+      <a href="#" onclick="setTab('shop')">Магазин</a>
+      <a href="#" onclick="setTab('vip')">VIP</a>
+      <a href="#" onclick="setTab('profile')">Профиль</a>
+      <button id="authBtn" onclick="authToggle()">Войти</button>
+    </nav>
+  </div>
+</header>
+
+<main class="container mainpad">
+  <div class="tabs">
+    <button id="tab-home" class="active" onclick="setTab('home')">Главная</button>
+    <button id="tab-download" onclick="setTab('download')">Загрузки</button>
+    <button id="tab-shop" onclick="setTab('shop')">Магазин</button>
+    <button id="tab-vip" onclick="setTab('vip')">VIP</button>
+    <button id="tab-profile" onclick="setTab('profile')">Профиль</button>
+  </div>
+
+  <!-- HOME -->
+  <section id="page-home" class="page active">
+    <div class="hero">
+      <div>
+        <h1>Два лоадера. <span class="grad">Одна экосистема</span>.</h1>
+        <p class="lead">Free — чтобы начать, Pro — максимум возможностей. <b>VIP</b> — украшения, ранний доступ, бейдж 👑.</p>
+        <div style="display:flex;gap:10px;margin-top:12px">
+          <a class="btn" onclick="setTab('download')">Скачать</a>
+          <button class="btn-soft" onclick="document.getElementById('vipModal').showModal()">Оформить VIP</button>
+        </div>
+        <ul class="lead" style="margin-top:12px">
+          <li>🎨 Украшения профиля, ауры, рамки</li>
+          <li>🛡️ Проверенные сборки</li>
+          <li>⚡ Авто-апдейты</li>
+        </ul>
+      </div>
+      <div class="card">
+        <header><strong>MyLoader Pro v3.2</strong><span class="chip chip-pro">PRO</span></header>
+        <pre>$ loader.exe run --vip
+✓ Авторизация: OK
+✓ Обновления: 2
+→ Патчи применены
+✔ Готово!</pre>
+        <div class="price"><span class="amount">399 ₽</span><span>/ единоразово</span></div>
+        <div style="display:flex;gap:10px">
+          <button class="btn" onclick="openProBuy()">Купить Pro</button>
+          <a id="proDownload" class="btn hidden" href="assets/pro-loader.zip" download>Скачать Pro</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOWNLOADS -->
+  <section id="page-download" class="page">
+    <h2>Загрузки</h2>
+    <div class="grid">
+      <article class="card">
+        <header><h3>Free Loader</h3><span class="chip">FREE</span></header>
+        <p>Базовый функционал, чтобы быстро начать.</p>
+        <div class="price"><span class="amount">0 ₽</span><span>/ навсегда</span></div>
+        <a class="btn" href="assets/free-loader.zip" download>Скачать Free</a>
+      </article>
+      <article class="card" style="position:relative">
+        <span class="ribbon">Топ выбор</span>
+        <header><h3>Pro Loader</h3><span class="chip chip-pro">PRO</span></header>
+        <p>Полный набор возможностей и быстрые апдейты.</p>
+        <div class="price"><span class="amount">399 ₽</span><span>/ единоразово</span></div>
+        <button class="btn" onclick="openProBuy()">Купить Pro</button>
+        <a id="proDownload2" class="btn hidden" href="assets/pro-loader.zip" download>Скачать Pro</a>
+      </article>
+    </div>
+  </section>
+
+  <!-- SHOP -->
+  <section id="page-shop" class="page">
+    <h2>🛍️ Магазин украшений</h2>
+    <div class="filters" id="shopFilters"></div>
+    <div class="items" id="shopItems"></div>
+  </section>
+
+  <!-- VIP -->
+  <section id="page-vip" class="page">
+    <div class="grid">
+      <article class="card" style="position:relative">
+        <span class="ribbon">Лучшая цена</span>
+        <h3>VIP (месяц)</h3>
+        <ul>
+          <li>Украшения и рамки профиля</li>
+          <li>Ранний доступ к обновлениям</li>
+          <li>Закрытый чат VIP</li>
+          <li>Скидка на Pro</li>
+        </ul>
+        <div class="price"><span class="amount">299 ₽</span><span>/ мес</span></div>
+        <button class="btn" onclick="openVipBuy('vip_month')">Оформить</button>
+      </article>
+      <article class="card">
+        <h3>VIP+ (год)</h3>
+        <ul>
+          <li>Все из VIP</li>
+          <li>2 месяца в подарок</li>
+          <li>Бейдж + эффект свечения</li>
+        </ul>
+        <div class="price"><span class="amount">2870 ₽</span><span>/ год</span></div>
+        <button class="btn-soft" onclick="openVipBuy('vip_year')">Оформить год</button>
+      </article>
+    </div>
+  </section>
+
+  <!-- PROFILE -->
+  <section id="page-profile" class="page">
+    <div class="two">
+      <aside class="card">
+        <div class="avatar-wrap">
+          <img id="avatarImg" class="avatar" src="" alt="avatar">
+          <span class="crown" id="vipCrown" title="VIP" style="display:none">👑</span>
+          <span class="aura" id="avatarAura" style="display:none"></span>
+          <span class="frame pulse" id="avatarFrame" style="display:none"></span>
+        </div>
+        <h2 id="displayName">nickname</h2>
+        <p class="lead" id="displayEmail" style="color:var(--muted)"></p>
+        <div class="badges" id="badgeBar">
+          <span class="badge blue">OG</span>
+        </div>
+        <hr style="border-color:var(--border)">
+        <div class="decor">
+          <label>Ник: <input id="nickInput" type="text" placeholder="ваш ник" style="width:100%"></label>
+          <label>Аватар: <input id="avatarInput" type="file" accept="image/*"></label>
+          <label>Тема:
+            <select id="themePicker" style="width:100%">
+              <option value="dark" selected>Тёмная</option>
+              <option value="light">Светлая</option>
+              <option value="neon">Неон</option>
+            </select>
+          </label>
+          <label>Рамка:
+            <select id="framePicker" style="width:100%">
+              <option value="none">Нет</option>
+              <option value="pulse">Пульс</option>
+              <option value="rainbow">Радуга</option>
+            </select>
+          </label>
+          <label>Аура:
+            <select id="auraPicker" style="width:100%">
+              <option value="none">Нет</option>
+              <option value="neon">Неон</option>
+              <option value="fire">Огонь</option>
+            </select>
+          </label>
+          <div style="display:flex;gap:8px;margin-top:10px">
+            <button class="btn-soft" onclick="saveProfile()">Сохранить</button>
+            <button class="btn-outline" onclick="resetProfile()">Сброс</button>
+          </div>
+        </div>
+      </aside>
+      <section class="card">
+        <h3>Достижения</h3>
+        <ul id="achList">
+          <li>🎖️ 100 запусков Pro</li>
+          <li>🏁 Участник беты</li>
+          <li>🧩 Соавтор модулей</li>
+        </ul>
+
+        <h3 style="margin-top:14px">Мои украшения</h3>
+        <div id="ownedList" class="badges"></div>
+
+        <h3 style="margin-top:14px">VIP-магазин (быстрый доступ)</h3>
+        <div class="items" id="quickVipShop"></div>
+      </section>
+    </div>
+  </section>
+</main>
+
+<!-- VIP modal -->
+<dialog id="vipModal" class="modal">
+  <form method="dialog" class="modal-box">
+    <header class="modal-head">
+      <h3>Оформление VIP</h3>
+      <button class="icon-btn" value="close">✕</button>
+    </header>
+    <div class="modal-body">
+      <div class="checkout">
+        <div>
+          <label><input type="radio" name="vipplan" value="vip_month" checked> VIP — 299 ₽/мес</label><br>
+          <label><input type="radio" name="vipplan" value="vip_year"> VIP+ — 2870 ₽/год</label>
+          <p class="lead" style="color:var(--muted)">Оплата через LolzTeam (LZT Market). После оплаты доступ откроется автоматически.</p>
+        </div>
+        <div>
+          <button id="createInvoiceBtn" class="btn" type="button">Создать счёт</button>
+          <div id="invoiceStatus" class="status"></div>
+        </div>
+      </div>
+    </div>
+    <footer class="modal-foot">
+      <small class="lead" style="color:var(--muted)">Оплата и вебхуки обрабатываются на серверной стороне.</small>
+    </footer>
+  </form>
+</dialog>
+
+<!-- PRO modal -->
+<dialog id="proModal" class="modal">
+  <form method="dialog" class="modal-box">
+    <header class="modal-head">
+      <h3>Купить Pro</h3>
+      <button class="icon-btn" value="close">✕</button>
+    </header>
+    <div class="modal-body">
+      <p class="lead" style="color:var(--muted)">Оплата через LolzTeam (LZT Market). После платежа ссылка на Pro откроется.</p>
+      <button id="createProInvoiceBtn" class="btn" type="button">Создать счёт на 399 ₽</button>
+      <div id="proInvoiceStatus" class="status"></div>
+    </div>
+  </form>
+</dialog>
+
+<footer class="container" style="padding:24px 0;color:var(--muted)">
+  <small>© <span id="year"></span> MyLoaders · Сделано с любовью</small>
+</footer>
+
+<!-- Firebase (опционально, чтобы авторизация работала на проде) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script>
+  // ====== Настрой Firebase (если не хочешь — оставь пустым, включится localStorage-режим)
+  const FIREBASE_ENABLED = true; // переключатель
+  const firebaseConfig = {
+    apiKey: "PASTE_YOURS",
+    authDomain: "PASTE_YOURS.firebaseapp.com",
+    projectId: "PASTE_YOURS",
+    appId: "PASTE_YOURS",
+  };
+  try{
+    if(FIREBASE_ENABLED && firebaseConfig.apiKey!=="PASTE_YOURS"){firebase.initializeApp(firebaseConfig);}
+    else window._fb_disabled = true;
+  }catch(e){console.warn("Firebase init disabled / failed", e); window._fb_disabled = true;}
+</script>
+
+<script>
+/* ====== Космический фон ====== */
+(function(){
+  const c=document.getElementById('stars');if(!c)return;const x=c.getContext('2d');let w,h;const s=[];
+  function R(){w=innerWidth;h=innerHeight;c.width=w;c.height=h}
+  function star(){return{x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.2+0.2,a:Math.random()*0.6+0.2}}
+  function I(){s.length=0;for(let i=0;i<180;i++)s.push(star())}
+  function D(){x.clearRect(0,0,w,h);for(const a of s){x.globalAlpha=a.a;x.fillStyle='#cfe9ff';x.beginPath();x.arc(a.x,a.y,a.r,0,Math.PI*2);x.fill()}requestAnimationFrame(D)}
+  addEventListener('resize',()=>{R();I()});R();I();D()
+})();
+
+/* ====== Навигация ====== */
+function setTab(key){
+  for(const el of document.querySelectorAll('.tabs button')) el.classList.remove('active');
+  document.getElementById('tab-'+key).classList.add('active');
+  for(const el of document.querySelectorAll('.page')) el.classList.remove('active');
+  document.getElementById('page-'+key).classList.add('active');
+  history.replaceState(null,'','#'+key);
+}
+(function(){const h=location.hash.replace('#','')||'home';const exist=document.getElementById('page-'+h);setTab(exist?h:'home')})();
+
+/* ====== Auth (Google) ======
+   Работает через Firebase Auth, fallback -> localStorage guest */
+const Auth = {
+  user: null,
+  async init(){
+    const btn = document.getElementById('authBtn');
+    if(window._fb_disabled){ // fallback guest
+      const ls = JSON.parse(localStorage.getItem('guestAuth')||'null');
+      if(ls){this.user = ls; btn.textContent='Выйти';} else {btn.textContent='Войти';}
+      return;
+    }
+    const auth = firebase.auth();
+    auth.onAuthStateChanged(u=>{
+      this.user = u;
+      btn.textContent = u ? 'Выйти' : 'Войти';
+      if(u){ document.getElementById('displayEmail').textContent = u.email||''; document.getElementById('displayName').textContent = (u.displayName||'nickname'); if(!avatarImg.src) avatarImg.src = u.photoURL||''; }
+    });
+  },
+  async signIn(){
+    if(window._fb_disabled){
+      // guest demo
+      const fake = {uid:'guest', email:'guest@local', displayName:'Guest', photoURL:''};
+      localStorage.setItem('guestAuth', JSON.stringify(fake));
+      this.user = fake;
+      document.getElementById('authBtn').textContent='Выйти';
+      alert('Гостевой вход включен (Firebase не настроен).');
+      return;
+    }
+    const provider = new firebase.auth.GoogleAuthProvider();
+    await firebase.auth().signInWithPopup(provider);
+  },
+  async signOut(){
+    if(window._fb_disabled){
+      localStorage.removeItem('guestAuth'); this.user=null;
+      document.getElementById('authBtn').textContent='Войти';
+      return;
+    }
+    await firebase.auth().signOut();
+  }
+};
+async function authToggle(){ if(Auth.user) await Auth.signOut(); else await Auth.signIn(); }
+
+/* ====== Профиль: ник, аватар, темы/рамки/ауры ====== */
+const state = {
+  entitlements: { pro:false, vip:false, items:{} }, // items[id]=true
+  profile: { nick:'nickname', avatar:'', theme:'dark', frame:'none', aura:'none', badges:['OG'] }
+};
+function loadState(){
+  try{const s = JSON.parse(localStorage.getItem('ml_state')||'null'); if(s){Object.assign(state, s);} }catch{}
+  // apply UI
+  nickInput.value = state.profile.nick;
+  if(state.profile.avatar){ avatarImg.src = state.profile.avatar; } else { avatarImg.src = 'assets/avatar.png'; }
+  themePicker.value = state.profile.theme; framePicker.value = state.profile.frame; auraPicker.value = state.profile.aura;
+  document.getElementById('displayName').textContent = state.profile.nick;
+  // badges
+  renderBadges();
+  applyDecor();
+  // entitlements
+  updateProButtons();
+  document.getElementById('vipCrown').style.display = state.entitlements.vip ? '' : 'none';
+}
+function saveState(){ localStorage.setItem('ml_state', JSON.stringify(state)); }
+function renderBadges(){
+  const bar = document.getElementById('badgeBar'); bar.innerHTML='';
+  for(const b of state.profile.badges){
+    const el=document.createElement('span'); el.className='badge '+(b==='VIP'?'gold':(b==='PRO'?'purple':'blue')); el.textContent=b; bar.appendChild(el);
+  }
+}
+function applyDecor(){
+  // theme
+  if(state.profile.theme==='light'){ document.body.style.background='#f5f6fa'; document.body.style.color='#0e1225'; }
+  else if(state.profile.theme==='neon'){ document.body.style.background='radial-gradient(1200px 700px at 10% 0%, rgba(124,77,255,.15), rgba(0,0,0,0)), #0b0f1a'; document.body.style.color='#e6eaf5'; }
+  else { document.body.style.background='var(--bg)'; document.body.style.color='var(--text)'; }
+  // frame
+  avatarFrame.style.display = state.profile.frame==='none' ? 'none' : '';
+  avatarFrame.className = 'frame '+(state.profile.frame==='pulse'?'pulse':'');
+  if(state.profile.frame==='rainbow'){ avatarFrame.style.border='4px solid transparent'; avatarFrame.style.background='conic-gradient(from 0deg,#ff4d4d,#ffb84d,#f7ff4d,#4dff88,#4dd9ff,#8f4dff,#ff4db8,#ff4d4d)'; }
+  else { avatarFrame.style.background='none'; avatarFrame.style.border='3px dashed rgba(124,77,255,.8)'; }
+  // aura
+  avatarAura.style.display = state.profile.aura==='none' ? 'none' : '';
+  if(state.profile.aura==='fire'){ avatarAura.style.background='radial-gradient(120px 70px at 30% 30%,rgba(255,120,40,.55),transparent),radial-gradient(120px 70px at 70% 70%,rgba(255,40,40,.55),transparent)'; avatarAura.style.filter='blur(10px)';}
+  else if(state.profile.aura==='neon'){ avatarAura.style.background='radial-gradient(120px 70px at 30% 30%,rgba(124,77,255,.45),transparent),radial-gradient(120px 70px at 70% 70%,rgba(0,212,255,.45),transparent)';}
+}
+function saveProfile(){
+  state.profile.nick = nickInput.value || 'nickname';
+  document.getElementById('displayName').textContent = state.profile.nick;
+  state.profile.theme = themePicker.value;
+  state.profile.frame = framePicker.value;
+  state.profile.aura = auraPicker.value;
+  applyDecor();
+  saveState();
+}
+function resetProfile(){ localStorage.removeItem('ml_state'); location.reload(); }
+avatarInput.addEventListener('change', e=>{
+  const file = e.target.files?.[0]; if(!file) return;
+  const reader=new FileReader(); reader.onload = () => { state.profile.avatar = reader.result; avatarImg.src = state.profile.avatar; saveState(); }; reader.readAsDataURL(file);
+});
+nickInput.addEventListener('change', saveProfile);
+themePicker.addEventListener('change', saveProfile);
+framePicker.addEventListener('change', saveProfile);
+auraPicker.addEventListener('change', saveProfile);
+
+/* ====== Shop ====== */
+const SHOP = [
+  {id:'aura_neon', title:'Аура «Неон»', price:199, cat:'Ауры', vip:false, preview:'neon'},
+  {id:'frame_gold', title:'Рамка «Золото»', price:0, cat:'Рамки', vip:true, preview:'gold'},
+  {id:'theme_purple', title:'Тема «Фиолет»', price:99, cat:'Темы', vip:false, preview:'purple'},
+  {id:'aura_fire', title:'Аура «Огонь»', price:299, cat:'Ауры', vip:false, preview:'fire'},
+  {id:'badge_top', title:'Бейдж «Топ»', price:149, cat:'Бейджи', vip:false, preview:'badge'},
+];
+const CATS = ['Все','Рамки','Ауры','Бейджи','Темы'];
+function renderShop(filter='Все'){
+  const fBox = document.getElementById('shopFilters'); fBox.innerHTML='';
+  CATS.forEach(c=>{
+    const b=document.createElement('button'); b.textContent=c; if(c===filter) b.classList.add('active');
+    b.onclick = ()=>renderShop(c); fBox.appendChild(b);
+  });
+  const list = document.getElementById('shopItems'); list.innerHTML='';
+  SHOP.filter(it=>filter==='Все'||it.cat===filter).forEach(it=>{
+    const card=document.createElement('article'); card.className='card item'+(it.vip?' vip':'');
+    const pv=document.createElement('div'); pv.className='preview'; 
+    if(it.preview==='gold'){ pv.style.border='4px solid gold'; }
+    if(it.preview==='neon'){ pv.style.background='radial-gradient(circle at 40% 40%, rgba(124,77,255,.6), transparent), radial-gradient(circle at 60% 60%, rgba(0,212,255,.6), transparent)'; }
+    if(it.preview==='purple'){ pv.style.background='linear-gradient(135deg,rgba(124,77,255,.5),rgba(0,0,0,0))'; }
+    if(it.preview==='fire'){ pv.style.background='radial-gradient(circle at 30% 40%, rgba(255,120,40,.6), transparent), radial-gradient(circle at 70% 70%, rgba(255,40,40,.6), transparent)'; }
+    card.appendChild(pv);
+    const h=document.createElement('h4'); h.textContent=it.title; card.appendChild(h);
+    const p=document.createElement('p'); p.textContent=(it.vip?'👑 Только VIP · ':'')+it.cat; card.appendChild(p);
+    const pr=document.createElement('div'); pr.className='price'; pr.innerHTML=`<span class="amount">${it.price} ₽</span>`; card.appendChild(pr);
+    const btn=document.createElement('button'); btn.className='btn'; btn.textContent= it.vip ? (state.entitlements.vip?'Активировать':'Только VIP') : 'Купить';
+    btn.disabled = it.vip && !state.entitlements.vip;
+    btn.onclick = ()=> buyItem(it);
+    card.appendChild(btn);
+    list.appendChild(card);
+  });
+  // быстрый магазин в профиле
+  const q = document.getElementById('quickVipShop'); q.innerHTML='';
+  SHOP.slice(0,3).forEach(it=>{
+    const mini=document.createElement('article'); mini.className='card item'; mini.style.padding='10px';
+    mini.innerHTML=`<div class="preview"></div><div style="margin-top:6px;font-weight:800">${it.title}</div><div class="price"><span class="amount">${it.price} ₽</span></div>`;
+    const b=document.createElement('button'); b.className='btn'; b.textContent= it.vip ? (state.entitlements.vip?'Активировать':'Только VIP') : 'Купить';
+    b.disabled = it.vip && !state.entitlements.vip; b.onclick=()=>buyItem(it);
+    mini.appendChild(b); q.appendChild(mini);
+  });
+}
+
+/* ====== Покупки (LolzTeam) ======
+   Фронт вызывает ваш серверный эндпоинт /api/create-invoice
+   (Cloudflare Worker / Netlify Function) и открывает URL счёта. */
+async function createInvoice(kind, success='/thank-you.html'){
+  const endpoint = '/api/create-invoice';
+  const payload = { kind, success_url: location.origin + success };
+  try{
+    const res = await fetch(endpoint, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const data = await res.json();
+    window.open(data.url, '_blank', 'noopener'); // ссылка на LZT-счет
+    return data;
+  }catch(e){
+    console.error(e); alert('Не удалось создать счёт. Проверьте серверную часть (/api/create-invoice).');
+    return null;
+  }
+}
+
+/* ====== Обработчики покупок ====== */
+function openVipBuy(defaultPlan){
+  document.querySelector(`input[name="vipplan"][value="${defaultPlan}"]`)?.click();
+  document.getElementById('vipModal').showModal();
+}
+document.getElementById('createInvoiceBtn').addEventListener('click', async ()=>{
+  const plan = document.querySelector('input[name="vipplan"]:checked')?.value || 'vip_month';
+  document.getElementById('invoiceStatus').textContent = 'Создаём счёт...';
+  const data = await createInvoice(plan);
+  document.getElementById('invoiceStatus').textContent = data ? 'Счёт открыт в новой вкладке.' : 'Ошибка.';
+});
+function openProBuy(){ document.getElementById('proModal').showModal(); }
+document.getElementById('createProInvoiceBtn').addEventListener('click', async ()=>{
+  document.getElementById('proInvoiceStatus').textContent='Создаём счёт...';
+  const data = await createInvoice('pro');
+  document.getElementById('proInvoiceStatus').textContent = data ? 'Счёт открыт в новой вкладке.' : 'Ошибка.';
+});
+/* После успешного вебхука сервер должен отметить пользователя (по payment_id, email и т.д.)
+   Здесь реализован локальный «демо-режим» — для теста можно разблокировать вручную. */
+function grantEntitlement(kind){
+  if(kind==='vip_month'||kind==='vip_year'){ state.entitlements.vip = true; if(!state.profile.badges.includes('VIP')) state.profile.badges.push('VIP'); }
+  if(kind==='pro'){ state.entitlements.pro = true; if(!state.profile.badges.includes('PRO')) state.profile.badges.push('PRO'); }
+  saveState(); renderBadges(); updateProButtons(); document.getElementById('vipCrown').style.display = state.entitlements.vip ? '' : 'none';
+}
+function updateProButtons(){
+  const show = state.entitlements.pro;
+  document.getElementById('proDownload')?.classList.toggle('hidden',!show);
+  document.getElementById('proDownload2')?.classList.toggle('hidden',!show);
+}
+
+/* ====== Покупка предмета из магазина ====== */
+async function buyItem(item){
+  if(item.vip && !state.entitlements.vip){ alert('Предмет доступен только VIP. Оформи VIP в разделе «VIP».'); return; }
+  if(item.price===0){ state.entitlements.items[item.id]=true; saveState(); alert('Активировано!'); return; }
+  const data = await createInvoice(item.id);
+  if(data){ alert('Счёт открыт. После оплаты предмет будет активирован (демо: нажми ОК чтобы выдать себе).'); grantItem(item.id); }
+}
+function grantItem(id){
+  state.entitlements.items[id] = true;
+  // Автоматическая настройка декора
+  if(id==='aura_neon') { state.profile.aura='neon'; applyDecor(); }
+  if(id==='aura_fire') { state.profile.aura='fire'; applyDecor(); }
+  if(id==='frame_gold'){ state.profile.frame='pulse'; if(!state.profile.badges.includes('VIP')) state.profile.badges.push('VIP'); applyDecor(); renderBadges(); }
+  if(id==='theme_purple'){ state.profile.theme='neon'; applyDecor(); }
+  if(id==='badge_top'){ if(!state.profile.badges.includes('TOP')) state.profile.badges.push('TOP'); renderBadges(); }
+  saveState(); renderShop((document.querySelector('#shopFilters .active')||{}).textContent||'Все');
+}
+
+/* ====== Инициализация ====== */
+document.getElementById('year').textContent = new Date().getFullYear();
+Auth.init();
+loadState();
+renderShop('Все');
+
+/* ====== DEV: Горячие клавиши для теста прав ====== */
+// Alt+V -> выдать VIP, Alt+P -> выдать Pro
+addEventListener('keydown', e=>{
+  if(e.altKey && e.key.toLowerCase()==='v'){ grantEntitlement('vip_month'); alert('VIP выдан (демо).'); }
+  if(e.altKey && e.key.toLowerCase()==='p'){ grantEntitlement('pro'); alert('Pro выдан (демо).'); }
+});
+</script>
+</body>
+</html>
