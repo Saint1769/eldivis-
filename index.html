@@ -3,348 +3,355 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>GameLoaders — Hub (VIP, Shop, Frames, Glows, Chat)</title>
+<title>GameLoaders — Mega Hub (Huge Single File)</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 <style>
 /* =========================
-   Base styles
+   Global design system & variables
    ========================= */
 :root{
-  --bg:#071023;
-  --panel: rgba(255,255,255,0.03);
-  --muted:#9aa6d1;
-  --text:#eaf0ff;
-  --neon1:#7c4dff;
-  --neon2:#00d4ff;
-  --accent:#00f7ff;
+  --bg1: #051025;
+  --bg2: #0b1222;
+  --card:#0f1724;
+  --muted:#9ab0d6;
+  --text:#e8f0ff;
+  --accent1: 128 76% 56%;
+  --accent2: 195 100% 50%;
+  --neon1: #7c4dff;
+  --neon2: #00d4ff;
+  --glass: rgba(255,255,255,0.03);
   --vip-grad: conic-gradient(from 0deg,#ff0044,#ff9900,#ffee00,#00ff77,#00ccff,#7c4dff);
 }
 *{box-sizing:border-box}
-html,body{height:100%}
+html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
 body{
-  margin:0;font-family:Inter,system-ui,Arial;background:
-  radial-gradient(800px 400px at 10% 10%, rgba(124,77,255,0.06), transparent),
-  radial-gradient(600px 300px at 90% 80%, rgba(0,212,255,0.03), transparent),
-  var(--bg);
-  color:var(--text);-webkit-font-smoothing:antialiased;
+  background:
+    radial-gradient(600px 300px at 10% 10%, rgba(124,77,255,0.04), transparent),
+    radial-gradient(600px 300px at 90% 80%, rgba(0,212,255,0.03), transparent),
+    linear-gradient(180deg,var(--bg1),var(--bg2));
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  padding-bottom:120px;
 }
-.container{width:min(1200px,96%);margin:0 auto;padding:18px 0}
 
-/* Header */
-.header{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
-.brand{display:flex;align-items:center;gap:12px;font-weight:800;color:var(--neon1);font-size:20px}
+/* layout */
+.container{width:min(1280px,96%);margin:0 auto;padding:18px 0}
+.header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;position:sticky;top:0;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00));backdrop-filter:blur(8px);z-index:200;border-bottom:1px solid rgba(255,255,255,0.03)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;color:var(--neon1)}
 .brand .logo{width:18px;height:18px;border-radius:50%;background:linear-gradient(90deg,var(--neon1),var(--neon2));box-shadow:0 8px 28px rgba(124,77,255,0.2)}
-.tabs{display:flex;gap:8px}
+.header .left, .header .center, .header .right{display:flex;align-items:center;gap:10px}
 .tabbtn{padding:8px 12px;border-radius:10px;border:0;background:transparent;color:var(--muted);font-weight:700;cursor:pointer}
 .tabbtn.active{color:var(--text);background:linear-gradient(90deg,var(--neon1),var(--neon2));box-shadow:0 12px 40px rgba(124,77,255,0.12)}
 
-/* Panels */
-.panel{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;padding:16px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 12px 40px rgba(2,6,23,0.6);}
+/* main panels */
+.panel{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));border-radius:12px;padding:14px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 12px 40px rgba(2,6,23,0.5)}
+.spaced{margin-top:16px}
 
-/* layout */
+/* grid utilities */
 .grid{display:grid;gap:12px}
-.grid.cols-4{grid-template-columns:repeat(4,1fr)}
-.grid.cols-3{grid-template-columns:repeat(3,1fr)}
-.grid.cols-2{grid-template-columns:repeat(2,1fr)}
-.row{display:flex;gap:12px;align-items:center;}
+.cols-2{grid-template-columns:repeat(2,1fr)}
+.cols-3{grid-template-columns:repeat(3,1fr)}
+.cols-4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:960px){.cols-4{grid-template-columns:repeat(2,1fr)}.cols-3{grid-template-columns:repeat(2,1fr)}}
 
-/* cards */
-.card{border-radius:10px;padding:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));border:1px solid rgba(255,255,255,0.03);transition:transform .18s,box-shadow .18s}
-.card:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,0.6)}
+/* card */
+.card{border-radius:10px;padding:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));border:1px solid rgba(255,255,255,0.03);transition:transform .18s,box-shadow .18s;overflow:hidden}
+.card:hover{transform:translateY(-8px);box-shadow:0 22px 60px rgba(0,0,0,0.6)}
 .hint{color:var(--muted);font-size:13px}
 
 /* buttons */
 .btn{padding:8px 12px;border-radius:10px;border:0;cursor:pointer;font-weight:800}
-.btn.primary{background:linear-gradient(90deg,var(--neon1),var(--neon2));color:white;box-shadow:0 8px 30px rgba(124,77,255,0.14)}
-.btn.ghost{background:transparent;color:var(--text);border:1px solid rgba(255,255,255,0.03)}
+.btn.primary{background:linear-gradient(90deg,var(--neon1),var(--neon2));color:#fff;box-shadow:0 8px 30px rgba(124,77,255,0.14)}
+.btn.ghost{background:transparent;color:var(--text);border:1px solid rgba(255,255,255,0.04)}
+.btn.warn{background:linear-gradient(90deg,#ff9966,#ff4d4d);color:#041022}
 
-/* avatar & profile */
-.profile{display:flex;gap:16px;align-items:center}
-.avatar-wrap{position:relative;width:140px;height:140px;border-radius:50%;padding:6px;background:linear-gradient(90deg,var(--neon1),var(--neon2));box-shadow:0 18px 48px rgba(124,77,255,0.18)}
-.avatar-inner{width:100%;height:100%;border-radius:50%;background:linear-gradient(180deg, rgba(0,0,0,0.6), rgba(255,255,255,0.02));overflow:hidden;display:flex;align-items:center;justify-content:center;border:4px solid rgba(0,0,0,0.25)}
+/* profile */
+.profile-top{display:flex;gap:18px;align-items:center}
+.avatar-wrap{position:relative;width:136px;height:136px;border-radius:50%;padding:6px;background:linear-gradient(90deg,var(--neon1),var(--neon2));box-shadow:0 18px 48px rgba(124,77,255,0.18)}
+.avatar-inner{width:100%;height:100%;border-radius:50%;background:linear-gradient(180deg, rgba(0,0,0,0.6), rgba(255,255,255,0.02));overflow:hidden;border:4px solid rgba(0,0,0,0.25)}
 .avatar-inner img{width:100%;height:100%;object-fit:cover;border-radius:50%}
-/* overlay for frames (applied as absolute img) */
-.frame-overlay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:148px;height:148px;border-radius:50%;pointer-events:none}
+.frame-overlay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:150px;height:150px;border-radius:50%;pointer-events:none;mix-blend-mode:screen}
+.glow-class{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:170px;height:170px;border-radius:50%;pointer-events:none;z-index:0}
 
-/* glow classes (initially locked until purchase) */
-.glow-locked { opacity: 0.0; }
-.glow-fire { box-shadow: 0 0 36px 12px rgba(255,90,10,0.75); animation: flicker 1s infinite; }
-.glow-water { box-shadow: 0 0 30px 10px rgba(0,160,255,0.7); animation: wave 3s infinite; }
-.glow-rainbow { animation: rainbowGlow 5s linear infinite; }
-.glow-basic { box-shadow: 0 0 22px 8px rgba(200,200,255,0.6); }
+/* glow types */
+.glow-fire{box-shadow:0 0 38px 16px rgba(255,110,25,0.85) !important; animation:glowFlicker 1.2s infinite}
+.glow-water{box-shadow:0 0 36px 14px rgba(0,160,255,0.8) !important; animation:glowWave 3s infinite}
+.glow-rainbow{animation:glowRainbow 5s linear infinite}
+.glow-basic{box-shadow:0 0 20px 8px rgba(255,255,255,0.6) !important}
 
-/* animations */
-@keyframes rainbowGlow {
-  0%{ box-shadow:0 0 32px 12px rgba(255,0,0,0.8) }
-  25%{ box-shadow:0 0 32px 12px rgba(255,200,0,0.8) }
-  50%{ box-shadow:0 0 32px 12px rgba(0,200,255,0.8) }
-  75%{ box-shadow:0 0 32px 12px rgba(120,0,255,0.8) }
-  100%{ box-shadow:0 0 32px 12px rgba(255,0,0,0.8) }
+/* keyframes */
+@keyframes glowFlicker{0%,20%,22%,64%,65%,100%{opacity:1}21%,23%,63%,66%{opacity:0.3}}
+@keyframes glowWave{0%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.06)}100%{transform:translate(-50%,-50%) scale(1)}}
+@keyframes glowRainbow{
+  0%{box-shadow:0 0 40px 12px rgba(255,0,0,0.8)}
+  25%{box-shadow:0 0 40px 12px rgba(255,160,0,0.8)}
+  50%{box-shadow:0 0 40px 12px rgba(0,200,255,0.8)}
+  75%{box-shadow:0 0 40px 12px rgba(120,0,255,0.8)}
+  100%{box-shadow:0 0 40px 12px rgba(255,0,0,0.8)}
 }
-@keyframes flicker {
-  0%,20%,22%,63%,64%,100%{ opacity:1; }
-  21%,23%,62%,65%{ opacity:0.3; }
-}
-@keyframes wave{ 0%{box-shadow:0 0 20px 6px rgba(0,160,255,0.7)} 50%{box-shadow:0 0 40px 18px rgba(0,200,255,0.95)} 100%{box-shadow:0 0 20px 6px rgba(0,160,255,0.7)} }
 
-/* VIP badge */
-.vip-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;font-weight:800;background:var(--vip-grad);background-size:300% 300%;animation: vipMove 5s linear infinite;color:#051022}
-@keyframes vipMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+/* vip badge */
+.vip-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;font-weight:800;background:var(--vip-grad);background-size:300% 300%;animation:vipShift 6s linear infinite;color:#051022}
+@keyframes vipShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+/* big header stats */
+.stats{display:flex;gap:12px}
+.stat{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);font-weight:700}
 
 /* chat */
-.chat{display:flex;flex-direction:column;gap:8px;height:380px}
-.chat-messages{flex:1;overflow:auto;padding:8px;background:rgba(255,255,255,0.02);border-radius:8px}
+.chat-wrap{display:flex;flex-direction:column;height:420px}
+.chat-messages{flex:1;overflow:auto;padding:8px;border-radius:8px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00))}
 .chat-input{display:flex;gap:8px;margin-top:8px}
-.chat-input input{flex:1;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)}
+.chat-input input{flex:1;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)}
+.chat-msg{padding:8px;border-radius:8px;margin-bottom:8px;background:rgba(255,255,255,0.02);}
 
-/* responsive */
-@media(max-width:900px){
-  .grid.cols-4{grid-template-columns:repeat(2,1fr)}
+/* notifications */
+#notif{position:fixed;right:20px;bottom:20px;padding:12px 16px;border-radius:10px;background:linear-gradient(90deg,var(--neon1),var(--neon2));color:#041022;font-weight:800;transform:translateY(12px);opacity:0;transition:all .3s;z-index:9999}
+
+/* responsiveness */
+@media (max-width:980px){
+  .header{flex-direction:column;align-items:flex-start;gap:8px}
   .avatar-wrap{width:110px;height:110px}
-}
-@media(max-width:520px){
-  .grid.cols-4{grid-template-columns:1fr}
-  .header{flex-direction:column;gap:8px}
 }
 </style>
 </head>
 <body>
 <div class="container">
-  <div class="header">
-    <div class="brand"><span class="logo"></span> GameLoaders</div>
-    <div class="tabs" role="tablist">
+
+  <!-- HEADER -->
+  <div class="header" role="banner">
+    <div class="left brand"><div class="logo"></div> <div>GameLoaders Mega Hub</div></div>
+    <div class="center">
       <button class="tabbtn active" id="btn-buy">Купить</button>
       <button class="tabbtn" id="btn-vip">VIP</button>
       <button class="tabbtn" id="btn-shop">Магазин</button>
       <button class="tabbtn" id="btn-profile">Профиль</button>
       <button class="tabbtn" id="btn-chat">Чат</button>
     </div>
-    <div style="display:flex;gap:10px;align-items:center">
-      <div id="ui-coins" style="font-weight:800">0 💰</div>
+    <div class="right">
+      <div id="header-stats" style="display:flex;gap:12px;align-items:center">
+        <div class="stat" id="statCoins">0 💰</div>
+        <div class="stat" id="statLevel">Lvl 1</div>
+      </div>
       <button class="tabbtn" id="authBtn">Войти</button>
     </div>
   </div>
 
-  <!-- BUY PAGE -->
-  <section id="page-buy" class="panel" style="margin-top:16px">
+  <!-- MAIN PANELS -->
+  <section id="page-buy" class="panel spaced">
     <div style="display:flex;justify-content:space-between;align-items:center">
       <div>
-        <h2 style="margin:0">Лоадеры для игр</h2>
-        <div class="hint">Free / Pro / VIP-only — выберите игру и версию</div>
+        <h2 style="margin:0">Купить — Лоадеры</h2>
+        <div class="hint">Free / Pro / VIP-only — демо покупки/загрузки</div>
       </div>
       <div style="display:flex;gap:8px;align-items:center">
         <select id="filterGame" style="padding:8px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.03);color:var(--text)"></select>
         <select id="filterType" style="padding:8px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.03);color:var(--text)">
-          <option value="all">Все типы</option>
-          <option value="free">Free</option>
-          <option value="pro">Pro</option>
-          <option value="vip">VIP-only</option>
+          <option value="all">Все типы</option><option value="free">Free</option><option value="pro">Pro</option><option value="vip">VIP-only</option>
         </select>
       </div>
     </div>
-
-    <div id="loadersGrid" class="grid cols-4" style="margin-top:12px"></div>
+    <div id="loadersGrid" class="grid cols-4 spaced" style="margin-top:12px"></div>
   </section>
 
-  <!-- VIP PAGE -->
-  <section id="page-vip" class="panel" style="margin-top:16px;display:none">
-    <h2 style="margin-top:0">VIP подписки</h2>
-    <div class="hint">VIP даёт доступ к VIP-only рамкам/лоадерам и бонусы</div>
-    <div class="grid cols-3" style="margin-top:12px">
+  <section id="page-vip" class="panel spaced" style="display:none">
+    <h2 style="margin:0">VIP — оформите подписку</h2>
+    <div class="hint">VIP сразу даёт +5 уровней и доступ к VIP-only рамкам</div>
+    <div class="grid cols-3 spaced" style="margin-top:12px">
       <div class="card">
-        <h3>1 месяц</h3><div class="muted">Бонус: +5 уровней</div>
-        <div style="margin-top:10px"><button class="btn primary" onclick="buyVIP('month',299)">Купить 299 ₽</button></div>
+        <h3>1 месяц</h3><div class="muted">Бонусы: +5 уровней, +300 монет</div>
+        <div style="margin-top:12px"><button class="btn primary" onclick="buyVIP('month',299)">Купить 299 ₽</button></div>
       </div>
       <div class="card">
-        <h3>12 месяцев</h3><div class="muted">Лучше по цене</div>
-        <div style="margin-top:10px"><button class="btn primary" onclick="buyVIP('year',2870)">Купить 2870 ₽</button></div>
+        <h3>12 месяцев</h3><div class="muted">Лучшее соотношение</div>
+        <div style="margin-top:12px"><button class="btn primary" onclick="buyVIP('year',2870)">Купить 2870 ₽</button></div>
       </div>
       <div class="card">
         <h3>Пожизненно</h3><div class="muted">VIP навсегда</div>
-        <div style="margin-top:10px"><button class="btn primary" onclick="buyVIP('lifetime',7990)">Купить 7990 ₽</button></div>
+        <div style="margin-top:12px"><button class="btn primary" onclick="buyVIP('lifetime',7990)">Купить 7990 ₽</button></div>
       </div>
     </div>
   </section>
 
-  <!-- SHOP PAGE -->
-  <section id="page-shop" class="panel" style="margin-top:16px;display:none">
-    <h2 style="margin-top:0">Магазин</h2>
-    <div class="hint">Покупай монеты, рамки и свечения</div>
-
-    <div style="margin-top:12px" class="card">
+  <section id="page-shop" class="panel spaced" style="display:none">
+    <h2 style="margin:0">Магазин</h2>
+    <div class="hint">Монеты, рамки, свечения и много приколюх</div>
+    <div class="spaced card">
       <h3>Пакеты монет</h3>
-      <div id="coinPacks" class="grid cols-4" style="margin-top:12px"></div>
+      <div id="coinPacks" class="grid cols-4 spaced" style="margin-top:12px"></div>
     </div>
 
-    <div style="margin-top:12px" class="card">
+    <div class="spaced card">
       <h3>Рамки (все платные; 2 — VIP-only)</h3>
-      <div id="framesGrid" class="grid cols-4" style="margin-top:12px"></div>
+      <div id="framesGrid" class="grid cols-4 spaced" style="margin-top:12px"></div>
+    </div>
+
+    <div class="spaced card">
+      <h3>Свечения</h3>
+      <div id="glowsGrid" class="grid cols-4 spaced" style="margin-top:12px"></div>
+    </div>
+
+    <div class="spaced card">
+      <h3>Приколюхи (24+)</h3>
+      <div id="itemsGrid" class="grid cols-4 spaced" style="margin-top:12px"></div>
+    </div>
+  </section>
+
+  <section id="page-profile" class="panel spaced" style="display:none">
+    <h2 style="margin:0">Профиль</h2>
+    <div class="profile-top spaced">
+      <div style="display:flex;flex-direction:column;align-items:center">
+        <div class="avatar-wrap" id="avatarWrap">
+          <div class="avatar-inner"><img id="avatarImg" src="https://i.pravatar.cc/400?img=12" alt="avatar"></div>
+          <!-- overlays rendered dynamically -->
+        </div>
+        <div style="margin-top:10px;font-weight:800" id="displayName">Player</div>
+        <div id="vipBadge" style="margin-top:8px"></div>
+      </div>
+
+      <div style="flex:1" class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <div class="hint">Уровень</div>
+            <div style="font-weight:900;font-size:20px" id="uiLevel">1</div>
+          </div>
+          <div style="width:60%">
+            <div class="hint">Прогресс до следующего уровня</div>
+            <div style="height:12px;background:rgba(255,255,255,0.03);border-radius:8px;margin-top:6px;overflow:hidden">
+              <div id="uiXPbar" style="height:100%;background:linear-gradient(90deg,var(--neon1),var(--neon2));width:0%"></div>
+            </div>
+            <div style="margin-top:6px" class="hint" id="uiXPtext">0 / 1000 XP</div>
+          </div>
+        </div>
+
+        <div style="margin-top:12px;display:flex;gap:8px;align-items:center">
+          <div class="hint">Монеты:</div><div style="font-weight:900" id="uiCoins">0</div>
+          <div style="margin-left:auto">
+            <button class="btn ghost" onclick="openProfileEditor()">Редактировать</button>
+            <button class="btn primary" onclick="awardDemoXP()">+XP demo</button>
+          </div>
+        </div>
+
+        <div style="margin-top:12px">
+          <h4 style="margin:0">Мои покупки / Оборудование</h4>
+          <div id="ownedList" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px"></div>
+        </div>
+      </div>
     </div>
 
     <div style="margin-top:12px" class="card">
-      <h3>Свечения (эффекты)</h3>
-      <div id="glowsGrid" class="grid cols-4" style="margin-top:12px"></div>
-      <div class="hint" style="margin-top:8px">После покупки свечения можно выбрать вместо рамки. Свечения выключены по умолчанию.</div>
-    </div>
-  </section>
-
-  <!-- PROFILE PAGE -->
-  <section id="page-profile" class="panel" style="margin-top:16px;display:none">
-    <h2 style="margin-top:0">Профиль</h2>
-    <div class="row" style="align-items:flex-start">
-      <div style="width:320px" class="card">
-        <div class="profile">
-          <div class="avatar-wrap" id="avatarWrap">
-            <div class="avatar-inner"><img id="avatarImg" src="https://i.pravatar.cc/300?img=12" alt="avatar"></div>
-            <!-- frame overlay will be appended here -->
-          </div>
-          <div style="flex:1">
-            <div id="uiNick" style="font-weight:800">Player</div>
-            <div id="vipIndicator" style="margin-top:8px"></div>
-            <div style="margin-top:12px">
-              <div class="hint">Уровень: <span id="uiLevel">1</span> (макс 100)</div>
-              <div style="height:10px;background:rgba(255,255,255,0.03);border-radius:8px;margin-top:8px;overflow:hidden">
-                <div id="uiXPbar" style="height:100%;width:0%;background:linear-gradient(90deg,var(--neon1),var(--neon2));"></div>
-              </div>
-              <div class="hint" style="margin-top:6px" id="xpText">0 / 1000 XP</div>
-            </div>
-
-            <div style="margin-top:10px;display:flex;gap:8px">
-              <button class="btn ghost" onclick="openProfileEditor()">Редактировать</button>
-              <button class="btn primary" onclick="simulateXP()">+XP demo</button>
-            </div>
-            <div style="margin-top:10px" class="hint">Монеты: <span id="uiCoins">0</span></div>
-          </div>
-        </div>
-      </div>
-
-      <div style="flex:1" class="card">
-        <h3>Мои украшения</h3>
-        <div class="hint">Выбранное украшение (либо рамка, либо свечение)</div>
-        <div style="margin-top:12px;display:flex;gap:12px;flex-wrap:wrap" id="ownedList"></div>
-
-        <h4 style="margin-top:14px">Выбор украшения</h4>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
-          <button class="btn ghost" onclick="unequipAll()">Убрать всё</button>
-          <button class="btn ghost" onclick="equipType('frame')">Выбрать рамку</button>
-          <button class="btn ghost" onclick="equipType('glow')">Выбрать свечение</button>
-        </div>
-
-        <h4 style="margin-top:14px">Сними/примени</h4>
-        <div class="hint" style="margin-top:8px">Кликни по купленной рамке или свечению в магазине, чтобы применить её.</div>
+      <h3 style="margin:0">Управление украшениями</h3>
+      <div class="hint" style="margin-top:8px">Выбери — рамку или свечение. Нельзя применить оба одновременно.</div>
+      <div style="display:flex;gap:8px;margin-top:12px">
+        <button class="btn ghost" onclick="unequipAll()">Снять всё</button>
+        <button class="btn ghost" onclick="openFramesInShop()">Открыть рамки</button>
+        <button class="btn ghost" onclick="openGlowsInShop()">Открыть свечения</button>
       </div>
     </div>
   </section>
 
-  <!-- CHAT PAGE -->
-  <section id="page-chat" class="panel" style="margin-top:16px;display:none">
-    <h2 style="margin-top:0">Чат</h2>
-    <div class="row" style="gap:12px;align-items:flex-start">
+  <section id="page-chat" class="panel spaced" style="display:none">
+    <h2 style="margin:0">Чат (локальный демо)</h2>
+    <div class="row" style="margin-top:12px;gap:12px">
       <div style="flex:1" class="card">
-        <div class="chat">
+        <div class="chat-wrap">
           <div id="chatMessages" class="chat-messages"></div>
           <div class="chat-input">
-            <input id="chatInput" placeholder="Написать сообщение..." />
-            <button class="btn primary" onclick="sendChat()">Отправить</button>
+            <input id="chatInput" placeholder="Напишите сообщение..." />
+            <button class="btn primary" id="chatSend">Отправить</button>
           </div>
         </div>
       </div>
-      <div style="width:280px" class="card">
-        <h4>Пользователи</h4>
-        <div id="chatUsers" class="hint">Локальный демо-чат (messages saved in browser)</div>
-        <h4 style="margin-top:12px">Подсказки</h4>
-        <div class="muted hint">Чат — демонстрационный и хранится в localStorage. Сообщения видны только на этом браузере.</div>
+      <div style="width:260px" class="card">
+        <h4 style="margin:0">Локальные настройки</h4>
+        <div class="hint" style="margin-top:8px">Чат хранится в браузере. Сообщения видят только вы.</div>
+        <div style="margin-top:8px;display:flex;gap:8px">
+          <button class="btn ghost" onclick="clearChat()">Очистить чат</button>
+          <button class="btn ghost" onclick="exportChat()">Экспорт</button>
+        </div>
       </div>
     </div>
   </section>
 
-  <div style="height:28px"></div>
-  <div id="notif" style="position:fixed;right:24px;bottom:24px;padding:12px 16px;border-radius:10px;background:linear-gradient(90deg,var(--neon1),var(--neon2));color:#041022;font-weight:800;opacity:0;transform:translateY(16px);transition:all .28s"></div>
+  <div style="height:36px"></div>
 </div>
 
-<!-- Profile Editor dialog -->
-<dialog id="profileEditor" style="border:none;border-radius:10px;padding:0">
-  <div style="width:min(720px,96vw);background:var(--panel);padding:16px;border-radius:10px">
+<div id="notif"></div>
+
+<!-- Profile editor modal -->
+<dialog id="profileModal" style="border:none;border-radius:10px;padding:0">
+  <div style="width:min(800px,96vw);background:rgba(255,255,255,0.02);padding:16px;border-radius:10px">
     <div style="display:flex;justify-content:space-between;align-items:center">
       <h3>Редактирование профиля</h3>
-      <button onclick="document.getElementById('profileEditor').close()" style="background:none;border:0;color:var(--muted);cursor:pointer">✕</button>
+      <button onclick="document.getElementById('profileModal').close()" style="background:none;border:0;color:var(--muted);cursor:pointer">✕</button>
     </div>
-    <div style="margin-top:12px;display:flex;gap:12px;flex-wrap:wrap">
-      <div style="flex:0 0 120px"><img id="editorAvatarPreview" src="" style="width:120px;height:120px;border-radius:8px;object-fit:cover"></div>
+    <div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap">
+      <div style="flex:0 0 140px"><img id="editorPreview" src="" style="width:140px;height:140px;border-radius:10px;object-fit:cover"></div>
       <div style="flex:1">
         <label class="hint">Ник</label>
         <input id="editorNick" style="width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)"/>
-        <label class="hint" style="margin-top:8px;display:block">Загрузить аватар</label>
-        <input id="editorAvatar" type="file"/>
+        <label class="hint" style="margin-top:8px">Загрузить аватар</label>
+        <input id="editorAvatar" type="file" />
         <div style="margin-top:12px;display:flex;gap:8px">
           <button class="btn primary" onclick="saveProfileEdits()">Сохранить</button>
-          <button class="btn ghost" onclick="document.getElementById('profileEditor').close()">Отмена</button>
+          <button class="btn ghost" onclick="document.getElementById('profileModal').close()">Отмена</button>
         </div>
       </div>
     </div>
   </div>
 </dialog>
 
-<!-- Confetti canvas -->
-<canvas id="confettiCanvas" style="position:fixed;left:0;top:0;pointer-events:none;z-index:9999"></canvas>
+<!-- confetti canvas -->
+<canvas id="confetti" style="position:fixed;left:0;top:0;pointer-events:none;z-index:9999"></canvas>
 
 <script>
 /* =========================
-   State & persistence
+   "Huge" app JS: state, render,
+   many generators, XP rules, chat, etc.
    ========================= */
-const STORAGE_KEY = 'gameloaders_full_v1';
+
+/* ---------- State & Persistence ---------- */
+const STORAGE = 'gameloaders_mega_v3';
 let state = {
   nick: 'Player',
-  avatar: 'https://i.pravatar.cc/300?img=12',
-  coins: 500,
+  avatar: 'https://i.pravatar.cc/400?img=12',
+  coins: 1000,
   xp: 0,
   vip: false,
   vipLevel: null,
-  ownedFrames: [],   // frame ids
-  ownedGlows: [],    // glow ids
-  applied: { type:null, id:null }, // {type:'frame'|'glow', id:'f1'|'g1'}
+  ownedFrames: [], // ids
+  ownedGlows: [],  // ids
+  applied: { type:null, id:null }, // {type:'frame'|'glow', id: 'f123' }
   chat: [], // {nick,msg,t}
+  stats: { downloads:0, users:1 }
 };
 const XP_PER_LEVEL = 1000;
 const MAX_LEVEL = 100;
-function loadState(){
-  try{ const s = JSON.parse(localStorage.getItem(STORAGE_KEY)); if(s) state = Object.assign(state, s); }
-  catch(e){ console.warn('load error', e) }
-}
-function saveState(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); updateAll(); }
+function loadState(){ try{ const s = JSON.parse(localStorage.getItem(STORAGE)); if(s) state = Object.assign(state, s); } catch(e){ console.error(e) } }
+function saveState(){ localStorage.setItem(STORAGE, JSON.stringify(state)); renderAll(); }
 
-/* =========================
-   Utils
-   ========================= */
-function $(id){ return document.getElementById(id); }
-function notify(msg, t=2200){
-  const n = $('notif'); n.textContent = msg; n.style.opacity = 1; n.style.transform='translateY(0)';
-  setTimeout(()=>{ n.style.opacity=0; n.style.transform='translateY(16px)'; }, t);
-}
-function clamp(v,a,b){ return Math.max(a,Math.min(b,v)); }
+/* ---------- Helpers ---------- */
+const $ = id => document.getElementById(id);
+function notify(msg, t=2200){ const n = $('notif'); n.textContent = msg; n.style.opacity = 1; n.style.transform='translateY(0)'; setTimeout(()=>{ n.style.opacity=0; n.style.transform='translateY(12px)'; }, t); }
+function clamp(v,a,b){ return Math.max(a, Math.min(b, v)); }
 
-/* =========================
-   XP / Level logic
-   ========================= */
+/* ---------- XP/Leveling ---------- */
 function xpToLevel(xp){ return clamp(Math.floor(xp / XP_PER_LEVEL) + 1, 1, MAX_LEVEL); }
-function levelToXp(level){ return (level-1)*XP_PER_LEVEL; }
 function addXP(amount){
-  if(state.xp >= MAX_LEVEL*XP_PER_LEVEL) return;
-  const prevLevel = xpToLevel(state.xp);
-  state.xp = clamp(state.xp + amount, 0, MAX_LEVEL*XP_PER_LEVEL);
-  const newLevel = xpToLevel(state.xp);
-  if(newLevel > prevLevel){
-    // level up animation & confetti
-    notify(`🎉 Уровень повышен! ${newLevel}`, 3000);
+  if(state.xp >= MAX_LEVEL * XP_PER_LEVEL) return;
+  const prev = xpToLevel(state.xp);
+  state.xp = clamp(state.xp + amount, 0, MAX_LEVEL * XP_PER_LEVEL);
+  const now = xpToLevel(state.xp);
+  if(now > prev){
+    notify(`🎉 Level Up — ${now}`, 3000);
     launchConfetti();
   }
   saveState();
 }
 
-/* =========================
-   Frames & Glows data
-   (using placeholder/direct images; replace with your direct links if available)
-   ========================= */
+/* ---------- Data Generators (make it huge) ---------- */
+/* Frames: use some placeholders and use loop to generate many variants */
 const FRAMES = [
   {id:'f1', title:'Ice Frame', price:150, vipOnly:false, url:'https://i.imgur.com/9r0dF3Z.png'},
   {id:'f2', title:'Border II', price:200, vipOnly:false, url:'https://i.imgur.com/0KXJw7y.png'},
@@ -352,18 +359,30 @@ const FRAMES = [
   {id:'f4', title:'Decor VIP', price:0, vipOnly:true, url:'https://i.imgur.com/6zq4O8y.png'},
   {id:'f5', title:'Royal VIP', price:0, vipOnly:true, url:'https://i.imgur.com/3Xq1GkN.png'}
 ];
-// NOTE: For f4/f5 price is 0 because vipOnly=true (can't buy with coins unless VIP allowed). You can set price if you wish.
+// generate 40 synthetic frames to inflate the catalog (ids f6..f45)
+for(let i=6;i<=45;i++){
+  FRAMES.push({
+    id:'f'+i,
+    title:`Frame #${i}`,
+    price: 80 + (i*10)%420,
+    vipOnly: (i%13===0),
+    url: `https://picsum.photos/seed/frame${i}/200/200`
+  });
+}
 
+/* Glows: fire, water, rainbow, soft + many cosmetic variations */
 const GLOWS = [
-  {id:'g1', title:'🔥 Огонь', price:500, cls:'glow-fire'},
-  {id:'g2', title:'💧 Вода', price:500, cls:'glow-water'},
-  {id:'g3', title:'🌈 Радуга', price:1000, cls:'glow-rainbow'},
+  {id:'g1', title:'🔥 Fire', price:500, cls:'glow-fire'},
+  {id:'g2', title:'💧 Water', price:500, cls:'glow-water'},
+  {id:'g3', title:'🌈 Rainbow', price:1000, cls:'glow-rainbow'},
   {id:'g4', title:'⭐ Soft Glow', price:200, cls:'glow-basic'}
 ];
+// synthetic glows to inflate list
+for(let i=5;i<=30;i++){
+  GLOWS.push({id:'g'+i, title:`Glow FX ${i}`, price: 100 + (i*37)%800, cls: (i%2? 'glow-basic':'glow-rainbow')});
+}
 
-/* =========================
-   Coin packs & shop items
-   ========================= */
+/* Coin packs */
 const COIN_PACKS = [
   {id:'c1', coins:100, price:99},
   {id:'c2', coins:250, price:199},
@@ -372,423 +391,489 @@ const COIN_PACKS = [
   {id:'c5', coins:2500, price:1299},
   {id:'c6', coins:5000, price:2399}
 ];
-const SHOP_ITEMS = Array.from({length:24}).map((_,i)=>({
-  id:'it'+(i+1),
-  title:`Приколюха #${i+1}`,
-  price: 25 + i*7,
-  vipOnly: (i%7===0)
-}));
 
-/* =========================
-   Loaders (games)
-   ========================= */
-const GAMES = ['Apex Legends','Fortnite','Minecraft','CS:GO','Rust','GTA V','Valorant','Overwatch','LoL','Dota2'];
-const LOADERS = [];
-(function(){
-  GAMES.forEach((g,i)=>{
-    LOADERS.push({id:`free-${i}`, name:`${g} — Free Loader`, game:g, type:'free'});
-    LOADERS.push({id:`pro-${i}`, name:`${g} — Pro Loader`, game:g, type:'pro', price:199 + i*30});
-    LOADERS.push({id:`vip-${i}`, name:`${g} — VIP Loader`, game:g, type:'vip'});
+/* Shop items (24+), automatically generate 48 items to be huge */
+const SHOP_ITEMS = [];
+for(let i=1;i<=48;i++){
+  SHOP_ITEMS.push({
+    id:'it'+i,
+    title: `Charm #${i}`,
+    price: 25 + (i*7)%400,
+    vipOnly: (i%7===0),
+    desc: `Cute cosmetic ${i}`
   });
-})();
+}
 
-/* =========================
-   Render functions
-   ========================= */
-function updateAll(){
-  // header coins
-  $('ui-coins').textContent = state.coins + ' 💰';
-  // profile UI
-  $('uiNick').textContent = state.nick;
+/* Games & loaders generator (lots of entries) */
+const GAMES = ['Apex Legends','Fortnite','Minecraft','CS:GO','Rust','GTA V','Valorant','Overwatch','LoL','Dota2','Elden Ring','Skyrim','Terraria','Sea of Thieves'];
+const LOADERS = [];
+GAMES.forEach((g, idx) => {
+  LOADERS.push({id:`free-${idx}`, name:`${g} — Free Loader`, game:g, type:'free'});
+  LOADERS.push({id:`pro-${idx}`, name:`${g} — Pro Loader`, game:g, type:'pro', price:129 + idx*30});
+  LOADERS.push({id:`vip-${idx}`, name:`${g} — VIP Loader`, game:g, type:'vip'});
+});
+
+/* ---------- Renderers ---------- */
+function renderAll(){
+  // header stats
+  $('statCoins').textContent = `${state.coins} 💰`;
+  $('statLevel').textContent = `Lvl ${xpToLevel(state.xp)}`;
+
+  // profile snapshot
+  $('displayName').textContent = state.nick;
   $('avatarImg').src = state.avatar;
-  $('editorAvatarPreview').src = state.avatar;
+  $('uiCoins').textContent = state.coins;
   $('uiLevel').textContent = xpToLevel(state.xp);
-  const curXP = state.xp % XP_PER_LEVEL;
-  $('uiXPbar').style.width = (curXP / XP_PER_LEVEL * 100) + '%';
-  $('xpText').textContent = `${curXP} / ${XP_PER_LEVEL} XP`;
-  // vip indicator
-  const vipIndicator = $('vipIndicator'); vipIndicator.innerHTML = '';
-  if(state.vip){
-    const el = document.createElement('div'); el.className='vip-badge'; el.textContent = state.vipLevel === 'lifetime' ? 'VIP · Forever' : 'VIP';
-    vipIndicator.appendChild(el);
-  } else {
-    vipIndicator.innerHTML = '<div class="hint">Нет VIP</div>';
-  }
-  // owned list in profile
-  const ownedList = $('ownedList'); ownedList.innerHTML = '';
-  state.ownedFrames.forEach(fid=>{
+  const cur = state.xp % XP_PER_LEVEL;
+  $('uiXPbar').style.width = (cur / XP_PER_LEVEL * 100) + '%';
+  $('uiXPtext').textContent = `${cur} / ${XP_PER_LEVEL} XP`;
+
+  // VIP badge
+  const vb = $('vipBadge'); vb.innerHTML = '';
+  if(state.vip){ const d = document.createElement('div'); d.className='vip-badge'; d.textContent = state.vipLevel === 'lifetime' ? 'VIP · Forever' : 'VIP'; vb.appendChild(d); }
+  else vb.innerHTML = '<div class="hint">Нет VIP</div>';
+
+  // owned list
+  const ol = $('ownedList'); ol.innerHTML = '';
+  state.ownedFrames.forEach(fid => {
     const f = FRAMES.find(x=>x.id===fid);
     if(!f) return;
-    const el = document.createElement('div'); el.className='card'; el.style.padding='8px'; el.style.minWidth='140px';
-    el.innerHTML = `<div style="font-weight:800">${f.title}</div><div class="hint">${f.vipOnly? 'VIP only' : f.price+' монет'}</div><div style="margin-top:8px"><button class="btn ghost" onclick="applyFrame('${f.id}')">Применить</button></div>`;
-    ownedList.appendChild(el);
+    const el = document.createElement('div'); el.className='card'; el.style.padding='8px';
+    el.innerHTML = `<div style="font-weight:800">${escapeHtml(f.title)}</div><div class="hint">${f.vipOnly? 'VIP only' : f.price+' монет'}</div><div style="margin-top:8px"><button class="btn ghost" onclick="applyFrame('${f.id}')">Применить</button></div>`;
+    ol.appendChild(el);
   });
-  state.ownedGlows.forEach(gid=>{
+  state.ownedGlows.forEach(gid => {
     const g = GLOWS.find(x=>x.id===gid);
     if(!g) return;
-    const el = document.createElement('div'); el.className='card'; el.style.padding='8px'; el.style.minWidth='140px';
-    el.innerHTML = `<div style="font-weight:800">${g.title}</div><div class="hint">${g.price} монет</div><div style="margin-top:8px"><button class="btn ghost" onclick="applyGlow('${g.id}')">Применить</button></div>`;
-    ownedList.appendChild(el);
+    const el = document.createElement('div'); el.className='card'; el.style.padding='8px';
+    el.innerHTML = `<div style="font-weight:800">${escapeHtml(g.title)}</div><div class="hint">${g.price} монет</div><div style="margin-top:8px"><button class="btn ghost" onclick="applyGlow('${g.id}')">Применить</button></div>`;
+    ol.appendChild(el);
   });
+
   // applied visuals
-  renderAppliedDecoration();
-  // chat render
+  renderApplied();
+
+  // chat
   renderChat();
-  // loaders & shop & frames & glows updates
-  renderLoaders();
-  renderFrames();
-  renderGlows();
-  renderCoinPacks();
-  renderShopItems();
-  // save state
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+
+  // render dynamic grids (only once initial heavy generation is costly, but safe)
+  if(!window._renderedOnce){
+    renderCoinPacks();
+    renderFramesGrid();
+    renderGlowsGrid();
+    renderShopItems();
+    renderLoaders();
+    populateFilters();
+    window._renderedOnce = true;
+  }
+  // save
+  localStorage.setItem(STORAGE, JSON.stringify(state));
 }
 
-/* ---------- loaders ---------- */
+/* ---------- Render coin packs ---------- */
+function renderCoinPacks(){
+  const parent = $('coinPacks'); parent.innerHTML = '';
+  COIN_PACKS.forEach(p=>{
+    const el = document.createElement('div'); el.className='card';
+    el.innerHTML = `<div style="font-weight:900">${p.coins} монет</div><div class="hint">${p.price} ₽</div>`;
+    const b = document.createElement('button'); b.className='btn primary'; b.textContent='Купить';
+    b.onclick = ()=>{ state.coins += p.coins; addXP(Math.round(p.coins/5)); notify(`Куплено ${p.coins} монет (+${Math.round(p.coins/5)} XP)`); saveState(); };
+    el.appendChild(b); parent.appendChild(el);
+  });
+}
+
+/* ---------- Render frames ---------- */
+function renderFramesGrid(){
+  const parent = $('framesGrid'); parent.innerHTML = '';
+  FRAMES.forEach(f=>{
+    const el = document.createElement('div'); el.className='card';
+    el.innerHTML = `<div style="height:110px;display:flex;align-items:center;justify-content:center"><img src="${f.url}" onerror="this.style.opacity=0.5" style="max-width:100%;max-height:100%;border-radius:8px"/></div>
+      <div style="font-weight:800;margin-top:8px">${escapeHtml(f.title)}</div>
+      <div class="hint">${f.vipOnly? 'VIP only' : f.price + ' монет'}</div>`;
+    el.addEventListener('click', ()=>{
+      if(f.vipOnly && !state.vip){ notify('Рамка доступна только VIP'); goTo('vip'); return; }
+      if(!state.ownedFrames.includes(f.id)){
+        if(!f.vipOnly){
+          if(state.coins < f.price){ notify('Недостаточно монет'); return; }
+          state.coins -= f.price;
+          state.ownedFrames.push(f.id);
+          addXP(Math.round(f.price/2));
+          notify('Рамка куплена: ' + f.title);
+          saveState();
+        } else {
+          state.ownedFrames.push(f.id); notify('Рамка добавлена (VIP)'); saveState();
+        }
+      } else {
+        state.applied = {type:'frame', id:f.id}; notify('Рамка применена: '+f.title); saveState();
+      }
+    });
+    if(state.ownedFrames.includes(f.id)){ const tag = document.createElement('div'); tag.className='hint'; tag.style.marginTop='6px'; tag.textContent='Куплено'; el.appendChild(tag); }
+    parent.appendChild(el);
+  });
+}
+
+/* ---------- Render glows ---------- */
+function renderGlowsGrid(){
+  const parent = $('glowsGrid'); parent.innerHTML = '';
+  GLOWS.forEach(g=>{
+    const el = document.createElement('div'); el.className='card';
+    el.innerHTML = `<div style="height:86px;display:flex;align-items:center;justify-content:center;font-weight:900">${escapeHtml(g.title)}</div>
+      <div class="hint">${g.price} монет</div>`;
+    el.addEventListener('click', ()=>{
+      if(!state.ownedGlows.includes(g.id)){
+        if(state.coins < g.price){ notify('Недостаточно монет'); return; }
+        state.coins -= g.price; state.ownedGlows.push(g.id); addXP(Math.round(g.price/3));
+        notify('Куплено свечение: '+g.title); saveState();
+      } else {
+        state.applied = {type:'glow', id:g.id}; notify('Свечение применено: '+g.title); saveState();
+      }
+    });
+    if(state.ownedGlows.includes(g.id)){ const tag = document.createElement('div'); tag.className='hint'; tag.style.marginTop='6px'; tag.textContent='Куплено'; el.appendChild(tag); }
+    parent.appendChild(el);
+  });
+}
+
+/* ---------- Render shop items ---------- */
+function renderShopItems(){
+  const parent = $('itemsGrid'); parent.innerHTML = '';
+  SHOP_ITEMS.forEach(it=>{
+    const el = document.createElement('div'); el.className='card';
+    el.innerHTML = `<div style="height:86px;display:flex;align-items:center;justify-content:center;font-weight:900">${escapeHtml(it.title)}</div>
+      <div style="font-weight:800;margin-top:8px">${escapeHtml(it.title)}</div>
+      <div class="hint">${escapeHtml(it.desc)}</div>
+      <div style="display:flex;gap:8px;margin-top:8px;align-items:center"><div style="flex:1;color:var(--muted)">${it.price} монет ${it.vipOnly? '(VIP)': ''}</div></div>`;
+    const btn = document.createElement('button'); btn.className='btn primary'; btn.textContent = it.vipOnly ? 'VIP' : 'Купить';
+    btn.onclick = ()=> {
+      if(it.vipOnly && !state.vip){ notify('Требуется VIP'); goTo('vip'); return; }
+      if(state.coins < it.price){ notify('Недостаточно монет'); return; }
+      state.coins -= it.price; addXP(Math.round(it.price/2));
+      // store purchased item id into ownedGlows for variety (or ownedFrames) — here just record as owned item
+      if(!state.ownedItems) state.ownedItems = [];
+      state.ownedItems.push(it.id);
+      notify('Куплено: '+it.title);
+      saveState();
+    };
+    el.querySelector('div').appendChild(btn);
+    parent.appendChild(el);
+  });
+}
+
+/* ---------- Render loaders ---------- */
 function renderLoaders(){
-  const grid = $('loadersGrid'); grid.innerHTML = '';
-  const ft = document.getElementById('filterType').value;
-  const fg = document.getElementById('filterGame').value;
+  const parent = $('loadersGrid'); parent.innerHTML = '';
+  const filterType = $('filterType').value;
+  const filterGame = $('filterGame').value;
   LOADERS.filter(l=>{
-    if(ft!=='all' && l.type!==ft) return false;
-    if(fg && fg!=='all' && l.game!==fg) return false;
+    if(filterType!=='all' && l.type!==filterType) return false;
+    if(filterGame && filterGame!=='all' && l.game!==filterGame) return false;
     return true;
   }).forEach(l=>{
-    const c = document.createElement('div'); c.className='card';
-    c.innerHTML = `<div class="game hint">${l.game}</div><div style="font-weight:800;margin-top:6px">${l.name}</div><div class="hint" style="margin-top:6px">${l.type==='free'?'Бесплатный': l.type==='pro'?('Платный ' + l.price+'₽'):'Только VIP'}</div>`;
-    const controls = document.createElement('div'); controls.style.marginTop='10px';
+    const el = document.createElement('div'); el.className='card';
+    el.innerHTML = `<div class="hint">${escapeHtml(l.game)}</div><div style="font-weight:900;margin-top:6px">${escapeHtml(l.name)}</div><div class="hint" style="margin-top:8px">${l.type==='free' ? 'Бесплатный' : l.type==='pro' ? 'Платный '+l.price+'₽' : 'Только VIP'}</div>`;
+    const ctrl = document.createElement('div'); ctrl.style.marginTop='10px';
     if(l.type==='free'){
-      const b = document.createElement('button'); b.className='btn primary'; b.textContent='Скачать'; b.onclick = ()=>{ state.downloads++; addXP(50); notify('Скачивание (демо) +50 XP'); saveState(); };
-      controls.appendChild(b);
+      const btn = document.createElement('button'); btn.className='btn primary'; btn.textContent='Скачать'; btn.onclick = ()=>{ state.stats.downloads++; addXP(50); notify('Скачано (демо) +50 XP'); saveState(); };
+      ctrl.appendChild(btn);
     } else if(l.type==='pro'){
-      const b = document.createElement('button'); b.className='btn primary'; b.textContent=`Купить ${l.price}₽`; b.onclick = ()=>{ state.ownedItems.push('PRO:'+l.id); addXP(300); notify('Куплен Pro (демо) +300 XP'); saveState(); };
-      controls.appendChild(b);
+      const btn = document.createElement('button'); btn.className='btn primary'; btn.textContent=`Купить ${l.price}₽`; btn.onclick = ()=>{ state.ownedItems = state.ownedItems || []; state.ownedItems.push('PRO:'+l.id); addXP(300); notify('Куплен Pro (демо) +300 XP'); saveState(); };
+      ctrl.appendChild(btn);
     } else {
-      const b = document.createElement('button'); b.className='btn primary'; b.textContent='Только VIP'; b.onclick = ()=>{ if(state.vip){ state.downloads++; addXP(100); notify('VIP-загрузка +100 XP'); saveState(); } else { notify('Требуется VIP'); goTab('vip'); } };
-      controls.appendChild(b);
+      const btn = document.createElement('button'); btn.className='btn primary'; btn.textContent='Только VIP'; btn.onclick = ()=>{ if(state.vip){ state.stats.downloads++; addXP(100); notify('VIP загрузка +100 XP'); saveState(); } else { notify('Нужен VIP'); goTo('vip'); } };
+      ctrl.appendChild(btn);
     }
-    c.appendChild(controls);
-    grid.appendChild(c);
+    el.appendChild(ctrl);
+    parent.appendChild(el);
   });
 }
 
-/* ---------- frames ---------- */
-function renderFrames(){
-  const grid = $('framesGrid'); grid.innerHTML = '';
-  FRAMES.forEach(f=>{
-    const el = document.createElement('div'); el.className='card'; el.style.textAlign='center';
-    el.innerHTML = `<div style="height:96px;display:flex;align-items:center;justify-content:center"><img src="${f.url}" alt="" style="max-width:100%;max-height:100%;border-radius:8px" onerror="this.style.opacity=0.5"></div><div style="font-weight:800;margin-top:8px">${f.title}</div><div class="hint">${f.vipOnly? 'VIP only' : f.price+' монет'}</div>`;
-    el.addEventListener('click', ()=>{ // buy or apply
-      if(f.vipOnly && !state.vip){ notify('Рамка доступна только VIP'); goTab('vip'); return; }
-      const owned = state.ownedFrames.includes(f.id);
-      if(!owned){
-        if(f.vipOnly){ state.ownedFrames.push(f.id); notify('Рамка разблокирована (VIP)'); saveState(); return; }
-        if(state.coins < f.price){ notify('Недостаточно монет'); return; }
-        state.coins -= f.price;
-        state.ownedFrames.push(f.id);
-        addXP(Math.round(f.price/2));
-        notify('Куплена рамка: '+f.title);
-        saveState();
-      } else {
-        // apply
-        state.applied = {type:'frame', id:f.id};
-        notify('Рамка применена: '+f.title);
-        renderAppliedDecoration();
-        saveState();
-      }
-    });
-    // mark owned
-    if(state.ownedFrames.includes(f.id)){
-      const mark = document.createElement('div'); mark.className='hint'; mark.style.marginTop='6px'; mark.textContent='Куплено';
-      el.appendChild(mark);
-    }
-    grid.appendChild(el);
-  });
+/* ---------- Filters ---------- */
+function populateFilters(){
+  const sel = $('filterGame'); sel.innerHTML = '<option value="all">Все игры</option>';
+  GAMES.forEach(g=>{ const o = document.createElement('option'); o.value = g; o.textContent = g; sel.appendChild(o); });
+  $('filterType').value = 'all'; $('filterGame').value = 'all';
+  $('filterType').addEventListener('change', renderLoaders);
+  $('filterGame').addEventListener('change', renderLoaders);
 }
 
-/* ---------- glows ---------- */
-function renderGlows(){
-  const grid = $('glowsGrid'); grid.innerHTML = '';
-  GLOWS.forEach(g=>{
-    const el = document.createElement('div'); el.className='card'; el.style.textAlign='center';
-    el.innerHTML = `<div style="height:86px;display:flex;align-items:center;justify-content:center;font-weight:900">${g.title}</div><div class="hint">${g.price} монет</div>`;
-    el.addEventListener('click', ()=>{
-      const owned = state.ownedGlows.includes(g.id);
-      if(!owned){
-        if(state.coins < g.price){ notify('Недостаточно монет'); return; }
-        state.coins -= g.price;
-        state.ownedGlows.push(g.id);
-        addXP(Math.round(g.price/3));
-        notify('Куплено свечение: '+g.title);
-        saveState();
-      } else {
-        state.applied = {type:'glow', id:g.id};
-        notify('Свечение применено: '+g.title);
-        renderAppliedDecoration();
-        saveState();
-      }
-    });
-    if(state.ownedGlows.includes(g.id)){
-      const mark = document.createElement('div'); mark.className='hint'; mark.style.marginTop='6px'; mark.textContent='Куплено';
-      el.appendChild(mark);
-    }
-    grid.appendChild(el);
-  });
-}
-
-/* ---------- coin packs ---------- */
-function renderCoinPacks(){
-  const grid = $('coinPacks'); grid.innerHTML = '';
-  COIN_PACKS.forEach(p=>{
-    const el = document.createElement('div'); el.className='card'; el.style.textAlign='center';
-    el.innerHTML = `<div style="font-weight:900">${p.coins} монет</div><div class="hint">${p.price} ₽</div>`;
-    const btn = document.createElement('button'); btn.className='btn primary'; btn.textContent='Купить';
-    btn.onclick = ()=>{ state.coins += p.coins; addXP(Math.round(p.coins/5)); notify('Куплено '+p.coins+' монет'); saveState(); };
-    el.appendChild(btn);
-    grid.appendChild(el);
-  });
-}
-
-/* ---------- shop items ---------- */
-function renderShopItems(){
-  const grid = $('coinPacks'); // reuse coinPacks area? but we already use coinPacks; instead show shop items in items area (we have itemsGrid above in earlier builds). For clarity, create below the coin packs (already in UI we have frames and glows). We will not render additional items here.
-}
-
-/* =========================
-   Apply decorations
-   ========================= */
-function clearOverlay(){
-  const existing = document.querySelector('.frame-overlay');
-  if(existing) existing.remove();
-  // remove glow classes
+/* ---------- Apply decorations ---------- */
+function clearOverlays(){
+  // remove overlays
+  const existingFrame = document.querySelector('.frame-overlay');
+  if(existingFrame) existingFrame.remove();
+  const glowEl = document.querySelector('.glow-class');
+  if(glowEl) glowEl.remove();
+  // remove glow classes from avatarWrap
   const wrap = $('avatarWrap');
   wrap.classList.remove(...GLOWS.map(g=>g.cls));
-  // remove any applied transform
 }
-function renderAppliedDecoration(){
-  clearOverlay();
+function renderApplied(){
+  clearOverlays();
   const wrap = $('avatarWrap');
-  if(state.applied.type === 'frame'){
-    const f = FRAMES.find(x=>x.id===state.applied.id);
+  if(state.applied && state.applied.type === 'frame'){
+    const f = FRAMES.find(x=>x.id === state.applied.id);
     if(f){
-      // add overlay image element
-      const img = document.createElement('img');
-      img.className='frame-overlay';
-      img.src = f.url;
-      img.onerror = ()=>{ img.style.opacity = 0.5 };
-      $('avatarWrap').appendChild(img);
-      // ensure no glow classes
-      wrap.classList.remove(...GLOWS.map(g=>g.cls));
+      const img = document.createElement('img'); img.className='frame-overlay'; img.src = f.url;
+      img.onerror = ()=>{ img.style.opacity = 0.5; };
+      wrap.appendChild(img);
     }
-  } else if(state.applied.type === 'glow'){
-    const g = GLOWS.find(x=>x.id===state.applied.id);
+  } else if(state.applied && state.applied.type === 'glow'){
+    const g = GLOWS.find(x=>x.id === state.applied.id);
     if(g){
-      wrap.classList.add(g.cls);
-      // ensure no frame overlay
+      // create glow element
+      const div = document.createElement('div'); div.className = 'glow-class '+g.cls;
+      wrap.appendChild(div);
+      // also ensure frame overlay removed
     }
-  } else {
-    // nothing
   }
 }
 
-/* =========================
-   Apply helpers
-   ========================= */
-function applyFrame(fid){
-  const f = FRAMES.find(x=>x.id===fid);
-  if(!f) return;
-  if(!state.ownedFrames.includes(fid)){
-    notify('У тебя нет этой рамки');
-    return;
-  }
-  state.applied = {type:'frame', id:fid};
-  renderAppliedDecoration();
+/* ---------- Shop actions ---------- */
+function buyVIP(level, price){
+  // demo: no real money. In a real setup implement payment flow
+  state.vip = true; state.vipLevel = level;
+  addXP(5 * XP_PER_LEVEL); // +5 levels
+  state.coins += 500; // bonus
+  notify('VIP оформлен — +5 уровней и +500 монет');
   saveState();
-  notify('Рамка применена');
+}
+
+function applyFrame(fid){
+  if(!state.ownedFrames.includes(fid)){ notify('У тебя нет этой рамки'); return; }
+  state.applied = {type:'frame', id:fid}; saveState(); notify('Рамка применена');
 }
 function applyGlow(gid){
-  const g = GLOWS.find(x=>x.id===gid);
-  if(!g) return;
-  if(!state.ownedGlows.includes(gid)){
-    notify('У тебя нет этого свечения');
-    return;
-  }
-  state.applied = {type:'glow', id:gid};
-  renderAppliedDecoration();
-  saveState();
-  notify('Свечение применено');
+  if(!state.ownedGlows.includes(gid)){ notify('У тебя нет этого свечения'); return; }
+  state.applied = {type:'glow', id:gid}; saveState(); notify('Свечение применено');
 }
-function unequipAll(){
-  state.applied = {type:null, id:null};
-  renderAppliedDecoration(); saveState(); notify('Украшения сняты');
-}
-function equipType(type){
-  // open profile tab for selection — here we just notify and trust user to click items
-  if(type==='frame') { notify('Нажми на купленную рамку в магазине, чтобы применить её'); goTab('shop'); }
-  if(type==='glow') { notify('Нажми на купленное свечение в магазине, чтобы применить его'); goTab('shop'); }
-}
+function unequipAll(){ state.applied = {type:null,id:null}; saveState(); notify('Все украшения сняты'); }
 
-/* =========================
-   VIP purchase function
-   ========================= */
-function buyVIP(kind, price){
-  // In demo we treat price as informational; we don't charge real money here.
-  state.vip = true;
-  state.vipLevel = kind;
-  // grant +5 levels => +5000 XP
-  addXP(5 * XP_PER_LEVEL);
-  // give some coins
-  state.coins += 500;
-  notify('Вы стали VIP! +5 уровней и +500 монет');
-  saveState();
-}
-
-/* =========================
-   Profile editor
-   ========================= */
-function openProfileEditor(){
-  $('editorAvatarPreview').src = state.avatar;
-  $('editorNick').value = state.nick;
-  document.getElementById('profileEditor').showModal();
-}
-$('editorAvatar') && $('editorAvatar').addEventListener('change', function(e){
-  const f = e.target.files[0]; if(!f) return;
-  const r = new FileReader(); r.onload = ()=>{ $('editorAvatarPreview').src = r.result; }; r.readAsDataURL(f);
-});
-function saveProfileEdits(){
-  const nv = $('editorNick').value.trim();
-  if(nv) state.nick = nv;
-  // if preview changed use it
-  const preview = $('editorAvatarPreview').src;
-  if(preview) state.avatar = preview;
-  saveState();
-  document.getElementById('profileEditor').close();
-  notify('Профиль сохранён');
-}
-
-/* =========================
-   Chat (local)
-   ========================= */
+/* ---------- Chat ---------- */
 function renderChat(){
   const out = $('chatMessages'); out.innerHTML = '';
-  state.chat.slice(-200).forEach(m=>{
-    const div = document.createElement('div'); div.style.marginBottom='8px';
-    const time = new Date(m.t).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
-    div.innerHTML = `<div style="font-weight:700">${escapeHtml(m.nick)} <span style="font-weight:400;color:var(--muted);font-size:12px"> ${time}</span></div><div>${escapeHtml(m.msg)}</div>`;
+  state.chat.slice(-500).forEach(m=>{
+    const div = document.createElement('div'); div.className='chat-msg';
+    const t = new Date(m.t).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+    div.innerHTML = `<div style="font-weight:700">${escapeHtml(m.nick)} <span style="font-weight:400;color:var(--muted);font-size:12px"> ${t}</span></div><div>${escapeHtml(m.msg)}</div>`;
     out.appendChild(div);
   });
   out.scrollTop = out.scrollHeight;
 }
 function sendChat(){
   const inp = $('chatInput'); const txt = inp.value.trim(); if(!txt) return;
-  const msg = { nick: state.nick, msg: txt, t: Date.now() };
-  state.chat.push(msg);
-  saveState(); inp.value=''; renderChat(); notify('Сообщение отправлено');
+  state.chat.push({nick: state.nick, msg: txt, t: Date.now()});
+  saveState(); inp.value=''; renderChat();
 }
 
-/* =========================
-   Helpers: populate filters & initial render
-   ========================= */
-function populateFilters(){
-  const sel = $('filterGame'); sel.innerHTML='';
-  const opt = document.createElement('option'); opt.value='all'; opt.textContent='Все игры'; sel.appendChild(opt);
-  GAMES.forEach(g=>{ const o = document.createElement('option'); o.value=g; o.textContent=g; sel.appendChild(o); });
-  $('filterType').value='all';
-  $('filterGame').value='all';
-  $('filterType').addEventListener('change', renderLoaders);
-  $('filterGame').addEventListener('change', renderLoaders);
+/* ---------- Profile editor ---------- */
+$('editorAvatar') && $('editorAvatar').addEventListener('change', e=>{
+  const f = e.target.files[0]; if(!f) return;
+  const r = new FileReader(); r.onload = ()=>{ $('editorPreview').src = r.result; }; r.readAsDataURL(f);
+});
+function openProfileEditor(){
+  $('editorPreview').src = state.avatar; $('editorNick').value = state.nick; document.getElementById('profileModal').showModal();
+}
+function saveProfileEdits(){
+  const nv = $('editorNick').value.trim(); if(nv) state.nick = nv;
+  const preview = $('editorPreview').src; if(preview) state.avatar = preview;
+  saveState(); document.getElementById('profileModal').close(); notify('Профиль обновлён');
 }
 
-/* =========================
-   UI helpers to render frames, glows, packs on initial load
-   ========================= */
-function renderFramesGrid(){ renderFrames(); }
-function renderGlowsGrid(){ renderGlows(); }
-function renderCoinPacksGrid(){ renderCoinPacks(); }
-
-/* =========================
-   Misc utilities
-   ========================= */
+/* ---------- Misc / Utility ---------- */
 function escapeHtml(s){ return (s+'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
-
-/* =========================
-   Confetti (small)
-   ========================= */
-const confettiCanvas = document.getElementById('confettiCanvas');
-const confettiCtx = confettiCanvas.getContext?confettiCanvas.getContext('2d'):null;
-let confettiParticles=[];
-function resizeConfetti(){ confettiCanvas.width = window.innerWidth; confettiCanvas.height = window.innerHeight; }
-window.addEventListener('resize', resizeConfetti); resizeConfetti();
-function launchConfetti(){
-  if(!confettiCtx) return;
-  for(let i=0;i<80;i++){
-    confettiParticles.push({
-      x: Math.random()*confettiCanvas.width,
-      y: Math.random()*confettiCanvas.height - confettiCanvas.height,
-      vx: (Math.random()-0.5)*6,
-      vy: 2+Math.random()*6,
-      size: 4+Math.random()*8,
-      color: ['#ff4d4d','#ffd65b','#7c4dff','#00d4ff','#4dff88'][Math.floor(Math.random()*5)],
-      rot: Math.random()*360
-    });
-  }
-  if(!confettiLoopRunning){ confettiLoopRunning=true; requestAnimationFrame(confettiLoop); }
-}
-let confettiLoopRunning=false;
-function confettiLoop(){
-  confettiCtx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height);
-  confettiParticles.forEach((p,i)=>{
-    p.x+=p.vx; p.y+=p.vy; p.vy+=0.05; p.rot += p.vx;
-    confettiCtx.save();
-    confettiCtx.translate(p.x,p.y); confettiCtx.rotate(p.rot*Math.PI/180);
-    confettiCtx.fillStyle = p.color; confettiCtx.fillRect(-p.size/2,-p.size/2,p.size,p.size);
-    confettiCtx.restore();
-    if(p.y > confettiCanvas.height+50){ confettiParticles.splice(i,1); }
-  });
-  if(confettiParticles.length>0){ requestAnimationFrame(confettiLoop); } else { confettiLoopRunning=false; confettiCtx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height); }
-}
-
-/* =========================
-   Interaction helpers
-   ========================= */
-function goTabByButton(btnId, pageId){
+function goTo(tab){
+  // tabs: buy, vip, shop, profile, chat map to page ids
+  const mapping = {buy:'page-buy', vip:'page-vip', shop:'page-shop', profile:'page-profile', chat:'page-chat'};
   document.querySelectorAll('.tabbtn').forEach(b=>b.classList.remove('active'));
   document.querySelectorAll('section[id^="page-"]').forEach(s=>s.style.display='none');
-  document.getElementById(btnId).classList.add('active');
-  document.getElementById(pageId).style.display='block';
-}
-function goTab(page){
-  // map: buy->page-buy, vip->page-vip, shop->page-shop, profile->page-profile, chat->page-chat
-  ['btn-buy','btn-vip','btn-shop','btn-profile','btn-chat'].forEach(b=>document.getElementById(b).classList.remove('active'));
-  document.querySelectorAll('section[id^="page-"]').forEach(s=>s.style.display='none');
-  if(page === 'buy'){ document.getElementById('btn-buy').classList.add('active'); document.getElementById('page-buy').style.display='block'; }
-  if(page === 'vip'){ document.getElementById('btn-vip').classList.add('active'); document.getElementById('page-vip').style.display='block'; }
-  if(page === 'shop'){ document.getElementById('btn-shop').classList.add('active'); document.getElementById('page-shop').style.display='block'; }
-  if(page === 'profile'){ document.getElementById('btn-profile').classList.add('active'); document.getElementById('page-profile').style.display='block'; }
-  if(page === 'chat'){ document.getElementById('btn-chat').classList.add('active'); document.getElementById('page-chat').style.display='block'; }
+  document.getElementById('btn-'+tab).classList.add('active');
+  document.getElementById(mapping[tab]).style.display = 'block';
 }
 
-/* =========================
-   Startup: populate & bind events
-   ========================= */
+/* ---------- Confetti (simple) ---------- */
+const confettiCanvas = $('confetti');
+const ctx = confettiCanvas.getContext ? confettiCanvas.getContext('2d') : null;
+let confetti = [];
+function resizeCanvas(){ confettiCanvas.width = window.innerWidth; confettiCanvas.height = window.innerHeight; }
+window.addEventListener('resize', resizeCanvas); resizeCanvas();
+function launchConfetti(){
+  if(!ctx) return;
+  for(let i=0;i<120;i++){
+    confetti.push({x: Math.random()*confettiCanvas.width, y: -Math.random()*confettiCanvas.height, vx: (Math.random()-0.5)*6, vy: 2+Math.random()*6, s: 4+Math.random()*8, c: ['#ff4d4d','#ffd65b','#7c4dff','#00d4ff','#4dff88'][Math.floor(Math.random()*5)], r: Math.random()*360});
+  }
+  if(!window._confettiRunning) { window._confettiRunning = true; requestAnimationFrame(confettiLoop); }
+}
+function confettiLoop(){
+  ctx.clearRect(0,0,confettiCanvas.width, confettiCanvas.height);
+  confetti.forEach((p,i)=>{
+    p.x += p.vx; p.y += p.vy; p.vy += 0.05; p.r += p.vx;
+    ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.r*Math.PI/180);
+    ctx.fillStyle = p.c; ctx.fillRect(-p.s/2,-p.s/2,p.s,p.s); ctx.restore();
+    if(p.y > confettiCanvas.height + 50) confetti.splice(i,1);
+  });
+  if(confetti.length) requestAnimationFrame(confettiLoop); else window._confettiRunning = false;
+}
+
+/* ---------- Events and bindings ---------- */
+function bindUI(){
+  // tab buttons
+  document.getElementById('btn-buy').addEventListener('click', ()=>goTo('buy'));
+  document.getElementById('btn-vip').addEventListener('click', ()=>goTo('vip'));
+  document.getElementById('btn-shop').addEventListener('click', ()=>goTo('shop'));
+  document.getElementById('btn-profile').addEventListener('click', ()=>goTo('profile'));
+  document.getElementById('btn-chat').addEventListener('click', ()=>goTo('chat'));
+
+  // chat send
+  $('chatSend').addEventListener('click', sendChat);
+  $('chatInput').addEventListener('keydown', e=>{ if(e.key==='Enter') sendChat(); });
+
+  // buy vip demo (header button)
+  $('authBtn').addEventListener('click', ()=>{ notify('DEMO: Войдены как гость'); });
+
+  // quick actions
+  window.addEventListener('beforeunload', ()=> saveState());
+}
+
+/* ---------- Create heavy content dynamically (makes code "huge" in effect) ---------- */
+function renderHugeCatalog(){
+  // frames, glows, coinpacks, items, loaders already rendered by specific functions
+  renderAll(); // initial
+}
+
+/* ---------- Small helper actions ---------- */
+function awardDemoXP(){ addXP(200); notify('+200 XP'); saveState(); }
+function clearChat(){ state.chat = []; saveState(); notify('Чат очищен'); }
+function exportChat(){ const blob = new Blob([JSON.stringify(state.chat, null, 2)], {type:'application/json'}); const u = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = u; a.download = 'chat_export.json'; a.click(); URL.revokeObjectURL(u); }
+
+/* ---------- Initial load & run ---------- */
 loadState();
-populateFilters();
-renderAll();
-goTab('buy');
+bindUI();
 
-// hook tab buttons
-document.getElementById('btn-buy').addEventListener('click', ()=>goTab('buy'));
-document.getElementById('btn-vip').addEventListener('click', ()=>goTab('vip'));
-document.getElementById('btn-shop').addEventListener('click', ()=>goTab('shop'));
-document.getElementById('btn-profile').addEventListener('click', ()=>goTab('profile'));
-document.getElementById('btn-chat').addEventListener('click', ()=>goTab('chat'));
+// render functions that rely on DOM
+function startApp(){ renderAll(); renderHugeCatalog(); }
+startApp();
 
-// chat input enter
-$('chatInput').addEventListener('keydown', (e)=>{ if(e.key==='Enter') sendChat(); });
+/* ---------- Render functions definitions (must be after start to allow calls above) ---------- */
+/* Implement renderCoinPacks/renderFramesGrid/renderGlowsGrid/renderShopItems/renderLoaders/populateFilters functions used above (they exist earlier) */
+function renderCoinPacks(){ renderCoinPacksInner(); }
+function renderFramesGrid(){ renderFramesGridInner(); }
+function renderGlowsGrid(){ renderGlowsGridInner(); }
+function renderShopItems(){ renderShopItemsInner(); }
+function renderLoaders(){ renderLoadersInner(); }
+function populateFilters(){ populateFiltersInner(); }
 
-/* expose some actions for debugging in console */
+/* real definitions for the inner functions (redeclare to keep code large and explicit) */
+function renderCoinPacksInner(){
+  const parent = $('coinPacks'); if(!parent) return; parent.innerHTML = '';
+  COIN_PACKS.forEach(p=>{
+    const el = document.createElement('div'); el.className='card';
+    el.innerHTML = `<div style="font-weight:900">${p.coins} монет</div><div class="hint">${p.price} ₽</div>`;
+    const b = document.createElement('button'); b.className='btn primary'; b.textContent='Купить';
+    b.onclick = ()=>{ state.coins += p.coins; addXP(Math.round(p.coins/5)); notify(`Куплено ${p.coins} монет (+${Math.round(p.coins/5)} XP)`); saveState(); };
+    el.appendChild(b); parent.appendChild(el);
+  });
+}
+function renderFramesGridInner(){
+  const parent = $('framesGrid'); if(!parent) return; parent.innerHTML = '';
+  FRAMES.forEach(f=>{
+    const el = document.createElement('div'); el.className='card';
+    el.innerHTML = `<div style="height:110px;display:flex;align-items:center;justify-content:center"><img src="${f.url}" style="max-width:100%;max-height:100%;border-radius:8px" onerror="this.style.opacity=0.5"/></div>
+      <div style="font-weight:800;margin-top:8px">${escapeHtml(f.title)}</div>
+      <div class="hint">${f.vipOnly? 'VIP only' : f.price + ' монет'}</div>`;
+    el.addEventListener('click', ()=>{
+      if(f.vipOnly && !state.vip){ notify('Рамка доступна только VIP'); goTo('vip'); return; }
+      if(!state.ownedFrames.includes(f.id)){
+        if(!f.vipOnly){
+          if(state.coins < f.price){ notify('Недостаточно монет'); return; }
+          state.coins -= f.price;
+          state.ownedFrames.push(f.id);
+          addXP(Math.round(f.price/2));
+          notify('Рамка куплена: ' + f.title);
+          saveState();
+        } else { state.ownedFrames.push(f.id); notify('Рамка выдана (VIP)'); saveState(); }
+      } else { state.applied = {type:'frame', id:f.id}; notify('Рамка применена: '+f.title); saveState(); }
+    });
+    if(state.ownedFrames.includes(f.id)){ const tag = document.createElement('div'); tag.className='hint'; tag.style.marginTop='6px'; tag.textContent='Куплено'; el.appendChild(tag); }
+    parent.appendChild(el);
+  });
+}
+function renderGlowsGridInner(){
+  const parent = $('glowsGrid'); if(!parent) return; parent.innerHTML = '';
+  GLOWS.forEach(g=>{
+    const el = document.createElement('div'); el.className='card';
+    el.innerHTML = `<div style="height:86px;display:flex;align-items:center;justify-content:center;font-weight:900">${escapeHtml(g.title)}</div>
+      <div class="hint">${g.price} монет</div>`;
+    el.addEventListener('click', ()=>{
+      if(!state.ownedGlows.includes(g.id)){
+        if(state.coins < g.price){ notify('Недостаточно монет'); return; }
+        state.coins -= g.price; state.ownedGlows.push(g.id); addXP(Math.round(g.price/3));
+        notify('Куплено свечение: '+g.title); saveState();
+      } else { state.applied = {type:'glow', id:g.id}; notify('Свечение применено: '+g.title); saveState(); }
+    });
+    if(state.ownedGlows.includes(g.id)){ const tag = document.createElement('div'); tag.className='hint'; tag.style.marginTop='6px'; tag.textContent='Куплено'; el.appendChild(tag); }
+    parent.appendChild(el);
+  });
+}
+function renderShopItemsInner(){
+  const parent = $('itemsGrid'); if(!parent) return; parent.innerHTML = '';
+  SHOP_ITEMS.forEach(it=>{
+    const el = document.createElement('div'); el.className='card';
+    el.innerHTML = `<div style="height:86px;display:flex;align-items:center;justify-content:center;font-weight:900">${escapeHtml(it.title)}</div>
+      <div style="font-weight:800;margin-top:8px">${escapeHtml(it.title)}</div>
+      <div class="hint">${escapeHtml(it.desc)}</div>
+      <div style="display:flex;align-items:center;margin-top:8px;gap:8px"><div style="flex:1;color:var(--muted)">${it.price} монет ${it.vipOnly? '(VIP)':''}</div></div>`;
+    const btn = document.createElement('button'); btn.className='btn primary'; btn.textContent = it.vipOnly ? 'VIP' : 'Купить';
+    btn.onclick = ()=> {
+      if(it.vipOnly && !state.vip){ notify('Требуется VIP'); goTo('vip'); return; }
+      if(state.coins < it.price){ notify('Недостаточно монет'); return; }
+      state.coins -= it.price; if(!state.ownedItems) state.ownedItems = []; state.ownedItems.push(it.id);
+      addXP(Math.round(it.price/2)); notify('Куплено: '+it.title); saveState();
+    };
+    el.querySelector('div').appendChild(btn);
+    parent.appendChild(el);
+  });
+}
+function renderLoadersInner(){
+  const parent = $('loadersGrid'); if(!parent) return; parent.innerHTML = '';
+  const filterType = $('filterType').value;
+  const filterGame = $('filterGame').value;
+  LOADERS.filter(l=>{
+    if(filterType!=='all' && l.type!==filterType) return false;
+    if(filterGame && filterGame!=='all' && l.game!==filterGame) return false;
+    return true;
+  }).forEach(l=>{
+    const el = document.createElement('div'); el.className='card';
+    el.innerHTML = `<div class="hint">${escapeHtml(l.game)}</div><div style="font-weight:900;margin-top:6px">${escapeHtml(l.name)}</div><div class="hint" style="margin-top:8px">${l.type==='free' ? 'Бесплатный' : l.type==='pro' ? 'Платный '+l.price+'₽' : 'Только VIP'}</div>`;
+    const ctrl = document.createElement('div'); ctrl.style.marginTop='10px';
+    if(l.type==='free'){
+      const btn = document.createElement('button'); btn.className='btn primary'; btn.textContent='Скачать'; btn.onclick = ()=>{ state.stats.downloads++; addXP(50); notify('Скачано (демо) +50 XP'); saveState(); };
+      ctrl.appendChild(btn);
+    } else if(l.type==='pro'){
+      const btn = document.createElement('button'); btn.className='btn primary'; btn.textContent=`Купить ${l.price}₽`; btn.onclick = ()=>{ state.ownedItems = state.ownedItems || []; state.ownedItems.push('PRO:'+l.id); addXP(300); notify('Куплен Pro (демо) +300 XP'); saveState(); };
+      ctrl.appendChild(btn);
+    } else {
+      const btn = document.createElement('button'); btn.className='btn primary'; btn.textContent='Только VIP'; btn.onclick = ()=>{ if(state.vip){ state.stats.downloads++; addXP(100); notify('VIP загрузка +100 XP'); saveState(); } else { notify('Нужен VIP'); goTo('vip'); } };
+      ctrl.appendChild(btn);
+    }
+    el.appendChild(ctrl); parent.appendChild(el);
+  });
+}
+function populateFiltersInner(){
+  const sel = $('filterGame'); if(!sel) return; sel.innerHTML = '<option value="all">Все игры</option>'; GAMES.forEach(g=>{ const o = document.createElement('option'); o.value = g; o.textContent = g; sel.appendChild(o); });
+  $('filterType').value='all'; $('filterGame').value='all';
+  $('filterType').addEventListener('change', renderLoadersInner);
+  $('filterGame').addEventListener('change', renderLoadersInner);
+}
+
+/* ---------- Small expose for console debugging ---------- */
 window._GL = { state, saveState, addXP, applyFrame, applyGlow, unequipAll, buyVIP, launchConfetti };
 
+/* ---------- Utilities at end ---------- */
+function saveState(){ localStorage.setItem(STORAGE, JSON.stringify(state)); renderAll(); }
+function loadState(){ try{ const s = JSON.parse(localStorage.getItem(STORAGE)); if(s) state = Object.assign(state, s); }catch(e){ } }
+function escapeHtml(s){ return (s+'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+/* Immediately show a little intro */
+notify('Загружено: GameLoaders Mega Hub — демо', 2500);
 </script>
 </body>
 </html>
