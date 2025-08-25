@@ -1,14 +1,20 @@
 <!doctype html>
 <html lang="ru">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>GameLoaders — Mega Hub</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>GameLoaders — Mega Hub (NY Edition)</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 <style>
+/* =========================================================
+   Core theme
+   ========================================================= */
 :root{
-  --bg1:#051025;--bg2:#0b1222;--card:#0f1724;--muted:#9ab0d6;--text:#e8f0ff;
-  --neon1:#7c4dff;--neon2:#00d4ff;--vip-grad:conic-gradient(from 0deg,#ff0044,#ff9900,#ffee00,#00ff77,#00ccff,#7c4dff);
+  --bg1:#051025; --bg2:#0b1222; --card:#0f1724;
+  --muted:#9ab0d6; --text:#e8f0ff;
+  --neon1:#7c4dff; --neon2:#00d4ff;
+  --glass:rgba(255,255,255,0.03);
+  --vip-grad: conic-gradient(from 0deg,#ff0044,#ff9900,#ffee00,#00ff77,#00ccff,#7c4dff);
 }
 *{box-sizing:border-box}
 html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
@@ -17,98 +23,124 @@ body{
     radial-gradient(600px 300px at 10% 10%, rgba(124,77,255,0.04), transparent),
     radial-gradient(600px 300px at 90% 80%, rgba(0,212,255,0.03), transparent),
     linear-gradient(180deg,var(--bg1),var(--bg2));
-  color:var(--text);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
-  padding-bottom:120px;
+  color:var(--text); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+  padding-bottom:140px;
 }
+
+/* Container & header */
 .container{width:min(1280px,96%);margin:0 auto;padding:18px 0}
-.header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;position:sticky;top:0;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00));backdrop-filter:blur(8px);z-index:200;border-bottom:1px solid rgba(255,255,255,0.03)}
+.header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;position:sticky;top:0;background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.00));backdrop-filter:blur(8px);z-index:300;border-bottom:1px solid rgba(255,255,255,0.06)}
 .brand{display:flex;align-items:center;gap:10px;font-weight:900;color:var(--neon1)}
 .brand .logo{width:18px;height:18px;border-radius:50%;background:linear-gradient(90deg,var(--neon1),var(--neon2));box-shadow:0 8px 28px rgba(124,77,255,0.2)}
 .header .left,.header .center,.header .right{display:flex;align-items:center;gap:10px}
-.tabbtn{padding:8px 12px;border-radius:10px;border:0;background:transparent;color:var(--muted);font-weight:700;cursor:pointer}
-.tabbtn.active{color:var(--text);background:linear-gradient(90deg,var(--neon1),var(--neon2));box-shadow:0 12px 40px rgba(124,77,255,0.12)}
-.panel{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));border-radius:12px;padding:14px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 12px 40px rgba(2,6,23,0.5)}
+.tabbtn{padding:8px 12px;border-radius:10px;border:0;background:transparent;color:var(--muted);font-weight:800;cursor:pointer}
+.tabbtn.active{color:var(--text);background:linear-gradient(90deg,var(--neon1),var(--neon2));box-shadow:0 12px 40px rgba(124,77,255,0.18)}
+
+/* Sections */
+.panel{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00));border-radius:12px;padding:14px;border:1px solid rgba(255,255,255,0.06);box-shadow:0 12px 40px rgba(2,6,23,0.5)}
 .spaced{margin-top:16px}
 .grid{display:grid;gap:12px}
 .cols-2{grid-template-columns:repeat(2,1fr)}
 .cols-3{grid-template-columns:repeat(3,1fr)}
 .cols-4{grid-template-columns:repeat(4,1fr)}
 @media(max-width:960px){.cols-4{grid-template-columns:repeat(2,1fr)}.cols-3{grid-template-columns:repeat(2,1fr)}}
-.card{border-radius:10px;padding:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));border:1px solid rgba(255,255,255,0.03);transition:transform .18s,box-shadow .18s;overflow:hidden}
-.card:hover{transform:translateY(-6px);box-shadow:0 22px 60px rgba(0,0,0,0.6)}
+
+/* Cards & buttons */
+.card{border-radius:12px;padding:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00));border:1px solid rgba(255,255,255,0.06);transition:transform .18s,box-shadow .18s;overflow:hidden}
+.card:hover{transform:translateY(-6px);box-shadow:0 22px 60px rgba(0,0,0,0.55)}
 .hint{color:var(--muted);font-size:13px}
-.btn{padding:8px 12px;border-radius:10px;border:0;cursor:pointer;font-weight:800}
-.btn.primary{background:linear-gradient(90deg,var(--neon1),var(--neon2));color:#fff;box-shadow:0 8px 30px rgba(124,77,255,0.14)}
-.btn.ghost{background:transparent;color:var(--text);border:1px solid rgba(255,255,255,0.06)}
+.btn{padding:9px 12px;border-radius:10px;border:0;cursor:pointer;font-weight:900}
+.btn.primary{background:linear-gradient(90deg,var(--neon1),var(--neon2));color:#041022;box-shadow:0 10px 30px rgba(124,77,255,0.22)}
+.btn.ghost{background:transparent;color:var(--text);border:1px solid rgba(255,255,255,0.09)}
 .btn.warn{background:linear-gradient(90deg,#ff9966,#ff4d4d);color:#041022}
 
-/* ====== Профиль ====== */
-/* по умолчанию вообще НЕТ рамки/свечения */
-.avatar-wrap{position:relative;width:136px;height:136px;border-radius:50%;padding:0;background:transparent;box-shadow:none}
-.avatar-inner{width:100%;height:100%;border-radius:50%;overflow:hidden;border:none}
+/* Profile & avatar */
+.profile-top{display:flex;gap:18px;align-items:center;position:relative}
+.profile-snow-canvas{position:absolute;inset:0;pointer-events:none;z-index:0;border-radius:12px}
+.avatar-zone{position:relative;z-index:1}
+.avatar-wrap{position:relative;width:136px;height:136px;border-radius:50%;padding:6px;background:linear-gradient(90deg,var(--neon1),var(--neon2));box-shadow:0 18px 48px rgba(124,77,255,0.18)}
+.avatar-inner{width:100%;height:100%;border-radius:50%;overflow:hidden;border:4px solid rgba(0,0,0,0.25)}
 .avatar-inner img{width:100%;height:100%;object-fit:cover;border-radius:50%}
-.frame-overlay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:150px;height:150px;border-radius:50%;pointer-events:none;mix-blend-mode:screen}
+
+/* Frame overlay — 100% яркости, ровное совпадение */
+.frame-overlay{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:148px;height:148px;border-radius:50%;pointer-events:none;filter:none !important;mix-blend-mode:normal !important;opacity:1 !important;
+}
+
+/* Glow overlay */
 .glow-class{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:170px;height:170px;border-radius:50%;pointer-events:none;z-index:0}
-.glow-fire{box-shadow:0 0 38px 16px rgba(255,110,25,0.85)!important;animation:glowFlicker 1.2s infinite}
-.glow-water{box-shadow:0 0 36px 14px rgba(0,160,255,0.8)!important;animation:glowWave 3s infinite}
+
+/* Glow types */
+.glow-fire{box-shadow:0 0 38px 16px rgba(255,110,25,0.9)!important;animation:glowFlicker 1.2s infinite}
+.glow-water{box-shadow:0 0 36px 14px rgba(0,160,255,0.9)!important;animation:glowWave 3s infinite}
 .glow-rainbow{animation:glowRainbow 5s linear infinite}
-.glow-basic{box-shadow:0 0 20px 8px rgba(255,255,255,0.6)!important}
-@keyframes glowFlicker{0%,20%,22%,64%,65%,100%{opacity:1}21%,23%,63%,66%{opacity:.3}}
+.glow-basic{box-shadow:0 0 24px 10px rgba(255,255,255,0.85)!important}
+@keyframes glowFlicker{0%,20%,22%,64%,65%,100%{opacity:1}21%,23%,63%,66%{opacity:.35}}
 @keyframes glowWave{0%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.06)}100%{transform:translate(-50%,-50%) scale(1)}}
 @keyframes glowRainbow{
-  0%{box-shadow:0 0 40px 12px rgba(255,0,0,0.8)}
-  25%{box-shadow:0 0 40px 12px rgba(255,160,0,0.8)}
-  50%{box-shadow:0 0 40px 12px rgba(0,200,255,0.8)}
-  75%{box-shadow:0 0 40px 12px rgba(120,0,255,0.8)}
-  100%{box-shadow:0 0 40px 12px rgba(255,0,0,0.8)}
+  0%{box-shadow:0 0 40px 12px rgba(255,0,0,0.9)}
+  25%{box-shadow:0 0 40px 12px rgba(255,160,0,0.9)}
+  50%{box-shadow:0 0 40px 12px rgba(0,200,255,0.9)}
+  75%{box-shadow:0 0 40px 12px rgba(120,0,255,0.9)}
+  100%{box-shadow:0 0 40px 12px rgba(255,0,0,0.9)}
 }
-.vip-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;font-weight:800;background:var(--vip-grad);background-size:300% 300%;animation:vipShift 6s linear infinite;color:#051022}
+
+/* VIP badge */
+.vip-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;font-weight:900;background:var(--vip-grad);background-size:300% 300%;animation:vipShift 6s linear infinite;color:#051022}
 @keyframes vipShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-.stats{display:flex;gap:12px}
-.stat{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);font-weight:700}
 
-/* ====== Чат ====== */
+/* Chat */
 .chat-wrap{display:flex;flex-direction:column;height:420px}
-.chat-messages{flex:1;overflow:auto;padding:8px;border-radius:8px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00))}
+.chat-messages{flex:1;overflow:auto;padding:8px;border-radius:8px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00))}
 .chat-input{display:flex;gap:8px;margin-top:8px}
-.chat-input input{flex:1;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--text)}
-.chat-msg{padding:8px;border-radius:8px;margin-bottom:8px;background:rgba(255,255,255,0.02);}
+.chat-input input{flex:1;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.09);background:transparent;color:var(--text)}
+.chat-msg{padding:8px;border-radius:8px;margin-bottom:8px;background:rgba(255,255,255,0.04);}
 
-/* ====== Колесо ====== */
-.wheel-wrap{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
-.wheel{width:320px;height:320px;border-radius:50%;border:6px solid rgba(255,255,255,0.06);position:relative;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,.5)}
-.slice{position:absolute;left:50%;top:50%;transform-origin:0 0;width:50%;height:50%;clip-path:polygon(0 0,100% 0,0 100%);}
-.wheel-ind{position:absolute;left:50%;top:-10px;transform:translateX(-50%);width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-bottom:18px solid #fff;filter:drop-shadow(0 2px 6px rgba(0,0,0,.6))}
-.spin-btn{min-width:180px}
-.tickets-pill{padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,0.08);display:inline-flex;align-items:center;gap:6px}
+/* Notifications */
+#notif{position:fixed;right:20px;bottom:20px;padding:12px 16px;border-radius:10px;background:linear-gradient(90deg,var(--neon1),var(--neon2));color:#041022;font-weight:900;transform:translateY(12px);opacity:0;transition:all .3s;z-index:9999}
 
-/* ====== уведомление ====== */
-#notif{position:fixed;right:20px;bottom:20px;padding:12px 16px;border-radius:10px;background:linear-gradient(90deg,var(--neon1),var(--neon2));color:#041022;font-weight:800;transform:translateY(12px);opacity:0;transition:all .3s;z-index:9999}
+/* Snow (global) */
+#snowCanvas{position:fixed;inset:0;pointer-events:none;z-index:0}
+
+/* Wheel styles */
+#wheelWrapper{position:relative;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+#wheel{border-radius:50%;box-shadow:0 0 25px #0ff, 0 0 50px #ff000044 inset;background:rgba(0,0,0,0.05)}
+.garland{position:absolute;width:540px;height:540px;left:-20px;top:-20px;pointer-events:none}
+.bulb{width:18px;height:18px;border-radius:50%;position:absolute;animation:blink 1.5s infinite alternate;box-shadow:0 0 12px currentColor}
+@keyframes blink{from{opacity:.35}to{opacity:1}}
 
 @media (max-width:980px){
   .header{flex-direction:column;align-items:flex-start;gap:8px}
 }
+
+/* pointer */
+.pointer{
+  position:absolute;left:50%;top:-6px;transform:translateX(-50%);
+  width:0;height:0;border-left:16px solid transparent;border-right:16px solid transparent;border-bottom:24px solid #fff;filter:drop-shadow(0 4px 10px rgba(0,0,0,.5));
+}
 </style>
 </head>
 <body>
-<div class="container">
+<canvas id="snowCanvas"></canvas>
 
+<div class="container" style="position:relative;z-index:1">
   <!-- HEADER -->
   <div class="header" role="banner">
     <div class="left brand"><div class="logo"></div> <div>GameLoaders Mega Hub</div></div>
     <div class="center">
       <button class="tabbtn active" id="btn-buy">Купить</button>
       <button class="tabbtn" id="btn-vip">VIP</button>
-      <button class="tabbtn" id="btn-wheel">Колесо</button>
       <button class="tabbtn" id="btn-shop">Магазин</button>
       <button class="tabbtn" id="btn-profile">Профиль</button>
       <button class="tabbtn" id="btn-chat">Чат</button>
+      <button class="tabbtn" id="btn-wheel">Колесо</button>
     </div>
     <div class="right">
       <div id="header-stats" style="display:flex;gap:12px;align-items:center">
-        <div class="stat" id="statCoins">0 💰</div>
-        <div class="stat" id="statTickets">🎟 0</div>
-        <div class="stat" id="statLevel">Lvl 1</div>
+        <div class="card" style="padding:6px 10px" id="statCoins">0 💰</div>
+        <div class="card" style="padding:6px 10px" id="statLevel">Lvl 1</div>
+        <div class="card" style="padding:6px 10px" id="statTickets">🎟 0</div>
       </div>
       <button class="tabbtn" id="authBtn">Войти</button>
     </div>
@@ -122,8 +154,8 @@ body{
         <div class="hint">Free / Pro / VIP-only — демо покупки/загрузки</div>
       </div>
       <div style="display:flex;gap:8px;align-items:center">
-        <select id="filterGame" style="padding:8px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--text)"></select>
-        <select id="filterType" style="padding:8px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--text)">
+        <select id="filterGame" style="padding:8px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.09);color:var(--text)"></select>
+        <select id="filterType" style="padding:8px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.09);color:var(--text)">
           <option value="all">Все типы</option><option value="free">Free</option><option value="pro">Pro</option><option value="vip">VIP-only</option>
         </select>
       </div>
@@ -134,64 +166,40 @@ body{
   <!-- VIP -->
   <section id="page-vip" class="panel spaced" style="display:none">
     <h2 style="margin:0">VIP — оформите подписку</h2>
-    <div class="hint">VIP сразу даёт +5 уровней, монеты и бесплатные билеты на колесо</div>
+    <div class="hint">VIP сразу даёт +5 уровней, монеты и билеты на колесо.</div>
     <div class="grid cols-3 spaced" style="margin-top:12px">
       <div class="card">
         <h3>1 месяц</h3>
         <ul class="hint">
           <li>+5 уровней</li>
           <li>+300 монет</li>
-          <li>🎟 +2 билета на колесо</li>
-          <li>Доступ к VIP-рамкам (2 шт.)</li>
-          <li>Приоритет в чате (бейдж)</li>
+          <li>🎟 Билеты: 3</li>
+          <li>Доступ к VIP рамкам (2 шт.)</li>
+          <li>Скидка 10% в магазине</li>
         </ul>
-        <div style="margin-top:12px"><button class="btn primary" onclick="buyVIP('month',299,2)">Купить 299 ₽</button></div>
+        <div style="margin-top:12px"><button class="btn primary" onclick="buyVIP('month',299,3,300,5)">Купить 299 ₽</button></div>
       </div>
       <div class="card">
         <h3>12 месяцев</h3>
         <ul class="hint">
-          <li>+5 уровней</li>
-          <li>+1000 монет</li>
-          <li>🎟 +5 билетов на колесо</li>
-          <li>VIP-рамки + спец. скидки</li>
-          <li>Уникальный годовой бейдж</li>
+          <li>+10 уровней</li>
+          <li>+1500 монет</li>
+          <li>🎟 Билеты: 12</li>
+          <li>VIP рамки + приоритет в колесе</li>
+          <li>Скидка 20% в магазине</li>
         </ul>
-        <div style="margin-top:12px"><button class="btn primary" onclick="buyVIP('year',2870,5)">Купить 2870 ₽</button></div>
+        <div style="margin-top:12px"><button class="btn primary" onclick="buyVIP('year',2870,12,1500,10)">Купить 2870 ₽</button></div>
       </div>
       <div class="card">
         <h3>Пожизненно</h3>
         <ul class="hint">
-          <li>+5 уровней</li>
-          <li>+2500 монет</li>
-          <li>🎟 +10 билетов на колесо</li>
-          <li>Все VIP-рамки и будущие</li>
-          <li>Бейдж «VIP · Forever»</li>
+          <li>+20 уровней</li>
+          <li>+5000 монет</li>
+          <li>🎟 Билеты: 30</li>
+          <li>Все VIP украшения</li>
+          <li>Скидка 30% в магазине</li>
         </ul>
-        <div style="margin-top:12px"><button class="btn primary" onclick="buyVIP('lifetime',7990,10)">Купить 7990 ₽</button></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- WHEEL -->
-  <section id="page-wheel" class="panel spaced" style="display:none">
-    <h2 style="margin:0">Колесо везения</h2>
-    <div class="hint">Одно вращение: <b>499 ₽</b> (демо). Или используйте 🎟 билет.</div>
-    <div class="wheel-wrap spaced">
-      <div style="position:relative">
-        <div class="wheel-ind"></div>
-        <div id="wheel" class="wheel"></div>
-      </div>
-      <div style="flex:1;min-width:260px">
-        <div class="tickets-pill">🎟 Билеты: <b id="ticketCount" style="margin-left:6px">0</b></div>
-        <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
-          <button class="btn primary spin-btn" onclick="spinWheel()">Вращать (499 ₽ / 1 билет)</button>
-          <button class="btn ghost" onclick="giftTicket()">Демо: купить билет</button>
-        </div>
-        <div id="lastPrize" class="card" style="margin-top:12px;display:none"></div>
-        <div class="card" style="margin-top:12px">
-          <div class="hint">Призы:</div>
-          <ul id="prizeList" class="hint" style="margin:6px 0 0 18px"></ul>
-        </div>
+        <div style="margin-top:12px"><button class="btn primary" onclick="buyVIP('lifetime',7990,30,5000,20)">Купить 7990 ₽</button></div>
       </div>
     </div>
   </section>
@@ -199,33 +207,41 @@ body{
   <!-- SHOP -->
   <section id="page-shop" class="panel spaced" style="display:none">
     <h2 style="margin:0">Магазин</h2>
-    <div class="hint">Монеты, рамки, свечения и приколюхи</div>
+    <div class="hint">Монеты, рамки, свечения и эффекты.</div>
+
     <div class="spaced card">
       <h3>Пакеты монет</h3>
       <div id="coinPacks" class="grid cols-4 spaced" style="margin-top:12px"></div>
     </div>
+
     <div class="spaced card">
       <h3>Рамки (все платные; 2 — VIP-only)</h3>
       <div id="framesGrid" class="grid cols-4 spaced" style="margin-top:12px"></div>
     </div>
+
     <div class="spaced card">
       <h3>Свечения</h3>
       <div id="glowsGrid" class="grid cols-4 spaced" style="margin-top:12px"></div>
     </div>
+
     <div class="spaced card">
-      <h3>Приколюхи</h3>
-      <div id="itemsGrid" class="grid cols-4 spaced" style="margin-top:12px"></div>
+      <h3>Эффекты профиля</h3>
+      <div id="effectsGrid" class="grid cols-3 spaced" style="margin-top:12px"></div>
     </div>
   </section>
 
   <!-- PROFILE -->
   <section id="page-profile" class="panel spaced" style="display:none">
     <h2 style="margin:0">Профиль</h2>
-    <div class="profile-top spaced" style="display:flex;gap:18px;align-items:center">
-      <div style="display:flex;flex-direction:column;align-items:center">
+
+    <div class="profile-top spaced" id="profileTop">
+      <!-- индивидуальный снегопад профиля -->
+      <canvas id="profileSnow" class="profile-snow-canvas" style="display:none"></canvas>
+
+      <div class="avatar-zone">
         <div class="avatar-wrap" id="avatarWrap">
           <div class="avatar-inner"><img id="avatarImg" src="https://i.pravatar.cc/400?img=12" alt="avatar"></div>
-          <!-- overlays rendered dynamically -->
+          <!-- overlays will be injected -->
         </div>
         <div style="margin-top:10px;font-weight:800" id="displayName">Player</div>
         <div id="vipBadge" style="margin-top:8px"></div>
@@ -239,16 +255,16 @@ body{
           </div>
           <div style="width:60%">
             <div class="hint">Прогресс до следующего уровня</div>
-            <div style="height:12px;background:rgba(255,255,255,0.06);border-radius:8px;margin-top:6px;overflow:hidden">
+            <div style="height:12px;background:rgba(255,255,255,0.08);border-radius:8px;margin-top:6px;overflow:hidden">
               <div id="uiXPbar" style="height:100%;background:linear-gradient(90deg,var(--neon1),var(--neon2));width:0%"></div>
             </div>
             <div style="margin-top:6px" class="hint" id="uiXPtext">0 / 1000 XP</div>
           </div>
         </div>
 
-        <div style="margin-top:12px;display:flex;gap:8px;align-items:center">
+        <div style="margin-top:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
           <div class="hint">Монеты:</div><div style="font-weight:900" id="uiCoins">0</div>
-          <div class="hint" style="margin-left:12px">🎟 Билеты:</div><div style="font-weight:900" id="uiTickets">0</div>
+          <div class="hint">🎟 Билеты:</div><div style="font-weight:900" id="uiTickets">0</div>
           <div style="margin-left:auto">
             <button class="btn ghost" onclick="openProfileEditor()">Редактировать</button>
             <button class="btn primary" onclick="awardDemoXP()">+XP demo</button>
@@ -264,11 +280,12 @@ body{
 
     <div style="margin-top:12px" class="card">
       <h3 style="margin:0">Управление украшениями</h3>
-      <div class="hint" style="margin-top:8px">Можно выбрать либо рамку, либо свечение (одновременно нельзя)</div>
-      <div style="display:flex;gap:8px;margin-top:12px">
+      <div class="hint" style="margin-top:8px">Выбери — рамку или свечение. Нельзя применить оба одновременно.</div>
+      <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
         <button class="btn ghost" onclick="unequipAll()">Снять всё</button>
         <button class="btn ghost" onclick="openFramesInShop()">Открыть рамки</button>
         <button class="btn ghost" onclick="openGlowsInShop()">Открыть свечения</button>
+        <button class="btn ghost" onclick="toggleProfileSnow()">Вкл/Выкл снег в профиле</button>
       </div>
     </div>
   </section>
@@ -297,14 +314,45 @@ body{
     </div>
   </section>
 
-  <div style="height:36px"></div>
+  <!-- WHEEL -->
+  <section id="page-wheel" class="panel spaced" style="display:none">
+    <h2 style="margin:0">Колесо везения</h2>
+    <div class="hint">Одно вращение: 499 ₽ (демо) или 1 билет.</div>
+
+    <div id="wheelWrapper" class="spaced">
+      <div style="position:relative">
+        <canvas id="wheel" width="480" height="480"></canvas>
+        <div class="pointer"></div>
+        <div class="garland" id="garland"></div>
+      </div>
+
+      <div style="min-width:280px" class="card">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+          <div class="card" style="padding:6px 10px">🎟 Билеты: <b id="wheelTickets">0</b></div>
+          <button class="btn primary" id="spinBtn">Вращать (499 ₽ / 1 билет)</button>
+        </div>
+        <div id="wheelResult" class="spaced"></div>
+        <div class="spaced">
+          <h4 style="margin:0">Призы:</h4>
+          <ul class="hint" style="margin:6px 0 0 18px">
+            <li>+100 монет</li><li>+250 монет</li><li>+500 монет</li>
+            <li>+700 XP</li><li>+1200 XP</li><li>🎟 +1 билет</li>
+            <li>Украшение: рамка (случ.)</li><li>Украшение: свечение (случ.)</li>
+            <li>VIP 1 месяц</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div style="height:40px"></div>
 </div>
 
 <div id="notif"></div>
 
-<!-- Profile editor modal -->
+<!-- PROFILE EDITOR -->
 <dialog id="profileModal" style="border:none;border-radius:10px;padding:0">
-  <div style="width:min(800px,96vw);background:rgba(255,255,255,0.02);padding:16px;border-radius:10px">
+  <div style="width:min(800px,96vw);background:rgba(255,255,255,0.03);padding:16px;border-radius:10px">
     <div style="display:flex;justify-content:space-between;align-items:center">
       <h3>Редактирование профиля</h3>
       <button onclick="document.getElementById('profileModal').close()" style="background:none;border:0;color:var(--muted);cursor:pointer">✕</button>
@@ -313,7 +361,7 @@ body{
       <div style="flex:0 0 140px"><img id="editorPreview" src="" style="width:140px;height:140px;border-radius:10px;object-fit:cover"></div>
       <div style="flex:1">
         <label class="hint">Ник</label>
-        <input id="editorNick" style="width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--text)"/>
+        <input id="editorNick" style="width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.09);background:transparent;color:var(--text)"/>
         <label class="hint" style="margin-top:8px">Загрузить аватар</label>
         <input id="editorAvatar" type="file" />
         <div style="margin-top:12px;display:flex;gap:8px">
@@ -325,332 +373,513 @@ body{
   </div>
 </dialog>
 
-<!-- confetti canvas -->
+<!-- Confetti -->
 <canvas id="confetti" style="position:fixed;left:0;top:0;pointer-events:none;z-index:9999"></canvas>
 
 <script>
-/* ====== state ====== */
-const STORAGE='gameloaders_mega_v4';
-let state={
+/* =========================================================
+   State & persistence
+   ========================================================= */
+const STORAGE = 'gameloaders_mega_v4';
+const XP_PER_LEVEL = 1000, MAX_LEVEL=100;
+
+let state = {
   nick:'Player',
   avatar:'https://i.pravatar.cc/400?img=12',
   coins:1000,
   xp:0,
   vip:false,
   vipLevel:null,
-  tickets:0,                 // 🎟 билеты для колеса
+  tickets:0,
   ownedFrames:[],
   ownedGlows:[],
-  applied:{type:null,id:null},
-  chat:[]
+  ownedEffects:[], // например: 'profile-snow'
+  applied:{type:null,id:null}, // frame | glow
+  chat:[],
+  stats:{downloads:0, users:1}
 };
-const XP_PER_LEVEL=1000, MAX_LEVEL=100;
 
-/* ====== helpers ====== */
-const $=id=>document.getElementById(id);
-function notify(msg,t=2200){const n=$('notif');n.textContent=msg;n.style.opacity=1;n.style.transform='translateY(0)';setTimeout(()=>{n.style.opacity=0;n.style.transform='translateY(12px)'},t)}
-function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
-function xpToLevel(xp){return clamp(Math.floor(xp/XP_PER_LEVEL)+1,1,MAX_LEVEL)}
-function addXP(a){if(state.xp>=MAX_LEVEL*XP_PER_LEVEL)return;const p=xpToLevel(state.xp);state.xp=clamp(state.xp+a,0,MAX_LEVEL*XP_PER_LEVEL);const n=xpToLevel(state.xp);if(n>p){notify(`🎉 Level Up — ${n}`,3000);launchConfetti()}saveState()}
-function saveState(){localStorage.setItem(STORAGE,JSON.stringify(state));renderAll()}
-function loadState(){try{const s=JSON.parse(localStorage.getItem(STORAGE));if(s)state=Object.assign(state,s)}catch(e){}}
+function loadState(){ try{ const s = JSON.parse(localStorage.getItem(STORAGE)); if(s) state = Object.assign(state, s);}catch(e){} }
+function saveState(){ localStorage.setItem(STORAGE, JSON.stringify(state)); renderAll(); }
 
-/* ====== Data ====== */
-/* ваши ссылки на рамки (все платные, 2 — VIP) */
-const FRAMES=[
-  {id:'f1', title:'LoL Ice Frame', price:350, vipOnly:false, url:'https://wallpapers.com/images/hd/leagueof-legends-ice-themed-icon-lbz9rlqcojud9fo5.png'},
-  {id:'f2', title:'LoL Icon Frame', price:420, vipOnly:false, url:'https://i2.wp.com/www.seekpng.com/png/full/155-1551417_league-of-legends-icon-png.png'},
-  {id:'f3', title:'Imgur Neon Frame', price:380, vipOnly:false, url:'https://i.imgur.com/V7HiEOp.png'},
-  {id:'f4', title:'Design VIP Gold', price:0, vipOnly:true, url:'https://en.idei.club/uploads/posts/2023-06/1687020123_en-idei-club-p-border-avatar-dizain-krasivo-3.png'},
-  {id:'f5', title:'Design VIP Royal', price:0, vipOnly:true, url:'https://en.idei.club/uploads/posts/2023-06/1687020123_en-idei-club-p-border-avatar-dizain-krasivo-3.png'}
+/* =========================================================
+   Helpers & UI
+   ========================================================= */
+const $ = id => document.getElementById(id);
+const clamp = (v,a,b)=>Math.max(a,Math.min(b,v));
+function notify(msg,t=2200){ const n=$('notif'); n.textContent=msg; n.style.opacity=1; n.style.transform='translateY(0)'; setTimeout(()=>{ n.style.opacity=0; n.style.transform='translateY(12px)'; }, t); }
+function xpToLevel(xp){ return clamp(Math.floor(xp/XP_PER_LEVEL)+1,1,MAX_LEVEL); }
+function addXP(amount){ if(state.xp>=MAX_LEVEL*XP_PER_LEVEL) return; const prev=xpToLevel(state.xp); state.xp=clamp(state.xp+amount,0,MAX_LEVEL*XP_PER_LEVEL); const now=xpToLevel(state.xp); if(now>prev){ notify('🎉 Level Up — '+now,3000); launchConfetti(); } saveState(); }
+function escapeHtml(s){ return (s+'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+/* =========================================================
+   Catalog data
+   ========================================================= */
+const FRAMES = [
+  // ссылки с ваших примеров + запасные
+  {id:'f1', title:'Ice (LoL style)', price:150, vipOnly:false, url:'https://wallpapers.com/images/hd/leagueof-legends-ice-themed-icon-lbz9rlqcojud9fo5.png'},
+  {id:'f2', title:'LoL Icon Ring', price:220, vipOnly:false, url:'https://i2.wp.com/www.seekpng.com/png/full/155-1551417_league-of-legends-icon-png.png'},
+  {id:'f3', title:'Neon Circle', price:300, vipOnly:false, url:'https://i.imgur.com/V7HiEOp.png'},
+  {id:'f4', title:'VIP - Gold Spiral', price:0, vipOnly:true, url:'https://i.imgur.com/6zq4O8y.png'},
+  {id:'f5', title:'VIP - Royal Crest', price:0, vipOnly:true, url:'https://i.imgur.com/3Xq1GkN.png'},
 ];
-// дополнительно несколько заглушек
-for(let i=6;i<=16;i++){FRAMES.push({id:'f'+i,title:'Frame #'+i,price:120+(i*17)%500,vipOnly:(i%9===0),url:`https://picsum.photos/seed/frame${i}/256/256`})}
+for(let i=6;i<=26;i++){
+  FRAMES.push({id:'f'+i,title:'Frame #'+i,price:80+((i*17)%420),vipOnly:(i%11===0),url:`https://picsum.photos/seed/frame${i}/300/300`});
+}
 
-const GLOWS=[
-  {id:'g1',title:'🔥 Fire',price:500,cls:'glow-fire'},
-  {id:'g2',title:'💧 Water',price:500,cls:'glow-water'},
-  {id:'g3',title:'🌈 Rainbow',price:1000,cls:'glow-rainbow'},
-  {id:'g4',title:'⭐ Soft Glow',price:200,cls:'glow-basic'}
+const GLOWS = [
+  {id:'g1', title:'🔥 Fire', price:500, cls:'glow-fire'},
+  {id:'g2', title:'💧 Water', price:500, cls:'glow-water'},
+  {id:'g3', title:'🌈 Rainbow', price:1000, cls:'glow-rainbow'},
+  {id:'g4', title:'⭐ Soft Glow', price:200, cls:'glow-basic'}
 ];
-for(let i=5;i<=14;i++){GLOWS.push({id:'g'+i,title:`Glow FX ${i}`,price:100+(i*37)%800,cls:(i%2?'glow-basic':'glow-rainbow')})}
+for(let i=5;i<=16;i++){
+  GLOWS.push({id:'g'+i,title:`Glow FX ${i}`,price:100+((i*37)%700),cls:(i%2?'glow-basic':'glow-rainbow')});
+}
 
-const COIN_PACKS=[
-  {id:'c1',coins:100,price:99},
-  {id:'c2',coins:250,price:199},
-  {id:'c3',coins:500,price:349},
-  {id:'c4',coins:1000,price:599},
-  {id:'c5',coins:2500,price:1299},
-  {id:'c6',coins:5000,price:2399}
+const EFFECTS = [
+  {id:'profile-snow', title:'Снег в профиле', price:400, desc:'Красивый снегопад на фоне профиля.'}
 ];
 
-const SHOP_ITEMS=[];
-for(let i=1;i<=24;i++){SHOP_ITEMS.push({id:'it'+i,title:`Charm #${i}`,price:25+(i*7)%400,vipOnly:(i%7===0),desc:`Cosmetic ${i}`})}
+const COIN_PACKS = [
+  {id:'c1', coins:100, price:99},
+  {id:'c2', coins:250, price:199},
+  {id:'c3', coins:500, price:349},
+  {id:'c4', coins:1000, price:599},
+  {id:'c5', coins:2500, price:1299},
+  {id:'c6', coins:5000, price:2399}
+];
 
-const GAMES=['Apex Legends','Fortnite','Minecraft','CS:GO','Rust','GTA V','Valorant','Overwatch','LoL','Dota2'];
-const LOADERS=[];
-GAMES.forEach((g,idx)=>{LOADERS.push({id:`free-${idx}`,name:`${g} — Free Loader`,game:g,type:'free'});LOADERS.push({id:`pro-${idx}`,name:`${g} — Pro Loader`,game:g,type:'pro',price:129+idx*30});LOADERS.push({id:`vip-${idx}`,name:`${g} — VIP Loader`,game:g,type:'vip'})});
+const GAMES = ['Apex Legends','Fortnite','Minecraft','CS:GO','Rust','GTA V','Valorant','Overwatch','LoL','Dota2','Elden Ring','Skyrim','Terraria','Sea of Thieves'];
+const LOADERS = [];
+GAMES.forEach((g,idx)=>{
+  LOADERS.push({id:`free-${idx}`,name:`${g} — Free Loader`,game:g,type:'free'});
+  LOADERS.push({id:`pro-${idx}`,name:`${g} — Pro Loader`,game:g,type:'pro',price:129+idx*30});
+  LOADERS.push({id:`vip-${idx}`,name:`${g} — VIP Loader`,game:g,type:'vip'});
+});
 
-/* ====== render ====== */
+/* =========================================================
+   Rendering
+   ========================================================= */
 function renderAll(){
-  $('statCoins').textContent=`${state.coins} 💰`;
-  $('statTickets').textContent=`🎟 ${state.tickets}`;
-  $('ticketCount').textContent=state.tickets;
-  $('statLevel').textContent=`Lvl ${xpToLevel(state.xp)}`;
-  $('displayName').textContent=state.nick;
-  $('avatarImg').src=state.avatar;
-  $('uiCoins').textContent=state.coins;
-  $('uiTickets').textContent=state.tickets;
-  $('uiLevel').textContent=xpToLevel(state.xp);
-  const cur=state.xp%XP_PER_LEVEL;$('uiXPbar').style.width=(cur/XP_PER_LEVEL*100)+'%';$('uiXPtext').textContent=`${cur} / ${XP_PER_LEVEL} XP`;
+  $('statCoins').textContent = `${state.coins} 💰`;
+  $('statLevel').textContent = `Lvl ${xpToLevel(state.xp)}`;
+  $('statTickets').textContent = `🎟 ${state.tickets}`;
+  $('wheelTickets').textContent = state.tickets;
+
+  // profile
+  $('displayName').textContent = state.nick;
+  $('avatarImg').src = state.avatar;
+  $('uiCoins').textContent = state.coins;
+  $('uiTickets').textContent = state.tickets;
+  $('uiLevel').textContent = xpToLevel(state.xp);
+  const cur = state.xp % XP_PER_LEVEL;
+  $('uiXPbar').style.width = (cur/XP_PER_LEVEL*100) + '%';
+  $('uiXPtext').textContent = `${cur} / ${XP_PER_LEVEL} XP`;
 
   // VIP badge
-  const vb=$('vipBadge');vb.innerHTML='';
-  if(state.vip){const d=document.createElement('div');d.className='vip-badge';d.textContent=state.vipLevel==='lifetime'?'VIP · Forever':'VIP';vb.appendChild(d)}else{vb.innerHTML='<div class="hint">Нет VIP</div>'}
+  const vb = $('vipBadge'); vb.innerHTML='';
+  if(state.vip){
+    const d=document.createElement('div'); d.className='vip-badge';
+    d.textContent = state.vipLevel==='lifetime' ? 'VIP · Forever' : (state.vipLevel==='year' ? 'VIP · Year' : 'VIP · Month');
+    vb.appendChild(d);
+  }else vb.innerHTML='<div class="hint">Нет VIP</div>';
 
   // owned list
-  const ol=$('ownedList');ol.innerHTML='';
-  state.ownedFrames.forEach(fid=>{const f=FRAMES.find(x=>x.id===fid);if(!f)return;const el=document.createElement('div');el.className='card';el.style.padding='8px';el.innerHTML=`<div style="font-weight:800">${escapeHtml(f.title)}</div><div class="hint">${f.vipOnly?'VIP only':f.price+' монет'}</div><div style="margin-top:8px"><button class="btn ghost" onclick="applyFrame('${f.id}')">Применить</button></div>`;ol.appendChild(el)});
-  state.ownedGlows.forEach(gid=>{const g=GLOWS.find(x=>x.id===gid);if(!g)return;const el=document.createElement('div');el.className='card';el.style.padding='8px';el.innerHTML=`<div style="font-weight:800">${escapeHtml(g.title)}</div><div class="hint">${g.price} монет</div><div style="margin-top:8px"><button class="btn ghost" onclick="applyGlow('${g.id}')">Применить</button></div>`;ol.appendChild(el)});
+  const ol=$('ownedList'); ol.innerHTML='';
+  state.ownedFrames.forEach(fid=>{
+    const f=FRAMES.find(x=>x.id===fid); if(!f) return;
+    const el=document.createElement('div'); el.className='card'; el.style.padding='8px';
+    el.innerHTML=`<div style="font-weight:800">${escapeHtml(f.title)}</div><div class="hint">${f.vipOnly?'VIP only':f.price+' монет'}</div><div style="margin-top:8px"><button class="btn ghost" onclick="applyFrame('${f.id}')">Применить</button></div>`;
+    ol.appendChild(el);
+  });
+  state.ownedGlows.forEach(gid=>{
+    const g=GLOWS.find(x=>x.id===gid); if(!g) return;
+    const el=document.createElement('div'); el.className='card'; el.style.padding='8px';
+    el.innerHTML=`<div style="font-weight:800">${escapeHtml(g.title)}</div><div class="hint">${g.price} монет</div><div style="margin-top:8px"><button class="btn ghost" onclick="applyGlow('${g.id}')">Применить</button></div>`;
+    ol.appendChild(el);
+  });
+  state.ownedEffects.forEach(eid=>{
+    const e=EFFECTS.find(x=>x.id===eid); if(!e) return;
+    const el=document.createElement('div'); el.className='card'; el.style.padding='8px';
+    el.innerHTML=`<div style="font-weight:800">${escapeHtml(e.title)}</div><div class="hint">${e.price} монет</div>`;
+    ol.appendChild(el);
+  });
 
   renderApplied();
   renderChat();
 
   if(!window._renderedOnce){
-    renderCoinPacks();renderFramesGrid();renderGlowsGrid();renderShopItems();renderLoaders();populateFilters();buildWheel();listPrizes();
-    window._renderedOnce=true;
+    populateFilters();
+    renderLoaders(); renderCoinPacks();
+    renderFramesGrid(); renderGlowsGrid(); renderEffectsGrid();
+    setupWheel(); createGarland();
+    window._renderedOnce = true;
   }
-  localStorage.setItem(STORAGE,JSON.stringify(state));
 }
 
-/* frames / glows / items / coin packs */
-function renderCoinPacks(){
-  const parent=$('coinPacks');parent.innerHTML='';
-  COIN_PACKS.forEach(p=>{
-    const el=document.createElement('div');el.className='card';
-    el.innerHTML=`<div style="font-weight:900">${p.coins} монет</div><div class="hint">${p.price} ₽</div>`;
-    const b=document.createElement('button');b.className='btn primary';b.textContent='Купить';
-    b.onclick=()=>{state.coins+=p.coins;addXP(Math.round(p.coins/5));notify(`Куплено ${p.coins} монет (+${Math.round(p.coins/5)} XP)`);saveState()};
-    el.appendChild(b);parent.appendChild(el);
-  });
-}
+/* Frames grid */
 function renderFramesGrid(){
-  const parent=$('framesGrid');parent.innerHTML='';
+  const parent=$('framesGrid'); parent.innerHTML='';
   FRAMES.forEach(f=>{
-    const el=document.createElement('div');el.className='card';
-    el.innerHTML=`<div style="height:110px;display:flex;align-items:center;justify-content:center"><img src="${f.url}" onerror="this.style.opacity=0.5" style="max-width:100%;max-height:100%;border-radius:8px"/></div>
-      <div style="font-weight:800;margin-top:8px">${escapeHtml(f.title)}</div>
-      <div class="hint">${f.vipOnly?'VIP only':f.price+' монет'}</div>`;
-    el.addEventListener('click',()=>{
-      if(f.vipOnly && !state.vip){notify('Рамка доступна только VIP');goTo('vip');return}
+    const el=document.createElement('div'); el.className='card';
+    el.innerHTML=`<div style="height:130px;display:flex;align-items:center;justify-content:center">
+      <img src="${f.url}" onerror="this.style.opacity=.5" style="max-width:100%;max-height:100%"/>
+    </div>
+    <div style="font-weight:800;margin-top:8px">${escapeHtml(f.title)}</div>
+    <div class="hint">${f.vipOnly? 'VIP only' : f.price + ' монет'}</div>`;
+    el.addEventListener('click', ()=>{
+      if(f.vipOnly && !state.vip){ notify('Рамка доступна только VIP'); goTo('vip'); return; }
       if(!state.ownedFrames.includes(f.id)){
         if(!f.vipOnly){
-          if(state.coins<f.price){notify('Недостаточно монет');return}
-          state.coins-=f.price;state.ownedFrames.push(f.id);addXP(Math.round(f.price/2));notify('Рамка куплена: '+f.title);saveState();
-        }else{state.ownedFrames.push(f.id);notify('Рамка добавлена (VIP)');saveState()}
-      }else{state.applied={type:'frame',id:f.id};notify('Рамка применена: '+f.title);saveState()}
+          if(state.coins < f.price){ notify('Недостаточно монет'); return; }
+          state.coins -= f.price; state.ownedFrames.push(f.id); addXP(Math.round(f.price/2));
+          notify('Рамка куплена: '+f.title); saveState();
+        } else { state.ownedFrames.push(f.id); notify('Рамка добавлена (VIP)'); saveState(); }
+      } else { state.applied = {type:'frame', id:f.id}; notify('Рамка применена: '+f.title); saveState(); }
     });
-    if(state.ownedFrames.includes(f.id)){const tag=document.createElement('div');tag.className='hint';tag.style.marginTop='6px';tag.textContent='Куплено';el.appendChild(tag)}
+    if(state.ownedFrames.includes(f.id)){ const tag = document.createElement('div'); tag.className='hint'; tag.style.marginTop='6px'; tag.textContent='Куплено'; el.appendChild(tag); }
     parent.appendChild(el);
   });
 }
+
+/* Glows grid */
 function renderGlowsGrid(){
-  const parent=$('glowsGrid');parent.innerHTML='';
+  const parent=$('glowsGrid'); parent.innerHTML='';
   GLOWS.forEach(g=>{
-    const el=document.createElement('div');el.className='card';
+    const el=document.createElement('div'); el.className='card';
     el.innerHTML=`<div style="height:86px;display:flex;align-items:center;justify-content:center;font-weight:900">${escapeHtml(g.title)}</div>
       <div class="hint">${g.price} монет</div>`;
-    el.addEventListener('click',()=>{
+    el.addEventListener('click', ()=>{
       if(!state.ownedGlows.includes(g.id)){
-        if(state.coins<g.price){notify('Недостаточно монет');return}
-        state.coins-=g.price;state.ownedGlows.push(g.id);addXP(Math.round(g.price/3));notify('Куплено свечение: '+g.title);saveState();
-      }else{state.applied={type:'glow',id:g.id};notify('Свечение применено: '+g.title);saveState()}
+        if(state.coins < g.price){ notify('Недостаточно монет'); return; }
+        state.coins -= g.price; state.ownedGlows.push(g.id); addXP(Math.round(g.price/3));
+        notify('Куплено свечение: '+g.title); saveState();
+      } else { state.applied={type:'glow',id:g.id}; notify('Свечение применено: '+g.title); saveState(); }
     });
-    if(state.ownedGlows.includes(g.id)){const tag=document.createElement('div');tag.className='hint';tag.style.marginTop='6px';tag.textContent='Куплено';el.appendChild(tag)}
+    if(state.ownedGlows.includes(g.id)){ const tag=document.createElement('div'); tag.className='hint'; tag.style.marginTop='6px'; tag.textContent='Куплено'; el.appendChild(tag); }
     parent.appendChild(el);
   });
 }
-function renderShopItems(){
-  const parent=$('itemsGrid');parent.innerHTML='';
-  SHOP_ITEMS.forEach(it=>{
-    const el=document.createElement('div');el.className='card';
-    el.innerHTML=`<div style="height:86px;display:flex;align-items:center;justify-content:center;font-weight:900">${escapeHtml(it.title)}</div>
-      <div class="hint">${escapeHtml(it.desc)}</div>
-      <div style="display:flex;gap:8px;margin-top:8px;align-items:center"><div style="flex:1;color:var(--muted)">${it.price} монет ${it.vipOnly?'(VIP)':''}</div></div>`;
-    const btn=document.createElement('button');btn.className='btn primary';btn.textContent=it.vipOnly?'VIP':'Купить';
-    btn.onclick=()=>{if(it.vipOnly && !state.vip){notify('Требуется VIP');goTo('vip');return}
-      if(state.coins<it.price){notify('Недостаточно монет');return}
-      state.coins-=it.price;addXP(Math.round(it.price/2));state.ownedItems=state.ownedItems||[];state.ownedItems.push(it.id);notify('Куплено: '+it.title);saveState()};
-    el.querySelector('div').appendChild(btn);parent.appendChild(el);
+
+/* Effects grid */
+function renderEffectsGrid(){
+  const parent=$('effectsGrid'); parent.innerHTML='';
+  EFFECTS.forEach(e=>{
+    const el=document.createElement('div'); el.className='card';
+    el.innerHTML=`<div style="font-weight:900">${escapeHtml(e.title)}</div><div class="hint">${escapeHtml(e.desc)}</div><div class="hint" style="margin-top:6px">${e.price} монет</div>`;
+    el.addEventListener('click', ()=>{
+      if(!state.ownedEffects.includes(e.id)){
+        if(state.coins < e.price){ notify('Недостаточно монет'); return; }
+        state.coins -= e.price; state.ownedEffects.push(e.id); addXP(Math.round(e.price/2));
+        notify('Куплено: '+e.title); saveState();
+      } else {
+        if(e.id==='profile-snow'){ toggleProfileSnow(true); notify('Снег в профиле включён'); }
+      }
+    });
+    if(state.ownedEffects.includes(e.id)){ const tag=document.createElement('div'); tag.className='hint'; tag.style.marginTop='6px'; tag.textContent='Куплено'; el.appendChild(tag); }
+    parent.appendChild(el);
   });
 }
 
-/* loaders */
+/* Coin packs */
+function renderCoinPacks(){
+  const parent=$('coinPacks'); parent.innerHTML='';
+  COIN_PACKS.forEach(p=>{
+    const el=document.createElement('div'); el.className='card';
+    el.innerHTML=`<div style="font-weight:900">${p.coins} монет</div><div class="hint">${p.price} ₽</div>`;
+    const b=document.createElement('button'); b.className='btn primary'; b.textContent='Купить';
+    b.onclick=()=>{ state.coins+=p.coins; addXP(Math.round(p.coins/5)); notify(`Куплено ${p.coins} монет (+${Math.round(p.coins/5)} XP)`); saveState(); };
+    el.appendChild(b); parent.appendChild(el);
+  });
+}
+
+/* Loaders */
 function renderLoaders(){
-  const parent=$('loadersGrid');parent.innerHTML='';
-  const ft=$('filterType').value, fg=$('filterGame').value;
-  LOADERS.filter(l=>(ft==='all'||l.type===ft)&&(fg==='all'||!fg||l.game===fg)).forEach(l=>{
-    const el=document.createElement('div');el.className='card';
-    el.innerHTML=`<div class="hint">${escapeHtml(l.game)}</div><div style="font-weight:900;margin-top:6px">${escapeHtml(l.name)}</div><div class="hint" style="margin-top:8px">${l.type==='free'?'Бесплатный':l.type==='pro'?'Платный '+l.price+'₽':'Только VIP'}</div>`;
-    const ctrl=document.createElement('div');ctrl.style.marginTop='10px';
-    if(l.type==='free'){const b=document.createElement('button');b.className='btn primary';b.textContent='Скачать';b.onclick=()=>{addXP(50);notify('Скачано (демо) +50 XP');saveState()};ctrl.appendChild(b)}
-    else if(l.type==='pro'){const b=document.createElement('button');b.className='btn primary';b.textContent=`Купить ${l.price}₽`;b.onclick=()=>{addXP(300);notify('Куплен Pro (демо) +300 XP');saveState()};ctrl.appendChild(b)}
-    else{const b=document.createElement('button');b.className='btn primary';b.textContent='Только VIP';b.onclick=()=>{if(state.vip){addXP(100);notify('VIP загрузка +100 XP');saveState()}else{notify('Нужен VIP');goTo('vip')}};ctrl.appendChild(b)}
-    el.appendChild(ctrl);parent.appendChild(el);
+  const parent=$('loadersGrid'); parent.innerHTML='';
+  const t=$('filterType').value, g=$('filterGame').value;
+  LOADERS.filter(l=>{
+    if(t!=='all' && l.type!==t) return false;
+    if(g && g!=='all' && l.game!==g) return false;
+    return true;
+  }).forEach(l=>{
+    const el=document.createElement('div'); el.className='card';
+    el.innerHTML=`<div class="hint">${escapeHtml(l.game)}</div>
+      <div style="font-weight:900;margin-top:6px">${escapeHtml(l.name)}</div>
+      <div class="hint" style="margin-top:8px">${l.type==='free'?'Бесплатный':l.type==='pro'?'Платный '+l.price+'₽':'Только VIP'}</div>`;
+    const ctrl=document.createElement('div'); ctrl.style.marginTop='10px';
+    if(l.type==='free'){
+      const b=document.createElement('button'); b.className='btn primary'; b.textContent='Скачать';
+      b.onclick=()=>{ state.stats.downloads++; addXP(50); notify('Скачано (демо) +50 XP'); saveState(); };
+      ctrl.appendChild(b);
+    }else if(l.type==='pro'){
+      const b=document.createElement('button'); b.className='btn primary'; b.textContent=`Купить ${l.price}₽`;
+      b.onclick=()=>{ addXP(300); notify('Куплен Pro (демо) +300 XP'); saveState(); };
+      ctrl.appendChild(b);
+    }else{
+      const b=document.createElement('button'); b.className='btn primary'; b.textContent='Только VIP';
+      b.onclick=()=>{ if(state.vip){ state.stats.downloads++; addXP(100); notify('VIP загрузка +100 XP'); saveState(); } else { notify('Нужен VIP'); goTo('vip'); } };
+      ctrl.appendChild(b);
+    }
+    el.appendChild(ctrl); parent.appendChild(el);
   });
 }
+
 function populateFilters(){
-  const sel=$('filterGame');sel.innerHTML='<option value="all">Все игры</option>';GAMES.forEach(g=>{const o=document.createElement('option');o.value=g;o.textContent=g;sel.appendChild(o)});
-  $('filterType').value='all';$('filterGame').value='all';$('filterType').addEventListener('change',renderLoaders);$('filterGame').addEventListener('change',renderLoaders);
+  const sel=$('filterGame'); sel.innerHTML='<option value="all">Все игры</option>'; GAMES.forEach(g=>{ const o=document.createElement('option'); o.value=g; o.textContent=g; sel.appendChild(o); });
+  $('filterType').value='all'; $('filterGame').value='all';
+  $('filterType').addEventListener('change', renderLoaders);
+  $('filterGame').addEventListener('change', renderLoaders);
 }
 
-/* applied visuals */
-function clearOverlays(){document.querySelectorAll('.frame-overlay,.glow-class').forEach(e=>e.remove());$('avatarWrap').classList.remove(...GLOWS.map(g=>g.cls))}
+/* =========================================================
+   Apply decorations (frames & glows)
+   ========================================================= */
+function clearOverlays(){
+  const f=document.querySelector('.frame-overlay'); if(f) f.remove();
+  const g=document.querySelector('.glow-class'); if(g) g.remove();
+  $('avatarWrap').classList.remove(...GLOWS.map(x=>x.cls));
+}
 function renderApplied(){
   clearOverlays();
   const wrap=$('avatarWrap');
   if(state.applied && state.applied.type==='frame'){
-    const f=FRAMES.find(x=>x.id===state.applied.id);if(f){const img=document.createElement('img');img.className='frame-overlay';img.src=f.url;img.onerror=()=>img.style.opacity=.5;wrap.appendChild(img)}
+    const f=FRAMES.find(x=>x.id===state.applied.id);
+    if(f){ const img=document.createElement('img'); img.className='frame-overlay'; img.src=f.url; wrap.appendChild(img); }
   }else if(state.applied && state.applied.type==='glow'){
-    const g=GLOWS.find(x=>x.id===state.applied.id);if(g){const div=document.createElement('div');div.className='glow-class '+g.cls;wrap.appendChild(div)}
+    const g=GLOWS.find(x=>x.id===state.applied.id);
+    if(g){ const div=document.createElement('div'); div.className='glow-class '+g.cls; wrap.appendChild(div); }
   }
 }
-function applyFrame(fid){if(!state.ownedFrames.includes(fid)){notify('Нет этой рамки');return}state.applied={type:'frame',id:fid};saveState();notify('Рамка применена')}
-function applyGlow(gid){if(!state.ownedGlows.includes(gid)){notify('Нет этого свечения');return}state.applied={type:'glow',id:gid};saveState();notify('Свечение применено')}
-function unequipAll(){state.applied={type:null,id:null};saveState();notify('Украшения сняты')}
+function applyFrame(fid){ if(!state.ownedFrames.includes(fid)){ notify('У тебя нет этой рамки'); return; } state.applied={type:'frame',id:fid}; saveState(); notify('Рамка применена'); }
+function applyGlow(gid){ if(!state.ownedGlows.includes(gid)){ notify('У тебя нет этого свечения'); return; } state.applied={type:'glow',id:gid}; saveState(); notify('Свечение применено'); }
+function unequipAll(){ state.applied={type:null,id:null}; saveState(); notify('Все украшения сняты'); }
+function openFramesInShop(){ goTo('shop'); setTimeout(()=>document.getElementById('framesGrid').scrollIntoView({behavior:'smooth'}),50); }
+function openGlowsInShop(){ goTo('shop'); setTimeout(()=>document.getElementById('glowsGrid').scrollIntoView({behavior:'smooth'}),50); }
 
-/* VIP */
-function buyVIP(level,price,ticketsBonus){
-  state.vip=true;state.vipLevel=level;addXP(5*XP_PER_LEVEL);
-  if(level==='month'){state.coins+=300}
-  else if(level==='year'){state.coins+=1000}
-  else if(level==='lifetime'){state.coins+=2500}
-  state.tickets+=ticketsBonus||0;
-  notify(`VIP оформлен — +5 уровней, +бонус монет и 🎟 +${ticketsBonus||0} билетов`);
+/* =========================================================
+   VIP purchase (demo)
+   ========================================================= */
+function buyVIP(level, price, tickets, coins, levels){
+  state.vip=true; state.vipLevel=level;
+  state.tickets += tickets;
+  state.coins += coins;
+  addXP(levels*XP_PER_LEVEL);
+  notify(`VIP оформлен (${level}). Билетов: +${tickets}, монеты: +${coins}, уровни: +${levels}.`);
   saveState();
 }
 
-/* ====== Колесо: логика ====== */
-const PRIZES=[
-  {label:'+100 монет', type:'coins', value:100, color:'#7c4dff'},
-  {label:'+250 XP', type:'xp', value:250, color:'#00d4ff'},
-  {label:'+300 монет', type:'coins', value:300, color:'#21d07a'},
-  {label:'🎟 +1 билет', type:'ticket', value:1, color:'#ffaa00'},
-  {label:'Рамка (случ.)', type:'frame', value:'random', color:'#ff4d6d'},
-  {label:'+500 монет', type:'coins', value:500, color:'#2dd4bf'},
-  {label:'Свечение (случ.)', type:'glow', value:'random', color:'#60a5fa'},
-  {label:'+700 XP', type:'xp', value:700, color:'#f59e0b'}
-];
-function buildWheel(){
-  const wheel=$('wheel');wheel.innerHTML='';
-  const n=PRIZES.length;
-  for(let i=0;i<n;i++){
-    const deg=360/n*i;
-    const slice=document.createElement('div');slice.className='slice';
-    slice.style.transform=`translate(-0%, -100%) rotate(${deg}deg)`;
-    slice.style.background=PRIZES[i].color;
-    const label=document.createElement('div');
-    label.style.position='absolute';label.style.left='50%';label.style.top='50%';
-    label.style.transform='translate(-10px,-90px) rotate(90deg)';label.style.transformOrigin='left top';
-    label.style.fontWeight='800';label.style.fontSize='12px';label.style.textShadow='0 1px 2px rgba(0,0,0,.6)';
-    label.textContent=PRIZES[i].label;
-    slice.appendChild(label);wheel.appendChild(slice);
-  }
-}
-function listPrizes(){
-  const ul=$('prizeList');ul.innerHTML='';
-  PRIZES.forEach(p=>{const li=document.createElement('li');li.textContent=p.label;ul.appendChild(li)});
-}
-let spinning=false;
-function spinWheel(){
-  if(spinning)return;
-  // списание билета / покупка
-  if(state.tickets>0){state.tickets--;saveState()}
-  else{
-    // демо-покупка «за 499 ₽»
-    if(!confirm('Купить одно вращение за 499 ₽? (демо)'))return;
-    // для демо просто ничего не списываем, но можно добавить XP
-    addXP(50);
-  }
-  spinning=true;
-  const wheel=$('wheel');
-  const n=PRIZES.length;
-  const targetIndex=Math.floor(Math.random()*n);
-  const baseRot=360*5; // 5 оборотов
-  const sliceAngle=360/n;
-  const targetAngle=baseRot + (360 - targetIndex*sliceAngle) - sliceAngle/2;
-  wheel.style.transition='transform 4s cubic-bezier(.17,.67,.32,1.26)';
-  wheel.style.transform=`rotate(${targetAngle}deg)`;
-  setTimeout(()=>{spinning=false;applyPrize(PRIZES[targetIndex]);wheel.style.transition='none';wheel.style.transform=`rotate(${(360 - targetIndex*sliceAngle) - sliceAngle/2}deg)`},4200);
-}
-function applyPrize(p){
-  let text='Вы выиграли: '+p.label+'!';
-  if(p.type==='coins'){state.coins+=p.value;addXP( Math.round(p.value/5) )}
-  if(p.type==='xp'){addXP(p.value)}
-  if(p.type==='ticket'){state.tickets+=p.value}
-  if(p.type==='frame'){
-    // случайная НЕ VIP рамка
-    const pool=FRAMES.filter(f=>!f.vipOnly);
-    if(pool.length){const f=pool[Math.floor(Math.random()*pool.length)];if(!state.ownedFrames.includes(f.id))state.ownedFrames.push(f.id);text += ` (получена ${f.title})`}
-  }
-  if(p.type==='glow'){
-    const g=GLOWS[Math.floor(Math.random()*GLOWS.length)];
-    if(!state.ownedGlows.includes(g.id))state.ownedGlows.push(g.id);
-    text += ` (получено ${g.title})`;
-  }
-  notify(text,3000);saveState();
-  const lp=$('lastPrize');lp.style.display='block';lp.innerHTML=`<b>${text}</b>`;
-}
-
-/* ====== Chat ====== */
+/* =========================================================
+   Chat
+   ========================================================= */
 function renderChat(){
-  const out=$('chatMessages');out.innerHTML='';
-  (state.chat||[]).slice(-500).forEach(m=>{
-    const div=document.createElement('div');div.className='chat-msg';
-    const t=new Date(m.t).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+  const out=$('chatMessages'); out.innerHTML='';
+  state.chat.slice(-500).forEach(m=>{
+    const div=document.createElement('div'); div.className='chat-msg';
+    const t=new Date(m.t).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
     div.innerHTML=`<div style="font-weight:700">${escapeHtml(m.nick)} <span style="font-weight:400;color:var(--muted);font-size:12px"> ${t}</span></div><div>${escapeHtml(m.msg)}</div>`;
     out.appendChild(div);
   });
-  out.scrollTop=out.scrollHeight;
+  out.scrollTop = out.scrollHeight;
 }
-function sendChat(){const inp=$('chatInput');const txt=inp.value.trim();if(!txt)return;state.chat.push({nick:state.nick,msg:txt,t:Date.now()});saveState();inp.value='';renderChat()}
-function clearChat(){state.chat=[];saveState();notify('Чат очищен')}
-function exportChat(){const blob=new Blob([JSON.stringify(state.chat,null,2)],{type:'application/json'});const u=URL.createObjectURL(blob);const a=document.createElement('a');a.href=u;a.download='chat_export.json';a.click();URL.revokeObjectURL(u)}
+function sendChat(){ const inp=$('chatInput'); const txt=inp.value.trim(); if(!txt) return; state.chat.push({nick:state.nick,msg:txt,t:Date.now()}); saveState(); inp.value=''; renderChat(); }
+function clearChat(){ state.chat=[]; saveState(); notify('Чат очищен'); }
+function exportChat(){ const blob=new Blob([JSON.stringify(state.chat,null,2)],{type:'application/json'}); const u=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=u; a.download='chat_export.json'; a.click(); URL.revokeObjectURL(u); }
 
-/* ====== Profile editor ====== */
-$('editorAvatar')&&$('editorAvatar').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{$('editorPreview').src=r.result};r.readAsDataURL(f)});
-function openProfileEditor(){$('editorPreview').src=state.avatar;$('editorNick').value=state.nick;document.getElementById('profileModal').showModal()}
-function saveProfileEdits(){const nv=$('editorNick').value.trim();if(nv)state.nick=nv;const preview=$('editorPreview').src;if(preview)state.avatar=preview;saveState();document.getElementById('profileModal').close();notify('Профиль обновлён')}
+/* =========================================================
+   Profile editor
+   ========================================================= */
+$('editorAvatar').addEventListener('change', e=>{
+  const f=e.target.files[0]; if(!f) return;
+  const r=new FileReader(); r.onload=()=>{ $('editorPreview').src=r.result; }; r.readAsDataURL(f);
+});
+function openProfileEditor(){ $('editorPreview').src=state.avatar; $('editorNick').value=state.nick; $('profileModal').showModal(); }
+function saveProfileEdits(){ const nv=$('editorNick').value.trim(); if(nv) state.nick=nv; const preview=$('editorPreview').src; if(preview) state.avatar=preview; saveState(); $('profileModal').close(); notify('Профиль обновлён'); }
 
-/* ====== Confetti ====== */
-const confettiCanvas=$('confetti');const ctx=confettiCanvas.getContext?confettiCanvas.getContext('2d'):null;let confetti=[]
-function resizeCanvas(){confettiCanvas.width=window.innerWidth;confettiCanvas.height=window.innerHeight}
-window.addEventListener('resize',resizeCanvas);resizeCanvas();
-function launchConfetti(){if(!ctx)return;for(let i=0;i<120;i++){confetti.push({x:Math.random()*confettiCanvas.width,y:-Math.random()*confettiCanvas.height,vx:(Math.random()-.5)*6,vy:2+Math.random()*6,s:4+Math.random()*8,c:['#ff4d4d','#ffd65b','#7c4dff','#00d4ff','#4dff88'][Math.floor(Math.random()*5)],r:Math.random()*360})}if(!window._confettiRunning){window._confettiRunning=true;requestAnimationFrame(confettiLoop)}}
-function confettiLoop(){ctx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height);confetti.forEach((p,i)=>{p.x+=p.vx;p.y+=p.vy;p.vy+=0.05;p.r+=p.vx;ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.r*Math.PI/180);ctx.fillStyle=p.c;ctx.fillRect(-p.s/2,-p.s/2,p.s,p.s);ctx.restore();if(p.y>confettiCanvas.height+50)confetti.splice(i,1)});if(confetti.length)requestAnimationFrame(confettiLoop);else window._confettiRunning=false}
+/* =========================================================
+   Wheel of Fortune (canvas + sound + garland)
+   ========================================================= */
+const wheelCanvas = $('wheel'); const wctx = wheelCanvas.getContext('2d');
+const radius = wheelCanvas.width/2;
+const wheelPrizes = [
+  {k:'coins100', label:'+100 монет', action:()=>{ state.coins+=100; }},
+  {k:'coins250', label:'+250 монет', action:()=>{ state.coins+=250; }},
+  {k:'coins500', label:'+500 монет', action:()=>{ state.coins+=500; }},
+  {k:'xp700',    label:'+700 XP',    action:()=>{ addXP(700); }},
+  {k:'xp1200',   label:'+1200 XP',   action:()=>{ addXP(1200); }},
+  {k:'ticket',   label:'🎟 +1 билет',action:()=>{ state.tickets+=1; }},
+  {k:'frame',    label:'Рамка (случ.)', action:()=>{ const pool=FRAMES.filter(f=>!f.vipOnly); const f=pool[Math.floor(Math.random()*pool.length)]; if(!state.ownedFrames.includes(f.id)) state.ownedFrames.push(f.id); }},
+  {k:'glow',     label:'Свечение (случ.)', action:()=>{ const g=GLOWS[Math.floor(Math.random()*GLOWS.length)]; if(!state.ownedGlows.includes(g.id)) state.ownedGlows.push(g.id); }},
+  {k:'vip1m',    label:'VIP 1 месяц', action:()=>{ state.vip=true; state.vipLevel = state.vipLevel || 'month'; state.tickets+=2; addXP(5*XP_PER_LEVEL); }}
+];
+const seg = Math.PI*2 / wheelPrizes.length;
+let wheelAngle=0, wheelSpeed=0, wheelSpinning=false;
+let tickAudio = new Audio("https://cdn.pixabay.com/download/audio/2022/03/10/audio_8e8eb1fe04.mp3?filename=mouse-click-153941.mp3");
 
-/* ====== Misc ====== */
-function escapeHtml(s){return (s+'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function goTo(tab){const map={buy:'page-buy',vip:'page-vip',wheel:'page-wheel',shop:'page-shop',profile:'page-profile',chat:'page-chat'};document.querySelectorAll('.tabbtn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('section[id^="page-"]').forEach(s=>s.style.display='none');document.getElementById('btn-'+tab).classList.add('active');document.getElementById(map[tab]).style.display='block'}
-function awardDemoXP(){addXP(200);notify('+200 XP');saveState()}
-function openFramesInShop(){goTo('shop');document.getElementById('framesGrid').scrollIntoView({behavior:'smooth'})}
-function openGlowsInShop(){goTo('shop');document.getElementById('glowsGrid').scrollIntoView({behavior:'smooth'})}
-function giftTicket(){state.tickets++;saveState();notify('🎟 Получен билет (демо)')}
+function drawWheel(rot=0){
+  wctx.clearRect(0,0,wheelCanvas.width,wheelCanvas.height);
+  for(let i=0;i<wheelPrizes.length;i++){
+    const start = i*seg + rot;
+    wctx.beginPath();
+    // новогодняя палитра
+    const colors = ['#ff4d4d','#ffd24d','#4dff88','#4da6ff','#b84dff','#ff944d','#4dffff','#ff66cc','#9cff4d'];
+    wctx.fillStyle = colors[i % colors.length];
+    wctx.moveTo(radius,radius);
+    wctx.arc(radius,radius,radius-4,start,start+seg);
+    wctx.fill();
 
-/* ====== init ====== */
+    // Text
+    wctx.save();
+    wctx.translate(radius,radius);
+    wctx.rotate(start+seg/2);
+    wctx.fillStyle='#041022';
+    wctx.font='16px Inter, Arial';
+    wctx.textAlign='right';
+    wctx.fillText(wheelPrizes[i].label, radius-24,6);
+    wctx.restore();
+  }
+  // center hub
+  wctx.beginPath(); wctx.fillStyle='#fff'; wctx.arc(radius,radius,36,0,Math.PI*2); wctx.fill();
+  wctx.beginPath(); wctx.fillStyle='#0dd'; wctx.arc(radius,radius,26,0,Math.PI*2); wctx.fill();
+}
+
+function setupWheel(){ drawWheel(wheelAngle); $('spinBtn').addEventListener('click', spinWheel); }
+function spinWheel(){
+  if(wheelSpinning) return;
+  if(state.tickets<=0){ notify('Списано 499 ₽ (демо). Для настоящей оплаты подключите провайдера.'); } else { state.tickets--; }
+  $('wheelTickets').textContent = state.tickets;
+  wheelSpinning=true; wheelSpeed = Math.random()*0.25 + 0.35; animateWheel();
+}
+function animateWheel(){
+  if(!wheelSpinning) return;
+  wheelSpeed *= 0.985;
+  wheelAngle += wheelSpeed;
+  drawWheel(wheelAngle);
+  if(Math.random()<0.18) { try{ tickAudio.currentTime=0; tickAudio.play(); }catch(e){} }
+  if(wheelSpeed < 0.0025){
+    wheelSpinning=false;
+    wheelAngle = wheelAngle % (Math.PI*2);
+    let index = Math.floor((wheelPrizes.length - (wheelAngle/(2*Math.PI))*wheelPrizes.length) % wheelPrizes.length);
+    const prize = wheelPrizes[index];
+    prize.action(); saveState();
+    $('wheelResult').innerHTML = `<div class="card">Вы выиграли: <b>${prize.label}</b></div>`;
+    notify('Выигрыш: '+prize.label,3000);
+  } else {
+    requestAnimationFrame(animateWheel);
+  }
+}
+
+/* Garland around wheel */
+function createGarland(){
+  const g=$('garland'); g.innerHTML='';
+  const count = 34;
+  for(let i=0;i<count;i++){
+    const bulb=document.createElement('div'); bulb.className='bulb';
+    bulb.style.color=['#ff3b3b','#ffe066','#66ff99','#66d9ff','#ff66ff'][i%5];
+    const a = (i/count)*Math.PI*2;
+    const x = 270 + Math.cos(a)*260;
+    const y = 270 + Math.sin(a)*260;
+    bulb.style.left=(x-9)+'px'; bulb.style.top=(y-9)+'px';
+    bulb.style.animationDelay = (i*0.08)+'s';
+    g.appendChild(bulb);
+  }
+}
+
+/* =========================================================
+   Snow (global) + profile snow toggle
+   ========================================================= */
+const snowCanvas = $('snowCanvas'), sctx = snowCanvas.getContext('2d');
+let snowflakes=[];
+function resizeSnow(){ snowCanvas.width=innerWidth; snowCanvas.height=innerHeight; }
+addEventListener('resize', resizeSnow); resizeSnow();
+function spawnSnow(n=120){ for(let i=0;i<n;i++){ snowflakes.push({x:Math.random()*snowCanvas.width,y:Math.random()*snowCanvas.height,r:1+Math.random()*3,vx:(Math.random()-.5)*0.8,vy:0.6+Math.random()*1.2}); } }
+spawnSnow(160);
+function snowLoop(){
+  sctx.clearRect(0,0,snowCanvas.width,snowCanvas.height);
+  sctx.fillStyle='rgba(255,255,255,0.9)';
+  snowflakes.forEach(p=>{
+    p.x+=p.vx; p.y+=p.vy; if(p.y>snowCanvas.height){p.y=-5; p.x=Math.random()*snowCanvas.width;}
+    sctx.beginPath(); sctx.arc(p.x,p.y,p.r,0,Math.PI*2); sctx.fill();
+  });
+  requestAnimationFrame(snowLoop);
+}
+snowLoop();
+
+/* Profile snow (separate canvas inside profile panel) */
+let profileSnowRunning=false, profileSnow=[];
+function toggleProfileSnow(forceOn){
+  const owned = state.ownedEffects.includes('profile-snow');
+  if(!owned && !forceOn){ notify('Эффект не куплен. Открой Магазин → Эффекты.'); return; }
+  const canvas = $('profileSnow');
+  if(canvas.style.display==='none' && (owned || forceOn)){
+    canvas.style.display='block';
+    startProfileSnow();
+  } else {
+    canvas.style.display='none';
+    profileSnowRunning=false; profileSnow=[];
+  }
+}
+function startProfileSnow(){
+  const canvas=$('profileSnow'), ctx=canvas.getContext('2d');
+  const host=$('profileTop'); const r=host.getBoundingClientRect();
+  canvas.width = host.clientWidth; canvas.height = host.clientHeight;
+  profileSnow=[]; for(let i=0;i<90;i++){ profileSnow.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:1+Math.random()*2,vy:0.5+Math.random()*1}); }
+  profileSnowRunning=true;
+  (function loop(){
+    if(!profileSnowRunning) return;
+    // keep size in sync
+    const w=host.clientWidth,h=host.clientHeight; if(w!==canvas.width||h!==canvas.height){ canvas.width=w; canvas.height=h; }
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle='rgba(255,255,255,0.95)';
+    profileSnow.forEach(p=>{ p.y+=p.vy; if(p.y>canvas.height){p.y=-5; p.x=Math.random()*canvas.width;} ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill(); });
+    requestAnimationFrame(loop);
+  })();
+}
+
+/* =========================================================
+   Confetti
+   ========================================================= */
+const confettiCanvas = $('confetti'); const cctx = confettiCanvas.getContext('2d'); let confetti=[];
+function resizeCanvas(){ confettiCanvas.width=innerWidth; confettiCanvas.height=innerHeight; } addEventListener('resize', resizeCanvas); resizeCanvas();
+function launchConfetti(){ for(let i=0;i<130;i++){ confetti.push({x:Math.random()*confettiCanvas.width,y:-Math.random()*confettiCanvas.height,vx:(Math.random()-.5)*6,vy:2+Math.random()*6,s:4+Math.random()*8,c:['#ff4d4d','#ffd65b','#7c4dff','#00d4ff','#4dff88'][Math.floor(Math.random()*5)],r:Math.random()*360}); } if(!window._confRun){window._confRun=true; requestAnimationFrame(confettiLoop);} }
+function confettiLoop(){
+  cctx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height);
+  confetti.forEach((p,i)=>{ p.x+=p.vx; p.y+=p.vy; p.vy+=0.05; p.r+=p.vx; cctx.save(); cctx.translate(p.x,p.y); cctx.rotate(p.r*Math.PI/180); cctx.fillStyle=p.c; cctx.fillRect(-p.s/2,-p.s/2,p.s,p.s); cctx.restore(); if(p.y>confettiCanvas.height+50) confetti.splice(i,1); });
+  if(confetti.length) requestAnimationFrame(confettiLoop); else window._confRun=false;
+}
+
+/* =========================================================
+   Navigation & bindings
+   ========================================================= */
+function goTo(tab){
+  const mapping={buy:'page-buy',vip:'page-vip',shop:'page-shop',profile:'page-profile',chat:'page-chat',wheel:'page-wheel'};
+  document.querySelectorAll('.tabbtn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('section[id^="page-"]').forEach(s=>s.style.display='none');
+  $('btn-'+tab).classList.add('active'); $(mapping[tab]).style.display='block';
+}
 function bindUI(){
-  document.getElementById('btn-buy').addEventListener('click',()=>goTo('buy'));
-  document.getElementById('btn-vip').addEventListener('click',()=>goTo('vip'));
-  document.getElementById('btn-wheel').addEventListener('click',()=>goTo('wheel'));
-  document.getElementById('btn-shop').addEventListener('click',()=>goTo('shop'));
-  document.getElementById('btn-profile').addEventListener('click',()=>goTo('profile'));
-  document.getElementById('btn-chat').addEventListener('click',()=>goTo('chat'));
+  $('btn-buy').addEventListener('click',()=>goTo('buy'));
+  $('btn-vip').addEventListener('click',()=>goTo('vip'));
+  $('btn-shop').addEventListener('click',()=>goTo('shop'));
+  $('btn-profile').addEventListener('click',()=>goTo('profile'));
+  $('btn-chat').addEventListener('click',()=>goTo('chat'));
+  $('btn-wheel').addEventListener('click',()=>goTo('wheel'));
   $('chatSend').addEventListener('click',sendChat);
-  $('chatInput').addEventListener('keydown',e=>{if(e.key==='Enter')sendChat()});
+  $('chatInput').addEventListener('keydown',e=>{ if(e.key==='Enter') sendChat(); });
   $('authBtn').addEventListener('click',()=>notify('DEMO: Войдены как гость'));
-  window.addEventListener('beforeunload',()=>saveState());
 }
-loadState();bindUI();renderAll();notify('Загружено: GameLoaders Mega Hub — демо',2500);
+function awardDemoXP(){ addXP(200); notify('+200 XP'); saveState(); }
+
+/* =========================================================
+   Init
+   ========================================================= */
+loadState();
+bindUI();
+renderAll();
+notify('Новогодняя версия загружена 🎄',2600);
+
+/* expose for console */
+window._GL = {state,saveState,addXP,applyFrame,applyGlow,unequipAll,buyVIP,toggleProfileSnow};
 </script>
 </body>
 </html>
