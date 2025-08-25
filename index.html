@@ -1,23 +1,20 @@
 <!doctype html>
 <html lang="ru">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>GameLoaders — Shop · VIP · Profile</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>GameLoaders — Shop, VIP, Profile, Frames</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-  /* ===== Base ===== */
   :root{
-    --bg:#06060a;
-    --panel: rgba(255,255,255,0.04);
-    --glass: rgba(255,255,255,0.04);
-    --muted: #9aa6d1;
-    --white: #eaf0ff;
-    --accent1: 120 100% 60%;
-    --accent2: 200 100% 50%;
-    --neon1: #7c4dff;
-    --neon2: #00d4ff;
+    --bg:#05060a;
+    --panel: rgba(255,255,255,0.03);
+    --muted:#9aa6d1;
+    --white:#eaf0ff;
+    --neon1:#7c4dff;
+    --neon2:#00d4ff;
     --vip-gradient: conic-gradient(from 0deg, #ff0044, #ff9900, #ffee00, #00ff77, #00ccff, #7c4dff);
+    --glass: rgba(255,255,255,0.02);
   }
   *{box-sizing:border-box}
   html,body{height:100%}
@@ -30,90 +27,74 @@
       var(--bg);
     color:var(--white);
     -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
-    overflow-y:scroll;
   }
-  .container{width:min(1150px,94%);margin:0 auto;padding:28px 0;}
 
-  /* ===== Header ===== */
-  header{
-    position:sticky;top:0;z-index:80;
-    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00));
-    backdrop-filter: blur(8px) saturate(1.1);
-    border-bottom:1px solid rgba(255,255,255,0.03);
-  }
-  .topbar{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
-  .brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:20px;color:var(--neon1)}
-  .brand .dot{width:14px;height:14px;border-radius:50%;background:linear-gradient(90deg,var(--neon1),var(--neon2));box-shadow:0 6px 20px rgba(124,77,255,0.25)}
-  nav{display:flex;gap:10px;align-items:center}
-  nav button{background:transparent;border:0;color:var(--muted);padding:8px 12px;border-radius:10px;font-weight:600;cursor:pointer}
-  nav button.active{color:var(--white);background:linear-gradient(90deg,var(--neon1),var(--neon2));box-shadow:0 8px 30px rgba(0,0,0,0.6)}
-  #authBtn{padding:8px 12px;background:rgba(255,255,255,0.02);border-radius:10px;border:1px solid rgba(255,255,255,0.04);color:var(--white);cursor:pointer}
+  .container{width:min(1150px,94%);margin:0 auto;padding:24px 0;}
 
-  /* ===== Layout ===== */
-  .hero{display:grid;grid-template-columns:1fr 420px;gap:20px;margin:18px 0 28px;align-items:start}
-  .panel{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:14px;padding:18px;border:1px solid rgba(255,255,255,0.04);box-shadow:0 10px 40px rgba(2,6,23,0.6)}
-  .title{font-size:28px;font-weight:800;margin-bottom:6px}
-  .subtitle{color:var(--muted);margin-bottom:14px}
+  header{position:sticky;top:0;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00));backdrop-filter: blur(6px);border-bottom:1px solid rgba(255,255,255,0.03);z-index:90}
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;color:var(--neon1)}
+  .brand .dot{width:12px;height:12px;border-radius:50%;background:linear-gradient(90deg,var(--neon1),var(--neon2));box-shadow:0 6px 20px rgba(124,77,255,0.25)}
+  nav{display:flex;gap:8px;align-items:center}
+  nav button{background:transparent;border:0;color:var(--muted);padding:8px 12px;border-radius:10px;font-weight:700;cursor:pointer}
+  nav button.active{color:var(--white);background:linear-gradient(90deg,var(--neon1),var(--neon2));box-shadow:0 10px 30px rgba(124,77,255,0.14)}
+  #authBtn{padding:8px 12px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.03);color:var(--white);cursor:pointer}
 
-  /* ===== Cards grid ===== */
-  .grid{display:grid;gap:14px}
-  .grid.cols-3{grid-template-columns:repeat(3,1fr)}
+  /* layout */
+  .hero{display:grid;grid-template-columns:1fr 380px;gap:18px;margin-top:20px}
+  .panel{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;padding:16px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 12px 40px rgba(2,6,23,0.5)}
+  .title{font-size:22px;font-weight:800;margin-bottom:6px}
+  .muted{color:var(--muted);font-size:13px}
+
+  .grid{display:grid;gap:12px}
   .grid.cols-4{grid-template-columns:repeat(4,1fr)}
-  .loader-card{
-    border-radius:12px;padding:14px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
-    border:1px solid rgba(255,255,255,0.03);position:relative;overflow:hidden;transition:transform .22s, box-shadow .22s;
-  }
-  .loader-card:hover{transform:translateY(-8px);box-shadow:0 18px 60px rgba(0,0,0,0.6)}
-  .loader-card .game{font-weight:700;color:var(--muted);font-size:12px}
-  .loader-card h4{margin:8px 0;font-size:16px}
-  .loader-card .meta{color:var(--muted);font-size:13px;margin-bottom:10px}
-  .loader-card .cta{display:flex;gap:8px;align-items:center}
-  .btn-ghost{padding:8px 12px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--white);cursor:pointer}
-  .btn-primary{padding:8px 12px;border-radius:10px;background:linear-gradient(90deg,var(--neon1),var(--neon2));border:0;color:white;font-weight:700;cursor:pointer;box-shadow:0 8px 30px rgba(124,77,255,0.18)}
+  .grid.cols-3{grid-template-columns:repeat(3,1fr)}
+  .loader-card{border-radius:12px;padding:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));border:1px solid rgba(255,255,255,0.03);transition:transform .18s, box-shadow .18s;overflow:hidden}
+  .loader-card:hover{transform:translateY(-6px);box-shadow:0 18px 50px rgba(0,0,0,0.6)}
+  .game{font-size:12px;color:var(--muted);font-weight:700}
+  .loader-name{font-size:15px;font-weight:800;margin:8px 0}
+  .meta{font-size:13px;color:var(--muted);margin-bottom:8px}
+  .cta{display:flex;gap:8px;align-items:center}
 
-  /* ===== Avatar & Profile ===== */
-  .profile{display:flex;gap:18px;align-items:center}
-  .avatar-frame{
-    position:relative;width:120px;height:120px;border-radius:50%;
-    display:inline-block;padding:6px;background:linear-gradient(90deg,var(--neon1),var(--neon2));
-    box-shadow:0 12px 40px rgba(124,77,255,0.18);
-    animation:rotateHue 8s linear infinite;
-  }
-  .avatar-frame .inner{
-    width:100%;height:100%;border-radius:50%;background:linear-gradient(180deg, rgba(0,0,0,0.6), rgba(255,255,255,0.02));display:flex;align-items:center;justify-content:center;overflow:hidden;border:4px solid rgba(0,0,0,0.3)
-  }
+  .btn{padding:8px 12px;border-radius:10px;border:0;cursor:pointer;font-weight:800}
+  .btn.primary{background:linear-gradient(90deg,var(--neon1),var(--neon2));color:white;box-shadow:0 8px 30px rgba(124,77,255,0.14)}
+  .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.03);color:var(--white)}
+
+  /* avatar and profile */
+  .profile{display:flex;gap:12px;align-items:center}
+  .avatar-frame{position:relative;width:120px;height:120px;border-radius:50%;padding:6px;background:linear-gradient(90deg,var(--neon1),var(--neon2));box-shadow:0 12px 40px rgba(124,77,255,0.16);animation:rotateHue 8s linear infinite}
+  .avatar-frame .inner{width:100%;height:100%;border-radius:50%;background:linear-gradient(180deg, rgba(0,0,0,0.6), rgba(255,255,255,0.02));display:flex;align-items:center;justify-content:center;overflow:hidden;border:4px solid rgba(0,0,0,0.25)}
   .avatar-frame img{width:100%;height:100%;object-fit:cover;border-radius:50%}
   @keyframes rotateHue{0%{filter:hue-rotate(0deg)}100%{filter:hue-rotate(360deg)}}
 
-  .vip-bubble{
-    display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;font-weight:800;
-    background:var(--vip-gradient);background-size:300% 300%;animation:rainbowShift 6s linear infinite;color:#051022;
-    box-shadow:0 12px 30px rgba(124,77,255,0.12);
-  }
-  @keyframes rainbowShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+  .vip-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;font-weight:800;background:var(--vip-gradient);background-size:300% 300%;animation:vipShift 6s linear infinite;color:#051022;box-shadow:0 12px 30px rgba(124,77,255,0.08)}
+  @keyframes vipShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 
-  /* ===== Shop items & coin packs ===== */
-  .coin-pack{display:flex;flex-direction:column;gap:8px;align-items:center;padding:14px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));border:1px solid rgba(255,255,255,0.03)}
-  .coin-pack h4{margin:0}
-  .item-card{display:flex;flex-direction:column;gap:8px;padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00))}
-  .item-thumbnail{height:86px;border-radius:10px;background:linear-gradient(45deg, rgba(255,255,255,0.02), rgba(0,0,0,0.2));display:flex;align-items:center;justify-content:center;font-weight:800}
+  /* frames gallery */
+  .frames-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
+  .frame-card{border-radius:10px;padding:8px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));border:1px solid rgba(255,255,255,0.03);text-align:center;cursor:pointer;transition:transform .18s, box-shadow .18s}
+  .frame-card:hover{transform:translateY(-6px);box-shadow:0 10px 30px rgba(0,0,0,0.6)}
+  .frame-card img{width:100%;height:84px;object-fit:cover;border-radius:8px}
+  .frame-price{font-weight:800;margin-top:6px}
 
-  /* ===== Notifications ===== */
-  .notif{position:fixed;right:24px;bottom:24px;min-width:260px;padding:12px 16px;border-radius:10px;background:linear-gradient(90deg,var(--neon1),var(--neon2));color:#041020;font-weight:700;transform:translateY(20px);opacity:0;pointer-events:none;transition:all .4s}
+  /* item card */
+  .item-card{border-radius:10px;padding:10px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));border:1px solid rgba(255,255,255,0.03)}
+  .item-thumb{height:84px;border-radius:8px;background:linear-gradient(45deg, rgba(255,255,255,0.02), rgba(0,0,0,0.2));display:flex;align-items:center;justify-content:center;font-weight:900}
+
+  .notif{position:fixed;right:18px;bottom:18px;min-width:240px;padding:12px 16px;border-radius:10px;background:linear-gradient(90deg,var(--neon1),var(--neon2));color:#041022;font-weight:800;transform:translateY(20px);opacity:0;pointer-events:none;transition:all .3s}
   .notif.show{opacity:1;transform:translateY(0);pointer-events:auto}
 
-  /* responsive */
-  @media (max-width:980px){
+  footer{margin-top:40px;color:var(--muted);font-size:13px;text-align:center;opacity:0.9}
+
+  @media(max-width:980px){
     .hero{grid-template-columns:1fr}
-    .grid.cols-3{grid-template-columns:repeat(2,1fr)}
     .grid.cols-4{grid-template-columns:repeat(2,1fr)}
-    .profile{flex-direction:row;gap:12px}
+    .grid.cols-3{grid-template-columns:repeat(2,1fr)}
   }
-  @media (max-width:520px){
-    .grid.cols-3{grid-template-columns:1fr}
+  @media(max-width:520px){
     .grid.cols-4{grid-template-columns:1fr}
-    nav{display:flex;gap:6px;flex-wrap:wrap}
+    .grid.cols-3{grid-template-columns:1fr}
+    nav{flex-wrap:wrap;gap:6px}
   }
 </style>
 </head>
@@ -122,99 +103,80 @@
     <div class="container topbar">
       <div class="brand"><span class="dot"></span>GameLoaders</div>
       <nav>
-        <button id="tab-buy" class="active" onclick="navTo('buy')">Купить</button>
-        <button id="tab-vip" onclick="navTo('vip')">VIP</button>
-        <button id="tab-profile" onclick="navTo('profile')">Профиль</button>
-        <button id="tab-shop" onclick="navTo('shop')">Магазин</button>
+        <button id="tab-buy" class="active" onclick="goTab('buy')">Купить</button>
+        <button id="tab-vip" onclick="goTab('vip')">VIP</button>
+        <button id="tab-profile" onclick="goTab('profile')">Профиль</button>
+        <button id="tab-shop" onclick="goTab('shop')">Магазин</button>
         <button id="authBtn" onclick="authDemo()">Войти</button>
       </nav>
     </div>
   </header>
 
   <main class="container">
-    <!-- HERO -->
     <section class="hero">
       <div class="panel">
-        <div class="title">Красивые лоадеры для игр — Free, Pro и VIP-only</div>
-        <div class="subtitle">Скачивай free-версии, покупай pro или получай эксклюзивные VIP-лоадеры. Также есть магазин украшений и пакеты монет.</div>
+        <div class="title">GameLoaders — лоадеры и украшения</div>
+        <div class="muted">Free, Pro и VIP-only лоадеры. Магазин украшений и рамок — все платные, 2 рамки только для VIP.</div>
 
-        <div style="margin:12px 0;display:flex;gap:10px">
-          <button class="btn-primary" onclick="navTo('buy')">Перейти к покупкам</button>
-          <button class="btn-ghost" onclick="navTo('shop')">Магазин</button>
+        <div style="margin-top:12px;display:flex;gap:10px">
+          <button class="btn primary" onclick="goTab('buy')">Купить лоадеры</button>
+          <button class="btn ghost" onclick="goTab('shop')">Магазин</button>
         </div>
 
-        <div style="margin-top:16px">
-          <div style="display:flex;gap:12px;align-items:center">
-            <div style="flex:1">
-              <div style="color:var(--muted);font-size:13px">Статистика</div>
-              <div style="display:flex;gap:12px;margin-top:8px">
-                <div style="background:rgba(255,255,255,0.02);padding:10px 12px;border-radius:10px"><strong id="statUsers">0</strong><div style="font-size:12px;color:var(--muted)">пользователей</div></div>
-                <div style="background:rgba(255,255,255,0.02);padding:10px 12px;border-radius:10px"><strong id="statDownloads">0</strong><div style="font-size:12px;color:var(--muted)">скачиваний</div></div>
-                <div style="background:rgba(255,255,255,0.02);padding:10px 12px;border-radius:10px"><strong>99.99%</strong><div style="font-size:12px;color:var(--muted)">аптайм</div></div>
-              </div>
-            </div>
-
-            <div style="width:320px" class="panel">
-              <div style="display:flex;align-items:center;gap:12px">
-                <div style="flex:1">
-                  <div style="font-size:12px;color:var(--muted)">Текущий баланс</div>
-                  <div style="font-weight:800;font-size:18px"><span id="uiCoins">0</span> монет</div>
-                </div>
-                <div>
-                  <button class="btn-ghost" onclick="navTo('shop')">Купить монеты</button>
-                </div>
-              </div>
-            </div>
-
+        <div style="margin-top:16px;display:flex;gap:10px;align-items:center">
+          <div style="flex:1">
+            <div style="color:var(--muted);font-size:13px">Баланс</div>
+            <div style="font-weight:800;font-size:18px"><span id="uiCoins">0</span> монет</div>
+          </div>
+          <div style="width:240px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)">
+            <div class="muted">Пользователь</div>
+            <div style="font-weight:800" id="uiNick">Player</div>
+            <div style="margin-top:6px"><button class="btn ghost" onclick="goTab('profile')">Профиль</button></div>
           </div>
         </div>
       </div>
 
-      <aside class="panel" aria-hidden="false">
-        <div style="display:flex;flex-direction:column;gap:12px;align-items:center">
-          <div class="profile" style="flex-direction:column;align-items:center">
+      <aside class="panel">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:12px">
+          <div class="profile" style="flex-direction:column">
             <div class="avatar-frame" id="avatarFrame">
-              <div class="inner" style="width:100%;height:100%">
-                <img id="avatarImg" src="https://i.pravatar.cc/300?img=12" alt="avatar">
-              </div>
+              <div class="inner"><img id="avatarImg" src="https://i.pravatar.cc/300?img=12" alt="avatar"/></div>
             </div>
-            <div style="margin-top:10px;font-weight:800" id="uiNick">Player</div>
+            <div style="font-weight:800" id="displayName">Player</div>
+            <div id="vipWrapper"></div>
 
-            <div id="uiVipWrapper" style="margin-top:10px"></div>
-
-            <div style="width:100%;margin-top:12px">
+            <div style="width:100%;margin-top:8px">
               <div style="display:flex;justify-content:space-between;color:var(--muted);font-size:13px">
-                <div>XP</div><div id="uiXP">0/100</div>
+                <div>Уровень</div><div id="uiLevel">1</div>
               </div>
-              <div class="xp-bar"><div class="xp-fill" id="xpFill" style="width:0%"></div></div>
+              <div style="height:10px;background:rgba(255,255,255,0.03);border-radius:6px;margin-top:6px;overflow:hidden">
+                <div id="xpBar" style="height:100%;background:linear-gradient(90deg,var(--neon1),var(--neon2));width:0%"></div>
+              </div>
+              <div style="display:flex;justify-content:space-between;color:var(--muted);font-size:12px;margin-top:6px">
+                <div id="xpText">0 / 1000 XP</div><div id="levelCap" style="color:var(--muted)">макс 100</div>
+              </div>
             </div>
 
-            <div style="margin-top:12px;width:100%;display:flex;gap:8px">
-              <button class="btn-ghost" onclick="openProfileEdit()">Редактировать</button>
-              <button class="btn-primary" onclick="simulateGain()">+XP</button>
+            <div style="display:flex;gap:8px;margin-top:12px">
+              <button class="btn ghost" onclick="openEdit()">Редактировать</button>
+              <button class="btn primary" onclick="demoGainXP()">+XP (demo)</button>
             </div>
           </div>
-
         </div>
       </aside>
     </section>
 
-    <!-- BUY (LOADER) -->
+    <!-- BUY PAGE -->
     <section id="page-buy" class="panel" style="margin-top:18px">
-      <div style="display:flex;align-items:center;justify-content:space-between">
+      <div style="display:flex;justify-content:space-between;align-items:center">
         <div>
-          <h3 style="margin:0">Купить лоадер</h3>
-          <div style="color:var(--muted);font-size:13px">Free / Pro / VIP-only — выбери игру и версию</div>
+          <h3 style="margin:0">Лоадеры — Free / Pro / VIP-only</h3>
+          <div class="muted">Выбери игру и скачай или купи лоадер</div>
         </div>
         <div style="display:flex;gap:8px;align-items:center">
-          <select id="filterGame" onchange="renderLoaders()" style="padding:8px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--white)">
-            <option value="all">Все игры</option>
-          </select>
-          <select id="filterType" onchange="renderLoaders()" style="padding:8px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--white)">
-            <option value="all">Все типы</option>
-            <option value="free">Free</option>
-            <option value="pro">Pro</option>
-            <option value="vip">VIP-only</option>
+          <select id="filterGame" style="padding:8px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.03);color:var(--white)"></select>
+          <select id="filterType" style="padding:8px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.03);color:var(--white)">
+            <option value="all">Все</option><option value="free">Free</option><option value="pro">Pro</option><option value="vip">VIP-only</option>
           </select>
         </div>
       </div>
@@ -222,384 +184,617 @@
       <div id="loadersGrid" class="grid cols-4" style="margin-top:12px"></div>
     </section>
 
-    <!-- VIP -->
+    <!-- VIP PAGE -->
     <section id="page-vip" class="panel" style="margin-top:18px;display:none">
-      <div style="display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap">
-        <div style="flex:1;min-width:280px" class="card">
-          <h3>VIP — 1 месяц</h3>
-          <p style="color:var(--muted)">Доступ ко всем VIP-лоадерам, эксклюзивные украшения и скидки.</p>
-          <div style="display:flex;gap:8px;margin-top:12px">
-            <button class="btn-primary" onclick="buyVIPPlan('month')">Купить — 299 ₽</button>
-            <button class="btn-ghost" onclick="demoGrantVIP()">Демо VIP</button>
-          </div>
+      <h3>VIP подписки</h3>
+      <div class="muted">VIP даёт доступ к VIP-only рамкам и лоадерам, +5 уровней при покупке</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:12px">
+        <div class="panel card">
+          <h4>1 месяц</h4><div class="muted">Базовый VIP</div>
+          <div style="margin-top:8px"><button class="btn primary" onclick="purchaseVIP('month',299)">Купить за 299 ₽</button></div>
         </div>
-
-        <div style="flex:1;min-width:280px" class="card">
-          <h3>VIP — 12 месяцев</h3>
-          <p style="color:var(--muted)">Лучшее соотношение цены и бонусов.</p>
-          <div style="display:flex;gap:8px;margin-top:12px">
-            <button class="btn-primary" onclick="buyVIPPlan('year')">Купить — 2870 ₽</button>
-          </div>
+        <div class="panel card">
+          <h4>12 месяцев</h4><div class="muted">VIP на год</div>
+          <div style="margin-top:8px"><button class="btn primary" onclick="purchaseVIP('year',2870)">Купить за 2870 ₽</button></div>
         </div>
-
-        <div style="flex:1;min-width:280px" class="card">
-          <h3>VIP — Пожизненно</h3>
-          <p style="color:var(--muted)">VIP навсегда + эксклюзивный бейдж.</p>
-          <div style="display:flex;gap:8px;margin-top:12px">
-            <button class="btn-primary" onclick="buyVIPPlan('lifetime')">Купить — 7990 ₽</button>
-          </div>
-        </div>
-
-        <div style="width:100%" class="card">
-          <h4>Что даёт VIP</h4>
-          <ul style="color:var(--muted);margin-left:18px">
-            <li>Доступ к VIP-only лоадерам</li>
-            <li>Эксклюзивные рамки и ауры</li>
-            <li>Скидки в магазине</li>
-            <li>Приоритетная поддержка</li>
-            <li>Особый переливающийся бейдж</li>
-          </ul>
+        <div class="panel card">
+          <h4>Пожизненно</h4><div class="muted">VIP навсегда</div>
+          <div style="margin-top:8px"><button class="btn primary" onclick="purchaseVIP('lifetime',7990)">Купить за 7990 ₽</button></div>
         </div>
       </div>
     </section>
 
-    <!-- SHOP -->
-    <section id="page-shop" class="panel" style="margin-top:18px;display:none">
-      <h3>Пакеты монет</h3>
-      <div id="coinGrid" class="grid cols-4" style="margin-top:12px"></div>
-
-      <h3 style="margin-top:18px">Приколюхи (можно купить за монеты)</h3>
-      <div id="itemsGrid" class="grid cols-4" style="margin-top:12px"></div>
-    </section>
-
-    <!-- PROFILE EDIT MODAL (simple) -->
-    <dialog id="profileEdit" style="border:none;border-radius:12px;padding:0;">
-      <div style="width:min(720px,96vw);background:var(--panel);padding:18px;border-radius:12px;">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <h3>Редактировать профиль</h3>
-          <button onclick="document.getElementById('profileEdit').close()" style="background:none;border:0;color:var(--muted);cursor:pointer">✕</button>
-        </div>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px">
-          <div style="flex:0 0 140px"><img id="editAvatarPreview" src="" style="width:140px;height:140px;border-radius:10px;object-fit:cover"></div>
-          <div style="flex:1">
-            <label style="display:block;margin-bottom:8px">Ник</label>
-            <input id="editNick" style="width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--white)">
-            <label style="display:block;margin-top:10px">Загрузить аватар</label>
-            <input id="editAvatarInput" type="file">
-            <div style="margin-top:12px;display:flex;gap:8px">
-              <button class="btn-primary" onclick="saveProfileEdit()">Сохранить</button>
-              <button class="btn-ghost" onclick="document.getElementById('profileEdit').close()">Отмена</button>
+    <!-- PROFILE PAGE -->
+    <section id="page-profile" class="panel" style="margin-top:18px;display:none">
+      <h3>Профиль и рамки</h3>
+      <div style="display:grid;grid-template-columns:320px 1fr;gap:12px">
+        <div class="panel">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:10px">
+            <div class="avatar-frame">
+              <div class="inner"><img id="profileAvatar" src="" style="width:100%;height:100%;object-fit:cover;border-radius:50%"/></div>
+            </div>
+            <div style="font-weight:800" id="profileNick"></div>
+            <div id="profileVip"></div>
+            <div style="width:100%;margin-top:8px">
+              <label class="muted">Ник</label>
+              <input id="inputNick" style="width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:var(--white)"/>
+              <label class="muted" style="margin-top:8px;display:block">Аватар</label>
+              <input id="inputAvatar" type="file"/>
+              <div style="display:flex;gap:8px;margin-top:10px">
+                <button class="btn primary" onclick="saveProfile()">Сохранить</button>
+                <button class="btn ghost" onclick="resetProfile()">Сброс</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </dialog>
 
+        <div class="panel">
+          <h4>Магазин рамок (все платные, 2 — VIP-only)</h4>
+          <div class="muted">Купи рамку — она применится к аватару. VIP-пользователи могут выбирать VIP-рамки.</div>
+          <div id="framesGrid" class="frames-grid" style="margin-top:12px"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SHOP PAGE -->
+    <section id="page-shop" class="panel" style="margin-top:18px;display:none">
+      <h3>Магазин монет и приколюх</h3>
+      <div style="margin-top:8px">
+        <div class="muted">Пакеты монет (демо). Покупка за реальные деньги — интеграция требуется.</div>
+        <div id="coinGrid" class="grid cols-4" style="margin-top:12px"></div>
+      </div>
+
+      <h4 style="margin-top:18px">Приколюхи (купить за монеты)</h4>
+      <div id="itemsGrid" class="grid cols-4" style="margin-top:12px"></div>
+    </section>
+
+    <footer style="margin-top:28px">© GameLoaders — демо. Для реальной оплаты подключи LolzTeam / LZT API и webhook.</footer>
   </main>
 
   <div id="notif" class="notif"></div>
 
+<!-- PROFILE EDIT DIALOG -->
+<dialog id="dlg" style="border:none;border-radius:12px;padding:0">
+  <div style="width:min(720px,96vw);padding:18px;background:var(--panel);border-radius:12px">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <h3>Редактирование профиля</h3>
+      <button onclick="document.getElementById('dlg').close()" style="background:none;border:0;color:var(--muted);cursor:pointer">✕</button>
+    </div>
+    <div style="display:flex;gap:12px;margin-top:12px">
+      <div style="flex:0 0 120px"><img id="dlgPreview" src="" style="width:120px;height:120px;border-radius:8px;object-fit:cover"/></div>
+      <div style="flex:1">
+        <label class="muted">Ник</label>
+        <input id="dlgNick" style="width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:var(--white)"/>
+        <label class="muted" style="margin-top:8px;display:block">Загрузить аватар</label>
+        <input id="dlgAvatar" type="file"/>
+        <div style="display:flex;gap:8px;margin-top:12px">
+          <button class="btn primary" onclick="saveDlg()">Сохранить</button>
+          <button class="btn ghost" onclick="document.getElementById('dlg').close()">Отмена</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</dialog>
+
 <script>
-/* ===== Data & Persistence ===== */
-const STORAGE_KEY = 'gameloaders_state_v1';
+/* =========================
+   State, Persistence, Init
+   ========================= */
+const STORAGE = 'gameloaders_v2';
 let state = {
   nick: 'Player',
   avatar: 'https://i.pravatar.cc/300?img=12',
-  coins: 250,
-  xp: 0,
+  coins: 500,
+  xp: 0,           // total XP
   vip: false,
-  vipLevel: null, // 'month','year','lifetime'
-  owned: [], // item ids
+  vipLevel: null,  // 'month','year','lifetime'
+  ownedItems: [],  // purchased item ids
+  ownedFrames: [], // purchased frame ids
+  appliedFrame: null,
   downloads: 0,
-  users: 1234
 };
-function loadState(){
-  try{
-    const s = JSON.parse(localStorage.getItem(STORAGE_KEY));
-    if(s) state = Object.assign(state, s);
-  }catch(e){}
+function load() {
+  try {
+    const s = JSON.parse(localStorage.getItem(STORAGE));
+    if (s) state = Object.assign(state, s);
+  } catch(e){}
 }
-function saveState(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); updateUI(); }
-
-/* ===== UI helpers ===== */
-function notify(text, time=2200){
-  const n = document.getElementById('notif');
-  n.textContent = text; n.classList.add('show');
-  setTimeout(()=>{ n.classList.remove('show') }, time);
+function save() {
+  localStorage.setItem(STORAGE, JSON.stringify(state));
+  renderAll();
 }
-function formatCoins(n){ return Math.round(n); }
 
-function updateUI(){
-  document.getElementById('uiNick').textContent = state.nick;
-  document.getElementById('avatarImg').src = state.avatar;
-  document.getElementById('uiCoins').textContent = formatCoins(state.coins);
-  document.getElementById('uiXP').textContent = `${state.xp % 100}/100`;
-  document.getElementById('xpFill').style.width = `${(state.xp % 100)}%`;
-  document.getElementById('statUsers').textContent = state.users.toLocaleString();
-  document.getElementById('statDownloads').textContent = (state.downloads).toLocaleString();
-
-  // VIP display
-  const vipWrap = document.getElementById('uiVipWrapper');
-  vipWrap.innerHTML = '';
-  if(state.vip){
-    const span = document.createElement('div');
-    span.className = 'vip-bubble';
-    span.textContent = state.vipLevel === 'lifetime' ? 'VIP · Forever' : (state.vipLevel === 'year' ? 'VIP · Year' : 'VIP · Month');
-    vipWrap.appendChild(span);
+/* =========================
+   XP and Levels
+   ========================= */
+const XP_PER_LEVEL = 1000;
+const MAX_LEVEL = 100;
+function xpToLevel(xp) {
+  // level 1 at XP in [0..999] -> level = floor(xp/1000)+1
+  const lvl = Math.min(MAX_LEVEL, Math.floor(xp / XP_PER_LEVEL) + 1);
+  return lvl;
+}
+function levelToXP(level) {
+  return Math.max(0, (level - 1) * XP_PER_LEVEL);
+}
+function addXP(amount) {
+  if (state.xp >= MAX_LEVEL * XP_PER_LEVEL) return; // already max
+  const prevLevel = xpToLevel(state.xp);
+  state.xp = Math.min(state.xp + amount, MAX_LEVEL * XP_PER_LEVEL);
+  const newLevel = xpToLevel(state.xp);
+  if (newLevel > prevLevel) {
+    notify(`🎉 Level Up! Уровень ${newLevel}`, 3000);
+    // small visual pulse - handled in renderAll
   }
-
-  // Owned items display in profile panel
-  const owned = document.getElementById('ownedItems');
-  if(owned) owned.innerHTML = state.owned.length ? state.owned.map(i=>`<span style="display:inline-block;padding:6px 8px;margin:6px;border-radius:8px;background:linear-gradient(90deg,rgba(255,255,255,0.02),transparent)">${i}</span>`).join('') : '<span style="color:var(--muted)">Нет купленных приколюх</span>';
-}
-loadState();
-
-/* ===== NAV ===== */
-function navTo(section){
-  // hide all sections: buy, vip, profile, shop
-  ['buy','vip','profile','shop'].forEach(s=>{
-    const el = document.getElementById('page-'+s) || document.getElementById('page-'+s);
-    if(el) el.style.display = 'none';
-    document.getElementById('tab-'+s) && document.getElementById('tab-'+s).classList.remove('active');
-  });
-  document.getElementById('page-'+section).style.display = section==='buy' ? 'block' : 'block';
-  document.getElementById('tab-'+section).classList.add('active');
-  // ensure proper display for initial
-  if(section==='buy'){ document.getElementById('page-buy').style.display='block'; }
-  if(section==='vip'){ document.getElementById('page-vip').style.display='block'; }
-  if(section==='profile'){ document.getElementById('page-profile') && (document.getElementById('page-profile').style.display='block'); }
-  if(section==='shop'){ document.getElementById('page-shop') && (document.getElementById('page-shop').style.display='block'); }
+  save();
 }
 
-/* ===== Loaders: many games + types ===== */
-const GAMES = ['Apex Legends','Fortnite','Minecraft','CS:GO','Rust','GTA V','Valorant','Overwatch','LoL','Dota2'];
-const LOADERS = [];
-(function initLoaders(){
-  // generate free/pro/vip loaders per some games
-  GAMES.forEach((g,gi)=>{
-    LOADERS.push({id:`free-${gi}`, name:`${g} — Free Loader`, game:g, type:'free'});
-    LOADERS.push({id:`pro-${gi}`, name:`${g} — Pro Loader`, game:g, type:'pro', price: 199 + gi*20});
-    LOADERS.push({id:`vip-${gi}`, name:`${g} — VIP Loader`, game:g, type:'vip'});
-  });
-  // populate filter select
-  const sel = document.getElementById('filterGame');
-  GAMES.forEach(g=>{ const o = document.createElement('option'); o.value=g; o.textContent=g; sel.appendChild(o); });
-})();
-function renderLoaders(){
-  const grid = document.getElementById('loadersGrid');
+/* =========================
+   Notify
+   ========================= */
+const notifEl = document.getElementById('notif');
+let notifTimer = null;
+function notify(msg, t=2000) {
+  notifEl.textContent = msg;
+  notifEl.classList.add('show');
+  if (notifTimer) clearTimeout(notifTimer);
+  notifTimer = setTimeout(()=> { notifEl.classList.remove('show'); notifTimer = null; }, t);
+}
+
+/* =========================
+   Frames (user-provided links)
+   All frames are paid; 2 frames are VIP-only
+   ========================= */
+const FRAMES = [
+  { id:'f1', title:'Ice Frame', url:'https://i.pravatar.cc/400?img=10', price:150, vipOnly:false },
+  // Using user's provided links (they are search results; we include them but they may or may not load — user can replace with direct images)
+  { id:'f2', title:'Border 2', url:'https://i2.wp.com/www.seekpng.com/png/full/155-1551417_league-of-legends-icon-png.png', price:200, vipOnly:false },
+  { id:'f3', title:'Cool Frame', url:'https://i.imgur.com/V7HiEOp.png', price:300, vipOnly:false },
+  { id:'f4', title:'Decor Border', url:'https://en.idei.club/uploads/posts/2023-06/1687020123_en-idei-club-p-border-avatar-dizain-krasivo-3.png', price:400, vipOnly:true },
+  { id:'f5', title:'Royal Frame', url:'https://en.idei.club/uploads/posts/2023-06/1687020123_en-idei-club-p-border-avatar-dizain-krasivo-3.png', price:500, vipOnly:true }
+];
+// Note: If URLs don't load (yandex search pages), replace with direct image links.
+
+function renderFramesGrid() {
+  const grid = document.getElementById('framesGrid');
   grid.innerHTML = '';
-  const ft = document.getElementById('filterType').value;
-  const fg = document.getElementById('filterGame').value;
-  LOADERS.filter(l=>{
-    if(ft !== 'all' && l.type !== ft) return false;
-    if(fg !== 'all' && l.game !== fg) return false;
-    return true;
-  }).forEach(l=>{
-    const n = document.createElement('div'); n.className = 'loader-card';
-    n.innerHTML = `
-      <div class="game">${l.game}</div>
-      <h4>${l.name}</h4>
-      <div class="meta">${l.type === 'free' ? 'Бесплатный' : (l.type==='pro' ? 'Платный' : 'Только VIP')}</div>
-      <div class="cta" style="margin-top:8px">
-        <div style="flex:1"></div>
-      </div>`;
-    const cta = n.querySelector('.cta');
-    if(l.type === 'free'){
-      const btn = document.createElement('button'); btn.className='btn-primary'; btn.textContent='Скачать Free'; btn.onclick = ()=>downloadLoader(l.id);
-      cta.appendChild(btn);
-    } else if(l.type === 'pro'){
-      const buy = document.createElement('button'); buy.className='btn-primary'; buy.textContent = `Купить ${l.price}₽`; buy.onclick = ()=>buyPro(l);
-      cta.appendChild(buy);
-    } else {
-      const vipbtn = document.createElement('button'); vipbtn.className='btn-primary'; vipbtn.textContent='Только VIP'; vipbtn.onclick = ()=>attemptVIPDownload(l);
-      cta.appendChild(vipbtn);
+  FRAMES.forEach(f=>{
+    const div = document.createElement('div');
+    div.className = 'frame-card';
+    const owned = state.ownedFrames.includes(f.id);
+    div.innerHTML = `
+      <img src="${f.url}" alt="${escapeHtml(f.title)}" onerror="this.style.opacity=0.5"/>
+      <div style="margin-top:8px;font-weight:700">${escapeHtml(f.title)}</div>
+      <div class="frame-price">${f.vipOnly ? 'VIP only' : f.price + ' монет'}</div>
+    `;
+    // click handler: buy or apply
+    div.addEventListener('click', ()=>{
+      if (f.vipOnly && !state.vip) { notify('Эта рамка доступна только VIP'); goTab('vip'); return; }
+      if (!owned) {
+        if (state.coins < f.price) { notify('Недостаточно монет'); return; }
+        // purchase
+        state.coins -= f.price;
+        state.ownedFrames.push(f.id);
+        // buying grants XP: e.g., 200 XP per purchase (tunable). Let's grant based on price: price/2 XP
+        const xpGain = Math.round(f.price / 2);
+        addXP(xpGain);
+        notify(`Куплена рамка ${f.title}. +${xpGain} XP`);
+        save();
+      } else {
+        // already owned -> apply
+        state.appliedFrame = f.id;
+        notify(`Рамка ${f.title} применена`);
+        save();
+      }
+    });
+    // apply badge if applied
+    if (state.appliedFrame === f.id) {
+      div.style.boxShadow = '0 8px 40px rgba(124,77,255,0.28)';
+      div.style.transform = 'translateY(-6px)';
     }
-    grid.appendChild(n);
+    // show VIP overlay for VIP-only
+    if (f.vipOnly) {
+      const vipTag = document.createElement('div');
+      vipTag.style.position = 'absolute';
+      vipTag.style.top = '8px';
+      vipTag.style.right = '8px';
+      vipTag.style.padding = '4px 8px';
+      vipTag.style.borderRadius = '999px';
+      vipTag.style.fontWeight = '800';
+      vipTag.style.background = 'linear-gradient(90deg,#ffd65b,#ff9c00)';
+      vipTag.style.color = '#000';
+      vipTag.textContent = 'VIP';
+      div.appendChild(vipTag);
+    }
+    grid.appendChild(div);
   });
 }
-renderLoaders();
 
-/* ===== Coin packs & items (24 items) ===== */
+/* =========================
+   Coin packs and shop items
+   ========================= */
 const COIN_PACKS = [
-  {id:'c1',coins:100,price:99},
-  {id:'c2',coins:250,price:199},
-  {id:'c3',coins:500,price:349},
-  {id:'c4',coins:1000,price:599},
-  {id:'c5',coins:2500,price:1299},
-  {id:'c6',coins:5000,price:2399},
+  {id:'coin1', coins:100, price:99},
+  {id:'coin2', coins:250, price:199},
+  {id:'coin3', coins:500, price:349},
+  {id:'coin4', coins:1000, price:599},
+  {id:'coin5', coins:2500, price:1299},
+  {id:'coin6', coins:5000, price:2399},
 ];
 function renderCoinPacks(){
   const grid = document.getElementById('coinGrid');
   grid.innerHTML = '';
   COIN_PACKS.forEach(p=>{
     const el = document.createElement('div'); el.className='coin-pack';
-    el.innerHTML = `<h4>${p.coins} <small style="color:var(--muted);font-weight:600">монет</small></h4><div style="color:var(--muted)">${p.price} ₽</div>`;
-    const btn = document.createElement('button'); btn.className='btn-primary'; btn.textContent='Купить'; btn.onclick = ()=>buyCoins(p);
-    el.appendChild(btn); grid.appendChild(el);
+    el.style.padding='12px';
+    el.style.borderRadius='10px';
+    el.style.background='linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00))';
+    el.style.border='1px solid rgba(255,255,255,0.03)';
+    el.innerHTML = `<div style="font-weight:900">${p.coins} монет</div><div style="color:var(--muted)">${p.price} ₽</div>`;
+    const btn = document.createElement('button'); btn.className='btn primary'; btn.textContent='Купить';
+    btn.onclick = ()=>{ state.coins += p.coins; addXP(Math.round(p.coins/5)); notify(`Куплено ${p.coins} монет. +${Math.round(p.coins/5)} XP`); save(); };
+    el.appendChild(btn);
+    grid.appendChild(el);
   });
 }
-renderCoinPacks();
 
-const SHOP_ITEMS = [];
-(function initItems(){
-  // 24 items with categories
+const SHOP_ITEMS = (function(){
   const types = ['Aura','Frame','Badge','Theme','Emoji','Effect'];
+  const arr = [];
   for(let i=1;i<=24;i++){
-    SHOP_ITEMS.push({
-      id:'it'+i,
+    arr.push({
+      id:'item'+i,
       title: `${types[i%types.length]} #${i}`,
-      price: 25 + (i*5),
-      desc: `Крутая штука №${i}`,
-      previewColor: `hsl(${(i*30)%360} 80% 55%)`,
-      vipOnly: (i%7 === 0) // some VIP-only
+      price: 20 + i*8,
+      desc: `Приколюха ${i}`,
+      vipOnly: (i%7===0)
     });
   }
+  return arr;
 })();
 function renderShopItems(){
   const grid = document.getElementById('itemsGrid');
   grid.innerHTML = '';
   SHOP_ITEMS.forEach(it=>{
-    const card = document.createElement('div'); card.className='item-card';
-    card.innerHTML = `<div class="item-thumbnail" style="background:linear-gradient(45deg, ${it.previewColor}, rgba(0,0,0,0.15))">${it.title}</div>
-      <div style="font-weight:700">${it.title}</div>
-      <div style="color:var(--muted);font-size:13px">${it.desc}</div>
-      <div style="display:flex;gap:8px;margin-top:8px;align-items:center"><div style="flex:1;color:var(--muted)">${it.price} монет</div></div>`;
-    const cta = document.createElement('div'); cta.style.display='flex';
-    const buyBtn = document.createElement('button'); buyBtn.className='btn-primary'; buyBtn.textContent = it.vipOnly ? 'VIP only' : 'Купить';
-    buyBtn.onclick = ()=>buyShopItem(it);
-    if(it.vipOnly && !state.vip) buyBtn.disabled = true;
-    cta.appendChild(buyBtn);
-    card.appendChild(cta);
-    grid.appendChild(card);
+    const div = document.createElement('div'); div.className='item-card';
+    div.innerHTML = `<div class="item-thumb">${escapeHtml(it.title)}</div>
+      <div style="font-weight:800;margin-top:8px">${escapeHtml(it.title)}</div>
+      <div class="muted" style="font-size:13px">${escapeHtml(it.desc)}</div>
+      <div style="display:flex;align-items:center;margin-top:8px;gap:8px">
+        <div style="flex:1;color:var(--muted)">${it.price} монет</div>
+        <button class="btn primary">${it.vipOnly ? 'VIP' : 'Купить'}</button>
+      </div>`;
+    const btn = div.querySelector('button');
+    btn.onclick = ()=>{
+      if (it.vipOnly && !state.vip) { notify('Требуется VIP для покупки этой приколюхи'); goTab('vip'); return; }
+      if (state.coins < it.price) { notify('Недостаточно монет'); return; }
+      state.coins -= it.price;
+      state.ownedItems.push(it.id);
+      addXP(Math.round(it.price/2)); // purchase grants XP
+      notify(`Куплено: ${it.title}. +${Math.round(it.price/2)} XP`);
+      save();
+    };
+    grid.appendChild(div);
   });
 }
-renderShopItems();
 
-/* ===== Actions: buy coins, buy item, buy pro, vip ===== */
-function buyCoins(pack){
-  // demo: instantly add coins
-  state.coins += pack.coins;
-  state.downloads += 0;
-  saveState();
-  notifyAndPersist(`Куплено ${pack.coins} монет`);
+/* =========================
+   Loaders (games)
+   ========================= */
+const GAMES = ['Apex','Fortnite','Minecraft','CS:GO','Rust','GTA V','Valorant','Overwatch','LoL','Dota2'];
+const LOADERS = [];
+(function initLoaders(){
+  GAMES.forEach((g, idx)=>{
+    LOADERS.push({id:`free-${idx}`, name:`${g} — Free Loader`, game:g, type:'free'});
+    LOADERS.push({id:`pro-${idx}`, name:`${g} — Pro Loader`, game:g, type:'pro', price: 149 + idx*20});
+    LOADERS.push({id:`vip-${idx}`, name:`${g} — VIP Loader`, game:g, type:'vip'});
+  });
+})();
+function renderLoaderFilter(){
+  const sel = document.getElementById('filterGame');
+  sel.innerHTML = '<option value="all">Все игры</option>';
+  GAMES.forEach(g=>{ const o = document.createElement('option'); o.value=g; o.textContent = g; sel.appendChild(o); });
 }
-function buyShopItem(item){
-  if(item.vipOnly && !state.vip){ notifyAndPersist('Требуется VIP для покупки этого предмета'); return; }
-  if(state.coins < item.price){ notifyAndPersist('Недостаточно монет'); return; }
-  state.coins -= item.price;
-  state.owned.push(item.title);
-  saveState();
-  notifyAndPersist(`Куплено: ${item.title}`);
+function renderLoaders(){
+  const grid = document.getElementById('loadersGrid');
+  grid.innerHTML = '';
+  const filterType = document.getElementById('filterType').value;
+  const filterGame = document.getElementById('filterGame').value;
+  LOADERS.filter(l=>{
+    if (filterType !== 'all' && l.type !== filterType) return false;
+    if (filterGame !== 'all' && l.game !== filterGame) return false;
+    return true;
+  }).forEach(l=>{
+    const div = document.createElement('div'); div.className = 'loader-card';
+    div.innerHTML = `<div class="game">${escapeHtml(l.game)}</div><div class="loader-name">${escapeHtml(l.name)}</div><div class="meta">${l.type === 'free' ? 'Бесплатный' : (l.type==='pro' ? 'Платный' : 'Только VIP')}</div><div class="cta"></div>`;
+    const cta = div.querySelector('.cta');
+    if (l.type === 'free') {
+      const btn = document.createElement('button'); btn.className='btn primary'; btn.textContent='Скачать'; btn.onclick = ()=>{ state.downloads++; save(); notify('Скачивание (демо)'); };
+      cta.appendChild(btn);
+    } else if (l.type === 'pro') {
+      const btn = document.createElement('button'); btn.className='btn primary'; btn.textContent=`Купить ${l.price}₽`; btn.onclick = ()=>{ /* demo: buy pro costs real money — emulate by coin deduction? we'll add to owned */ state.ownedItems.push('PRO:'+l.id); addXP(300); notify(`Куплен Pro ${l.name} (+300 XP)`); save(); };
+      cta.appendChild(btn);
+    } else {
+      const btn = document.createElement('button'); btn.className='btn primary'; btn.textContent='Только VIP'; btn.onclick = ()=>{ if(state.vip) { state.downloads++; save(); notify('Скачано VIP'); } else { notify('Нужен VIP'); goTab('vip'); } };
+      cta.appendChild(btn);
+    }
+    grid.appendChild(div);
+  });
 }
-function buyPro(loader){
-  // demo: we mark pro as "purchased" (no real payment)
-  state.owned.push('PRO-'+loader.id);
-  saveState();
-  notifyAndPersist(`Куплен Pro: ${loader.name}`);
-}
-function downloadLoader(id){
-  state.downloads++;
-  saveState();
-  notifyAndPersist('Скачивание началось (демо)');
-}
-function attemptVIPDownload(loader){
-  if(state.vip){ downloadLoader(loader.id); notifyAndPersist(`VIP загрузка: ${loader.name}`); } else { notifyAndPersist('Только для VIP. Оформите VIP'); navTo('vip'); }
-}
-function buyVIPPlan(kind){
-  // kind: month/year/lifetime
+
+/* =========================
+   VIP purchase: gives +5 levels instantly
+   Each level = 1000 XP => +5000 XP
+   Cap at MAX_LEVEL
+   ========================= */
+function purchaseVIP(kind, price) {
+  // In demo we don't handle money flows. If you want to charge coins, could deduct a coin cost.
   state.vip = true;
-  state.vipLevel = kind === 'month' ? 'month' : (kind === 'year' ? 'year' : 'lifetime');
-  saveState();
-  notifyAndPersist('Поздравляем — вы стали VIP!');
-  updateUI();
+  state.vipLevel = kind;
+  // add 5 levels worth XP
+  addXP(5 * XP_PER_LEVEL);
+  // bonus coins for VIP
+  state.coins += 200;
+  notify(`VIP куплен: ${kind}. +5 уровней и +200 монет`);
+  save();
 }
-function demoGrantVIP(){ state.vip=true; state.vipLevel='month'; saveState(); notifyAndPersist('DEMO: VIP выдан'); updateUI(); }
 
-/* ===== Profile edit modal ===== */
-document.getElementById('editAvatarInput') && document.getElementById('editAvatarInput').addEventListener('change', (e)=>{
+/* =========================
+   Profile edit/save
+   ========================= */
+function openEdit(){
+  const dlg = document.getElementById('dlg');
+  document.getElementById('dlgPreview').src = state.avatar;
+  document.getElementById('dlgNick').value = state.nick;
+  dlg.showModal();
+}
+function saveDlg(){
+  const nv = document.getElementById('dlgNick').value.trim();
+  if(nv) state.nick = nv;
+  const preview = document.getElementById('dlgPreview').src;
+  if(preview) state.avatar = preview;
+  save();
+  document.getElementById('dlg').close();
+  notify('Профиль сохранён');
+}
+document.getElementById('dlgAvatar') && document.getElementById('dlgAvatar').addEventListener('change', e=>{
   const f = e.target.files[0];
   if(!f) return;
   const r = new FileReader();
-  r.onload = ()=> {
-    document.getElementById('editAvatarPreview').src = r.result;
-  };
+  r.onload = ()=> { document.getElementById('dlgPreview').src = r.result; };
   r.readAsDataURL(f);
 });
-function openProfileEdit(){
-  document.getElementById('editAvatarPreview').src = state.avatar;
-  document.getElementById('editNick').value = state.nick;
-  document.getElementById('profileEdit').showModal();
+function openEdit() {
+  const dlg = document.getElementById('dlg');
+  document.getElementById('dlgPreview').src = state.avatar;
+  document.getElementById('dlgNick').value = state.nick;
+  dlg.showModal();
 }
-function saveProfileEdit(){
-  const n = document.getElementById('editNick').value.trim();
-  const preview = document.getElementById('editAvatarPreview').src;
-  if(n) state.nick = n;
-  if(preview) state.avatar = preview;
-  saveState();
-  document.getElementById('profileEdit').close();
-  notifyAndPersist('Профиль обновлён');
+function saveProfile(){
+  const nick = document.getElementById('inputNick').value.trim();
+  if(nick) state.nick = nick;
+  const ai = document.getElementById('inputAvatar');
+  if (ai && ai.files && ai.files[0]) {
+    const f = ai.files[0];
+    const r = new FileReader();
+    r.onload = ()=>{ state.avatar = r.result; save(); notify('Аватар обновлён'); };
+    r.readAsDataURL(f);
+  } else {
+    save();
+    notify('Профиль сохранён');
+  }
+}
+function resetProfile(){
+  state.nick = 'Player';
+  state.avatar = 'https://i.pravatar.cc/300?img=12';
+  save();
+  notify('Профиль сброшен');
 }
 
-/* ===== small helpers ===== */
-function notifyAndPersist(msg){
-  notify(msg);
-  // increment some stat for demo
-  state.users += Math.floor(Math.random()*2);
-  saveState();
-}
+/* =========================
+   Utility functions & init
+   ========================= */
+function escapeHtml(s){ return (s+"").replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 
-/* ===== init UI values and event binds ===== */
-function init(){
-  // ensure tabs initial
-  navTo('buy');
+function renderAll(){
+  // summary UI
+  document.getElementById('uiCoins').textContent = Math.round(state.coins);
+  document.getElementById('uiNick').textContent = state.nick;
+  document.getElementById('displayName').textContent = state.nick;
+  document.getElementById('profileNick').textContent = state.nick;
+  document.getElementById('profileAvatar').src = state.avatar;
+  document.getElementById('avatarImg').src = state.avatar;
+  document.getElementById('uiLevel').textContent = xpToLevel(state.xp);
+  const curXP = state.xp % XP_PER_LEVEL;
+  document.getElementById('xpText').textContent = `${curXP} / ${XP_PER_LEVEL} XP`;
+  document.getElementById('xpBar').style.width = `${(curXP / XP_PER_LEVEL) * 100}%`;
+  // VIP
+  const vipWrapper = document.getElementById('vipWrapper');
+  vipWrapper.innerHTML = '';
+  if (state.vip) {
+    const b = document.createElement('div'); b.className='vip-badge'; b.textContent = state.vipLevel === 'lifetime' ? 'VIP · Forever' : (state.vipLevel === 'year' ? 'VIP · Year' : 'VIP · Month');
+    vipWrapper.appendChild(b);
+    document.getElementById('profileVip').innerHTML = '<div class="vip-badge">' + (state.vipLevel === 'lifetime' ? 'VIP · Forever' : 'VIP') + '</div>';
+  } else {
+    document.getElementById('profileVip').innerHTML = '<div class="muted">Нет VIP</div>';
+  }
 
-  // coin grid already rendered
+  // apply frame overlay visually if any
+  const af = state.appliedFrame ? FRAMES.find(f=>f.id===state.appliedFrame) : null;
+  const avatarFrame = document.getElementById('avatarFrame');
+  if (af) {
+    // apply frame image as outline via CSS mask approach or overlay — we'll set border-image effect by adding overlay element
+    avatarFrame.style.boxShadow = '0 18px 48px rgba(124,77,255,0.22)';
+    avatarFrame.style.background = 'linear-gradient(90deg,var(--neon1),var(--neon2))';
+  } else {
+    avatarFrame.style.boxShadow = '0 12px 40px rgba(124,77,255,0.16)';
+    avatarFrame.style.background = 'linear-gradient(90deg,var(--neon1),var(--neon2))';
+  }
+
+  // owned items list in profile
+  const ownedArea = document.getElementById('ownedItems');
+  if (ownedArea) {
+    ownedArea.innerHTML = state.ownedItems.length ? state.ownedItems.map(id=>`<span style="display:inline-block;padding:6px 8px;margin:6px;border-radius:8px;background:linear-gradient(90deg,rgba(255,255,255,0.02),transparent)">${escapeHtml(id)}</span>`).join('') : '<div class="muted">Нет купленных приколюх</div>';
+  }
+
+  // reflect applied frame visually by adding border-image around avatar (simple method: show overlay image element)
+  // remove previous overlay if any
+  const existingOverlay = document.getElementById('frameOverlay');
+  if (existingOverlay) existingOverlay.remove();
+  if (af) {
+    const overlay = document.createElement('img');
+    overlay.id = 'frameOverlay';
+    overlay.src = af.url;
+    overlay.style.position = 'absolute';
+    overlay.style.width = '152px';
+    overlay.style.height = '152px';
+    overlay.style.left = (document.getElementById('avatarFrame').getBoundingClientRect().left + window.scrollX) + 'px'; // not used, we'll attach to DOM instead
+    // better: append overlay into avatarFrame's parent in relative coordinates
+    const parent = document.getElementById('avatarFrame');
+    overlay.style.position = 'absolute';
+    overlay.style.left = '50%';
+    overlay.style.top = '50%';
+    overlay.style.transform = 'translate(-50%,-50%)';
+    overlay.style.borderRadius = '50%';
+    overlay.style.pointerEvents = 'none';
+    overlay.style.boxShadow = '0 12px 30px rgba(0,0,0,0.6)';
+    overlay.style.mixBlendMode = 'screen';
+    overlay.style.opacity = '0.95';
+    overlay.style.width = '140px';
+    overlay.style.height = '140px';
+    parent.appendChild(overlay);
+  }
+
+  // render grids
+  renderFramesGrid();
   renderCoinPacks();
   renderShopItems();
-  updateUI();
-
-  // attach avatar input in profile header
-  const ai = document.getElementById('avatarInput');
-  if(ai) ai.addEventListener('change', (e)=>{
-    const f=e.target.files[0]; if(!f) return; const r=new FileReader(); r.onload=()=>{ state.avatar=r.result; saveState(); }; r.readAsDataURL(f);
-  });
-
-  // demo: small buttons
-  document.getElementById('filterType').value = 'all';
-  document.getElementById('filterGame').value = 'all';
+  renderLoaders();
+  renderLoaderFilter();
 }
-init();
 
-/* ===== auth demo ===== */
-function authDemo(){ notifyAndPersist('DEMO: вход выполнен'); }
+function goTab(tab) {
+  // tabs: buy, vip, profile, shop
+  ['buy','vip','profile','shop'].forEach(t=>{
+    const el = document.getElementById('page-'+t);
+    if (el) el.style.display = 'none';
+    const btn = document.getElementById('tab-'+t);
+    if (btn) btn.classList.remove('active');
+  });
+  document.getElementById('page-'+tab).style.display = 'block';
+  const btn = document.getElementById('tab-'+tab);
+  if (btn) btn.classList.add('active');
+}
 
-/* ===== small utility: render coin packs function (again) ===== */
-function renderCoinPacks(){
-  const grid = document.getElementById('coinGrid');
-  if(!grid) return;
+function renderShopItems(){ renderShopItemsInner(); } // alias for earlier function definition
+function renderCoinPacks(){ renderCoinPacksInner(); } // alias binding
+// but we actually defined functions with these names earlier; ensure we call them
+
+// The functions renderCoinPacks and renderShopItems are declared earlier; ensure presence
+// (they already exist above)
+
+/* =========================
+   Small helpers
+   ========================= */
+function notifyAndPersist(msg){
+  notify(msg);
+  save();
+}
+
+/* =========================
+   Demo auth
+   ========================= */
+function authDemo(){ notify('DEMO: Вы вошли как гость'); }
+
+/* =========================
+   Helpers & init
+   ========================= */
+function demoGainXP(){ addXP(200); notify('DEMO: +200 XP') }
+function purchaseVIP(kind, price){ state.vip = true; state.vipLevel = kind; // grant +5 levels
+  addXP(5 * XP_PER_LEVEL);
+  // also grant some coins as bonus
+  state.coins += 500;
+  notify(`VIP куплен: ${kind} — +5 уровней и +500 монет`);
+  save();
+}
+
+function renderCoinPacksInner(){
+  const grid = document.getElementById('coinGrid'); if(!grid) return;
   grid.innerHTML = '';
   COIN_PACKS.forEach(p=>{
     const el = document.createElement('div'); el.className='coin-pack';
-    el.innerHTML = `
-      <div style="font-weight:800">${p.coins} монет</div>
-      <div style="color:var(--muted)">${p.price} ₽</div>
-    `;
-    const b = document.createElement('button'); b.className='btn-primary'; b.textContent='Купить'; b.onclick = ()=>buyCoins(p);
-    el.appendChild(b);
+    el.style.padding='12px';
+    el.style.borderRadius='10px';
+    el.style.background='linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00))';
+    el.style.border='1px solid rgba(255,255,255,0.03)';
+    el.innerHTML = `<div style="font-weight:900">${p.coins} монет</div><div style="color:var(--muted)">${p.price} ₽</div>`;
+    const btn = document.createElement('button'); btn.className='btn primary'; btn.textContent='Купить';
+    btn.onclick = ()=>{ state.coins += p.coins; addXP(Math.round(p.coins/5)); notify(`Куплено ${p.coins} монет — +${Math.round(p.coins/5)} XP`); save(); };
+    el.appendChild(btn);
     grid.appendChild(el);
   });
 }
 
-/* ===== quick XP demo ===== */
-function simulateGain(){
-  state.xp += 15;
-  if(state.xp > 99999) state.xp = 0;
-  saveState();
-  notifyAndPersist('+15 XP');
+function renderShopItemsInner(){
+  const grid = document.getElementById('itemsGrid'); if(!grid) return;
+  grid.innerHTML = '';
+  SHOP_ITEMS.forEach(it=>{
+    const div = document.createElement('div'); div.className='item-card';
+    div.innerHTML = `<div class="item-thumb">${escapeHtml(it.title)}</div>
+      <div style="font-weight:800;margin-top:8px">${escapeHtml(it.title)}</div>
+      <div class="muted" style="font-size:13px">${escapeHtml(it.desc)}</div>
+      <div style="display:flex;align-items:center;margin-top:8px;gap:8px">
+        <div style="flex:1;color:var(--muted)">${it.price} монет</div>
+        <button class="btn primary">${it.vipOnly ? 'VIP' : 'Купить'}</button>
+      </div>`;
+    const btn = div.querySelector('button');
+    btn.onclick = ()=>{
+      if (it.vipOnly && !state.vip) { notify('Требуется VIP'); goTab('vip'); return; }
+      if (state.coins < it.price) { notify('Недостаточно монет'); return; }
+      state.coins -= it.price;
+      state.ownedItems.push(it.id);
+      addXP(Math.round(it.price/2));
+      notify(`Куплено ${it.title}. +${Math.round(it.price/2)} XP`);
+      save();
+    };
+    grid.appendChild(div);
+  });
 }
 
-/* ===== small protection: save before unload ===== */
-window.addEventListener('beforeunload', () => saveState());
+/* =========================
+   Ensure initial load and render
+   ========================= */
+load();
+renderAll();
+goTab('buy');
+
+/* Attach change listeners for filter selects */
+document.getElementById('filterType').addEventListener('change', renderLoaders);
+document.getElementById('filterGame').addEventListener('change', renderLoaders);
+
+/* Attach avatar file input on profile */
+document.getElementById('inputAvatar').addEventListener('change', e=>{
+  const f = e.target.files[0];
+  if(!f) return;
+  const reader = new FileReader();
+  reader.onload = ()=>{ state.avatar = reader.result; save(); notify('Аватар обновлён'); };
+  reader.readAsDataURL(f);
+});
+
+// function alias compatibility (some functions declared earlier)
+function renderShopItemsInnerFallback(){ renderShopItemsInner(); }
+
+// helper to purchase VIP via buttons
+function buyVIPPlan(kind){
+  purchaseVIP(kind, 0);
+}
+
+// small wrappers for older named functions referenced earlier
+function purchaseVIP(kind, price){ purchaseVIP && purchaseVIP(kind, price); } // noop guard (overwritten above)
+
+// expose some functions to console for testing
+window._GL = { state, save, load, addXP, purchaseVIP, buyCoins: (p)=>{ state.coins+=p.coins; addXP(Math.round(p.coins/5)); save(); } };
+
 </script>
 </body>
 </html>
