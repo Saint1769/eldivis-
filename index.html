@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>GameLoaders — Mega Hub (NY Edition)</title>
+<title>GameLoaders — Mega Hub (Premium Edition)</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 <style>
 /* =========================================================
@@ -15,6 +15,9 @@
   --neon1:#7c4dff; --neon2:#00d4ff;
   --glass:rgba(255,255,255,0.03);
   --vip-grad: conic-gradient(from 0deg,#ff0044,#ff9900,#ffee00,#00ff77,#00ccff,#7c4dff);
+  --bronze: linear-gradient(135deg, #cd7f32, #8c5320, #cd7f32);
+  --silver: linear-gradient(135deg, #c0c0c0, #a8a8a8, #c0c0c0);
+  --gold: linear-gradient(135deg, #ffd700, #daa520, #ffd700);
 }
 *{box-sizing:border-box}
 html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
@@ -58,8 +61,8 @@ body{
 .profile-top{display:flex;gap:18px;align-items:center;position:relative}
 .profile-snow-canvas{position:absolute;inset:0;pointer-events:none;z-index:0;border-radius:12px}
 .avatar-zone{position:relative;z-index:1}
-.avatar-wrap{position:relative;width:136px;height:136px;border-radius:50%;padding:6px;background:linear-gradient(90deg,var(--neon1),var(--neon2));box-shadow:0 18px 48px rgba(124,77,255,0.18)}
-.avatar-inner{width:100%;height:100%;border-radius:50%;overflow:hidden;border:4px solid rgba(0,0,0,0.25)}
+.avatar-wrap{position:relative;width:136px;height:136px;border-radius:50%;padding:0;background:transparent;box-shadow:none}
+.avatar-inner{width:100%;height:100%;border-radius:50%;overflow:hidden;border:none}
 .avatar-inner img{width:100%;height:100%;object-fit:cover;border-radius:50%}
 
 /* Frame overlay — 100% яркости, ровное совпадение */
@@ -100,9 +103,6 @@ body{
 /* Notifications */
 #notif{position:fixed;right:20px;bottom:20px;padding:12px 16px;border-radius:10px;background:linear-gradient(90deg,var(--neon1),var(--neon2));color:#041022;font-weight:900;transform:translateY(12px);opacity:0;transition:all .3s;z-index:9999}
 
-/* Snow (global) */
-#snowCanvas{position:fixed;inset:0;pointer-events:none;z-index:0}
-
 /* Wheel styles */
 #wheelWrapper{position:relative;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
 #wheel{border-radius:50%;box-shadow:0 0 25px #0ff, 0 0 50px #ff000044 inset;background:rgba(0,0,0,0.05)}
@@ -133,10 +133,218 @@ body{
   position:absolute;left:50%;top:-6px;transform:translateX(-50%);
   width:0;height:0;border-left:16px solid transparent;border-right:16px solid transparent;border-bottom:24px solid #fff;filter:drop-shadow(0 4px 10px rgba(0,0,0,.5));
 }
+
+/* VIP Page Styles */
+.vip-hero {
+  text-align: center;
+  padding: 30px 0;
+  margin-bottom: 30px;
+  background: linear-gradient(135deg, rgba(124, 77, 255, 0.1), rgba(0, 212, 255, 0.1));
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.vip-title {
+  font-size: 48px;
+  font-weight: 900;
+  margin: 0;
+  background: linear-gradient(90deg, #ff0080, #ff8c00, #ffed00, #00ff80, #00ccff, #7c4dff);
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: rgbFlow 6s ease infinite;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+@keyframes rgbFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.vip-subtitle {
+  color: var(--muted);
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.vip-tiers {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+
+.vip-tier {
+  width: 300px;
+  padding: 30px 20px;
+  border-radius: 16px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.vip-tier:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.vip-tier.bronze {
+  background: var(--bronze);
+  color: #3a2400;
+}
+
+.vip-tier.silver {
+  background: var(--silver);
+  color: #404040;
+}
+
+.vip-tier.gold {
+  background: var(--gold);
+  color: #5c4200;
+}
+
+.vip-tier-header {
+  margin-bottom: 20px;
+}
+
+.vip-tier-name {
+  font-size: 24px;
+  font-weight: 800;
+  margin: 0 0 10px 0;
+}
+
+.vip-tier-price {
+  font-size: 32px;
+  font-weight: 900;
+  margin: 0;
+}
+
+.vip-tier-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+}
+
+.vip-tier-features li {
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.vip-tier-button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.vip-tier.bronze .vip-tier-button {
+  background: #8c5320;
+  color: white;
+}
+
+.vip-tier.silver .vip-tier-button {
+  background: #a8a8a8;
+  color: #333;
+}
+
+.vip-tier.gold .vip-tier-button {
+  background: #daa520;
+  color: #333;
+}
+
+.vip-tier-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.vip-benefits {
+  margin-top: 50px;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+}
+
+.vip-benefits-title {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 30px;
+  color: var(--neon2);
+}
+
+.vip-benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.vip-benefit {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.vip-benefit-icon {
+  font-size: 40px;
+  margin-bottom: 15px;
+}
+
+.vip-benefit-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--neon1);
+}
+
+.vip-benefit-desc {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* Profile banner styles */
+.profile-banner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 180px;
+  border-radius: 12px 12px 0 0;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.profile-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-content {
+  margin-top: 120px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Wheel result animation */
+.wheel-result-animation {
+  animation: wheelResultPulse 1s ease;
+}
+
+@keyframes wheelResultPulse {
+  0% { transform: scale(0.9); opacity: 0; }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); opacity: 1; }
+}
 </style>
 </head>
 <body>
-<canvas id="snowCanvas"></canvas>
 
 <div class="container" style="position:relative;z-index:1">
   <!-- HEADER -->
@@ -179,41 +387,87 @@ body{
 
   <!-- VIP -->
   <section id="page-vip" class="panel spaced" style="display:none">
-    <h2 style="margin:0">VIP — оформите подписку</h2>
-    <div class="hint">VIP сразу даёт +5 уровней, монеты и билеты на колесо.</div>
-    <div class="grid cols-3 spaced" style="margin-top:12px">
-      <div class="card">
-        <h3>1 месяц</h3>
-        <ul class="hint">
-          <li>+5 уровней</li>
+    <div class="vip-hero">
+      <h1 class="vip-title">VIP ПОДПИСКА</h1>
+      <p class="vip-subtitle">Получи эксклюзивные привилегии и бонусы</p>
+    </div>
+
+    <div class="vip-tiers">
+      <div class="vip-tier bronze">
+        <div class="vip-tier-header">
+          <h3 class="vip-tier-name">BRONZE</h3>
+          <p class="vip-tier-price">299 ₽</p>
+          <p class="vip-tier-duration">в месяц</p>
+        </div>
+        <ul class="vip-tier-features">
+          <li>+3 уровня сразу</li>
+          <li>+150 монет</li>
+          <li>🎟 2 билета на колесо</li>
+          <li>Доступ к Bronze рамкам</li>
+          <li>Скидка 5% в магазине</li>
+        </ul>
+        <button class="vip-tier-button" onclick="initiateCryptoPayment('vip_bronze', 299, 'Bronze VIP на 1 месяц')">Выбрать</button>
+      </div>
+
+      <div class="vip-tier silver">
+        <div class="vip-tier-header">
+          <h3 class="vip-tier-name">SILVER</h3>
+          <p class="vip-tier-price">699 ₽</p>
+          <p class="vip-tier-duration">в месяц</p>
+        </div>
+        <ul class="vip-tier-features">
+          <li>+5 уровней сразу</li>
           <li>+300 монет</li>
-          <li>🎟 Билеты: 3</li>
-          <li>Доступ к VIP рамкам (2 шт.)</li>
+          <li>🎟 5 билетов на колесо</li>
+          <li>Доступ к Silver рамкам</li>
           <li>Скидка 10% в магазине</li>
+          <li>Приоритетная поддержка</li>
         </ul>
-        <div style="margin-top:12px"><button class="btn primary" onclick="initiateCryptoPayment('vip_month', 299, 'VIP на 1 месяц')">Купить 299 ₽</button></div>
+        <button class="vip-tier-button" onclick="initiateCryptoPayment('vip_silver', 699, 'Silver VIP на 1 месяц')">Выбрать</button>
       </div>
-      <div class="card">
-        <h3>12 месяцев</h3>
-        <ul class="hint">
-          <li>+10 уровней</li>
-          <li>+1500 монет</li>
-          <li>🎟 Билеты: 12</li>
-          <li>VIP рамки + приоритет в колесе</li>
+
+      <div class="vip-tier gold">
+        <div class="vip-tier-header">
+          <h3 class="vip-tier-name">GOLD</h3>
+          <p class="vip-tier-price">1499 ₽</p>
+          <p class="vip-tier-duration">в месяц</p>
+        </div>
+        <ul class="vip-tier-features">
+          <li>+10 уровней сразу</li>
+          <li>+700 монет</li>
+          <li>🎟 10 билетов на колесо</li>
+          <li>Все эксклюзивные рамки</li>
           <li>Скидка 20% в магазине</li>
+          <li>Мгновенная поддержка 24/7</li>
+          <li>Ранний доступ к новинкам</li>
         </ul>
-        <div style="margin-top:12px"><button class="btn primary" onclick="initiateCryptoPayment('vip_year', 2870, 'VIP на 12 месяцев')">Купить 2870 ₽</button></div>
+        <button class="vip-tier-button" onclick="initiateCryptoPayment('vip_gold', 1499, 'Gold VIP на 1 месяц')">Выбрать</button>
       </div>
-      <div class="card">
-        <h3>Пожизненно</h3>
-        <ul class="hint">
-          <li>+20 уровней</li>
-          <li>+5000 монет</li>
-          <li>🎟 Билеты: 30</li>
-          <li>Все VIP украшения</li>
-          <li>Скидка 30% в магазине</li>
-        </ul>
-        <div style="margin-top:12px"><button class="btn primary" onclick="initiateCryptoPayment('vip_lifetime', 7990, 'Пожизненный VIP')">Купить 7990 ₽</button></div>
+    </div>
+
+    <div class="vip-benefits">
+      <h3 class="vip-benefits-title">Преимущества VIP статуса</h3>
+      <div class="vip-benefits-grid">
+        <div class="vip-benefit">
+          <div class="vip-benefit-icon">🚀</div>
+          <h4 class="vip-benefit-title">Приоритетная загрузка</h4>
+          <p class="vip-benefit-desc">Скачивайте файлы без очереди с максимальной скоростью</p>
+        </div>
+        <div class="vip-benefit">
+          <div class="vip-benefit-icon">🎁</div>
+          <h4 class="vip-benefit-title">Эксклюзивный контент</h4>
+          <p class="vip-benefit-desc">Получите доступ к уникальным лоадерам и материалам</p>
+        </div>
+        <div class="vip-benefit">
+          <div class="vip-benefit-icon">🛡️</div>
+          <h4 class="vip-benefit-title">Защита аккаунта</h4>
+          <p class="vip-benefit-desc">Расширенная безопасность и приоритетная поддержка</p>
+        </div>
+        <div class="vip-benefit">
+          <div class="vip-benefit-icon">💎</div>
+          <h4 class="vip-benefit-title">Уникальные бонусы</h4>
+          <p class="vip-benefit-desc">Ежемесячные подарки, бонусы и эксклюзивные предложения</p>
+        </div>
       </div>
     </div>
   </section>
@@ -249,54 +503,58 @@ body{
     <h2 style="margin:0">Профиль</h2>
 
     <div class="profile-top spaced" id="profileTop">
-      <canvas id="profileSnow" class="profile-snow-canvas" style="display:none"></canvas>
-
-      <div class="avatar-zone">
-        <div class="avatar-wrap" id="avatarWrap">
-          <div class="avatar-inner"><img id="avatarImg" src="https://i.pravatar.cc/400?img=12" alt="avatar"></div>
-        </div>
-        <div style="margin-top:10px;font-weight:800" id="displayName">Player</div>
-        <div id="vipBadge" style="margin-top:8px"></div>
+      <div class="profile-banner">
+        <img id="profileBanner" src="https://i.pinimg.com/originals/ff/2b/5c/ff2b5c1b42073e0f8f42292251cd0fcd.jpg" alt="Profile banner">
       </div>
-
-      <div style="flex:1" class="card">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <div>
-            <div class="hint">Уровень</div>
-            <div style="font-weight:900;font-size:20px" id="uiLevel">1</div>
+      
+      <div class="profile-content">
+        <div class="avatar-zone">
+          <div class="avatar-wrap" id="avatarWrap">
+            <div class="avatar-inner"><img id="avatarImg" src="https://i.pravatar.cc/400?img=12" alt="avatar"></div>
           </div>
-          <div style="width:60%">
-            <div class="hint">Прогресс до следующего уровня</div>
-            <div style="height:12px;background:rgba(255,255,255,0.08);border-radius:8px;margin-top:6px;overflow:hidden">
-              <div id="uiXPbar" style="height:100%;background:linear-gradient(90deg,var(--neon1),var(--neon2));width:0%"></div>
+          <div style="margin-top:10px;font-weight:800" id="displayName">Player</div>
+          <div id="vipBadge" style="margin-top:8px"></div>
+        </div>
+
+        <div style="flex:1" class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <div class="hint">Уровень</div>
+              <div style="font-weight:900;font-size:20px" id="uiLevel">1</div>
             </div>
-            <div style="margin-top:6px" class="hint" id="uiXPtext">0 / 1000 XP</div>
+            <div style="width:60%">
+              <div class="hint">Прогресс до следующего уровня</div>
+              <div style="height:12px;background:rgba(255,255,255,0.08);border-radius:8px;margin-top:6px;overflow:hidden">
+                <div id="uiXPbar" style="height:100%;background:linear-gradient(90deg,var(--neon1),var(--neon2));width:0%"></div>
+              </div>
+              <div style="margin-top:6px" class="hint" id="uiXPtext">0 / 1000 XP</div>
+            </div>
           </div>
-        </div>
 
-        <div style="margin-top:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-          <div class="hint">Монеты:</div><div style="font-weight:900" id="uiCoins">0</div>
-          <div class="hint">🎟 Билеты:</div><div style="font-weight:900" id="uiTickets">0</div>
-          <div style="margin-left:auto">
-            <button class="btn ghost" onclick="openProfileEditor()">Редактировать</button>
+          <div style="margin-top:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+            <div class="hint">Монеты:</div><div style="font-weight:900" id="uiCoins">0</div>
+            <div class="hint">🎟 Билеты:</div><div style="font-weight:900" id="uiTickets">0</div>
+            <div style="margin-left:auto">
+              <button class="btn ghost" onclick="openProfileEditor()">Редактировать</button>
+              <button class="btn ghost" onclick="changeBanner()">Сменить баннер</button>
+            </div>
           </div>
-        </div>
 
-        <div style="margin-top:12px">
-          <h4 style="margin:0">Мои покупки / Оборудование</h4>
-          <div id="ownedList" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px"></div>
+          <div style="margin-top:12px">
+            <h4 style="margin:0">Мои покупки / Оборудование</h4>
+            <div id="ownedList" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px"></div>
+          </div>
         </div>
       </div>
     </div>
 
     <div style="margin-top:12px" class="card">
       <h3 style="margin:0">Управление украшениями</h3>
-      <div class="hint" style="margin-top:8px">Выбери — рамку или свечение. Нельзя применить оба одновременно.</div>
+      <div class="hint" style="margin-top:8px">Выбери — рамку или свечение. Нельзя применить оба одновременно.</h4>
       <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
         <button class="btn ghost" onclick="unequipAll()">Снять всё</button>
         <button class="btn ghost" onclick="openFramesInShop()">Открыть рамки</button>
         <button class="btn ghost" onclick="openGlowsInShop()">Открыть свечения</button>
-        <button class="btn ghost" onclick="toggleProfileSnow()">Вкл/Выкл снег в профиле</button>
       </div>
     </div>
   </section>
@@ -340,7 +598,8 @@ body{
       <div style="min-width:280px" class="card">
         <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
           <div class="card" style="padding:6px 10px">🎟 Билеты: <b id="wheelTickets">0</b></div>
-          <button class="btn primary" onclick="initiateCryptoPayment('wheel_spin', 499, 'Вращение колеса')">Вращать (499 ₽)</button>
+          <button class="btn primary" id="spinBtn">Вращать (1 билет)</button>
+          <button class="btn primary" onclick="initiateCryptoPayment('wheel_spin', 499, 'Вращение колеса')">Купить вращение (499 ₽)</button>
         </div>
         <div id="wheelResult" class="spaced"></div>
         <div class="spaced">
@@ -432,12 +691,13 @@ body{
 /* =========================================================
    State & persistence
    ========================================================= */
-const STORAGE = 'gameloaders_mega_crypto_v1';
+const STORAGE = 'gameloaders_mega_crypto_v2';
 const XP_PER_LEVEL = 1000, MAX_LEVEL = 100;
 
 let state = {
   nick: 'Player',
   avatar: 'https://i.pravatar.cc/400?img=12',
+  banner: 'https://i.pinimg.com/originals/ff/2b/5c/ff2b5c1b42073e0f8f42292251cd0fcd.jpg',
   coins: 100,
   xp: 0,
   vip: false,
@@ -452,6 +712,13 @@ let state = {
   userId: null,
   transactions: []
 };
+
+const BANNERS = [
+  'https://i.pinimg.com/originals/ff/2b/5c/ff2b5c1b42073e0f8f42292251cd0fcd.jpg',
+  'https://images.wallpaperscraft.com/image/single/starry_sky_space_open_space_129155_2560x1080.jpg',
+  'https://wallpaperaccess.com/full/1268180.jpg',
+  'https://wallpaperaccess.com/full/1369100.jpg'
+];
 
 function loadState() {
   try {
@@ -598,14 +865,14 @@ function processSuccessfulPayment(paymentData) {
 
 function processPurchase(productId, amount) {
   switch (productId) {
-    case 'vip_month':
-      buyVIP('month', amount, 3, 300, 5);
+    case 'vip_bronze':
+      buyVIP('bronze', amount, 2, 150, 3);
       break;
-    case 'vip_year':
-      buyVIP('year', amount, 12, 1500, 10);
+    case 'vip_silver':
+      buyVIP('silver', amount, 5, 300, 5);
       break;
-    case 'vip_lifetime':
-      buyVIP('lifetime', amount, 30, 5000, 20);
+    case 'vip_gold':
+      buyVIP('gold', amount, 10, 700, 10);
       break;
     case 'wheel_spin':
       spinWheelReal();
@@ -698,7 +965,7 @@ const wheelPrizes = [
   }},
   {k:'vip1m', label:'VIP 1 месяц', action:()=>{ 
     if (!state.vip) {
-      buyVIP('month', 0, 2, 300, 3);
+      buyVIP('bronze', 0, 2, 150, 3);
     } else {
       state.tickets += 5;
       state.coins += 1000;
@@ -709,6 +976,7 @@ const wheelPrizes = [
 
 const seg = Math.PI * 2 / wheelPrizes.length;
 let wheelAngle = 0, wheelSpeed = 0, wheelSpinning = false;
+let targetPrizeIndex = -1;
 
 function drawWheel(rot = 0) {
   wctx.clearRect(0, 0, wheelCanvas.width, wheelCanvas.height);
@@ -750,7 +1018,7 @@ function setupWheel() {
       state.tickets--;
       spinWheelReal();
     } else {
-      initiateCryptoPayment('wheel_spin', 499, 'Вращение колеса');
+      notify('Недостаточно билетов');
     }
   });
 }
@@ -758,28 +1026,50 @@ function setupWheel() {
 function spinWheelReal() {
   if (wheelSpinning) return;
   wheelSpinning = true;
-  wheelSpeed = Math.random() * 0.25 + 0.35;
-  animateWheel();
-}
-
-function animateWheel() {
-  if (!wheelSpinning) return;
-  wheelSpeed *= 0.985;
-  wheelAngle += wheelSpeed;
-  drawWheel(wheelAngle);
   
-  if (wheelSpeed < 0.0025) {
-    wheelSpinning = false;
-    wheelAngle = wheelAngle % (Math.PI * 2);
-    let index = Math.floor((wheelPrizes.length - (wheelAngle / (2 * Math.PI)) * wheelPrizes.length) % wheelPrizes.length);
-    const prize = wheelPrizes[index];
-    prize.action();
-    saveState();
-    document.getElementById('wheelResult').innerHTML = `<div class="card">Вы выиграли: <b>${prize.label}</b></div>`;
-    notify('Выигрыш: ' + prize.label, 3000);
-  } else {
-    requestAnimationFrame(animateWheel);
+  // Calculate target prize index based on pointer position
+  targetPrizeIndex = Math.floor(Math.random() * wheelPrizes.length);
+  
+  // Calculate the angle needed to position the target prize at the pointer
+  const targetAngle = (targetPrizeIndex / wheelPrizes.length) * Math.PI * 2;
+  const pointerOffset = Math.PI; // Pointer is at the top (180 degrees)
+  const targetRotation = pointerOffset - targetAngle;
+  
+  // Add multiple full rotations for visual effect
+  const fullRotations = 5;
+  const totalRotation = fullRotations * Math.PI * 2 + targetRotation;
+  
+  // Animate the wheel
+  const startTime = Date.now();
+  const duration = 5000; // 5 seconds
+  
+  function animate() {
+    const elapsed = Date.now() - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    
+    // Easing function for smooth deceleration
+    const easeOut = function(t) {
+      return 1 - Math.pow(1 - t, 3);
+    };
+    
+    wheelAngle = easeOut(progress) * totalRotation;
+    drawWheel(wheelAngle);
+    
+    if (progress < 1) {
+      requestAnimationFrame(animate);
+    } else {
+      wheelSpinning = false;
+      const prize = wheelPrizes[targetPrizeIndex];
+      prize.action();
+      saveState();
+      
+      const resultEl = document.getElementById('wheelResult');
+      resultEl.innerHTML = `<div class="card wheel-result-animation">Вы выиграли: <b>${prize.label}</b></div>`;
+      notify('Выигрыш: ' + prize.label, 3000);
+    }
   }
+  
+  animate();
 }
 
 function createGarland() {
@@ -872,6 +1162,7 @@ function renderAll() {
   // Update profile
   document.getElementById('displayName').textContent = state.nick;
   document.getElementById('avatarImg').src = state.avatar;
+  document.getElementById('profileBanner').src = state.banner;
   document.getElementById('uiCoins').textContent = state.coins;
   document.getElementById('uiTickets').textContent = state.tickets;
   document.getElementById('uiLevel').textContent = xpToLevel(state.xp);
@@ -886,7 +1177,7 @@ function renderAll() {
   if (state.vip) {
     const d = document.createElement('div');
     d.className = 'vip-badge';
-    d.textContent = state.vipLevel === 'lifetime' ? 'VIP · Forever' : (state.vipLevel === 'year' ? 'VIP · Year' : 'VIP · Month');
+    d.textContent = state.vipLevel === 'gold' ? 'VIP Gold' : (state.vipLevel === 'silver' ? 'VIP Silver' : 'VIP Bronze');
     vb.appendChild(d);
   } else {
     vb.innerHTML = '<div class="hint">Нет VIP</div>';
@@ -1304,6 +1595,15 @@ function saveProfileEdits() {
   notify('Профиль обновлён');
 }
 
+function changeBanner() {
+  const currentIndex = BANNERS.indexOf(state.banner);
+  const nextIndex = (currentIndex + 1) % BANNERS.length;
+  state.banner = BANNERS[nextIndex];
+  saveState();
+  renderAll();
+  notify('Баннер изменён');
+}
+
 /* =========================================================
    Chat system
    ========================================================= */
@@ -1355,127 +1655,6 @@ function exportChat() {
   a.download = 'chat_export.json';
   a.click();
   URL.revokeObjectURL(u);
-}
-
-/* =========================================================
-   Snow effects
-   ========================================================= */
-const snowCanvas = document.getElementById('snowCanvas');
-const sctx = snowCanvas.getContext('2d');
-let snowflakes = [];
-
-function resizeSnow() {
-  snowCanvas.width = window.innerWidth;
-  snowCanvas.height = window.innerHeight;
-}
-
-window.addEventListener('resize', resizeSnow);
-resizeSnow();
-
-function spawnSnow(n = 120) {
-  for (let i = 0; i < n; i++) {
-    snowflakes.push({
-      x: Math.random() * snowCanvas.width,
-      y: Math.random() * snowCanvas.height,
-      r: 1 + Math.random() * 3,
-      vx: (Math.random() - 0.5) * 0.8,
-      vy: 0.6 + Math.random() * 1.2
-    });
-  }
-}
-
-spawnSnow(160);
-
-function snowLoop() {
-  sctx.clearRect(0, 0, snowCanvas.width, snowCanvas.height);
-  sctx.fillStyle = 'rgba(255,255,255,0.9)';
-  
-  snowflakes.forEach(p => {
-    p.x += p.vx;
-    p.y += p.vy;
-    if (p.y > snowCanvas.height) {
-      p.y = -5;
-      p.x = Math.random() * snowCanvas.width;
-    }
-    sctx.beginPath();
-    sctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-    sctx.fill();
-  });
-  
-  requestAnimationFrame(snowLoop);
-}
-
-snowLoop();
-
-/* Profile snow */
-let profileSnowRunning = false;
-let profileSnow = [];
-
-function toggleProfileSnow(forceOn) {
-  const owned = state.ownedEffects.includes('profile-snow');
-  if (!owned && !forceOn) {
-    notify('Эффект не куплен. Открой Магазин → Эффекты.');
-    return;
-  }
-  
-  const canvas = document.getElementById('profileSnow');
-  if (canvas.style.display === 'none' && (owned || forceOn)) {
-    canvas.style.display = 'block';
-    startProfileSnow();
-  } else {
-    canvas.style.display = 'none';
-    profileSnowRunning = false;
-    profileSnow = [];
-  }
-}
-
-function startProfileSnow() {
-  const canvas = document.getElementById('profileSnow');
-  const ctx = canvas.getContext('2d');
-  const host = document.getElementById('profileTop');
-  const r = host.getBoundingClientRect();
-  
-  canvas.width = host.clientWidth;
-  canvas.height = host.clientHeight;
-  profileSnow = [];
-  
-  for (let i = 0; i < 90; i++) {
-    profileSnow.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      r: 1 + Math.random() * 2,
-      vy: 0.5 + Math.random() * 1
-    });
-  }
-  
-  profileSnowRunning = true;
-  
-  (function loop() {
-    if (!profileSnowRunning) return;
-    
-    const w = host.clientWidth;
-    const h = host.clientHeight;
-    if (w !== canvas.width || h !== canvas.height) {
-      canvas.width = w;
-      canvas.height = h;
-    }
-    
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = 'rgba(255,255,255,0.95)';
-    
-    profileSnow.forEach(p => {
-      p.y += p.vy;
-      if (p.y > canvas.height) {
-        p.y = -5;
-        p.x = Math.random() * canvas.width;
-      }
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fill();
-    });
-    
-    requestAnimationFrame(loop);
-  })();
 }
 
 /* =========================================================
@@ -1606,6 +1785,10 @@ function goTo(tab) {
   
   document.getElementById('btn-' + tab).classList.add('active');
   document.getElementById(mapping[tab]).style.display = 'block';
+  
+  if (tab === 'chat') {
+    renderChat();
+  }
 }
 
 function bindUI() {
@@ -1642,7 +1825,7 @@ setTimeout(() => {
 window._GL = {
   state, saveState, addXP, initiateCryptoPayment,
   applyFrame, applyGlow, unequipAll, buyVIP,
-  toggleProfileSnow, launchConfetti
+  changeBanner, launchConfetti
 };
 </script>
 </body>
