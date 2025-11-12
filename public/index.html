@@ -1,0 +1,55 @@
+
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CoolChat — eldivis</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app" class="light">
+    <aside class="sidebar">
+      <div class="logo">CoolChat</div>
+
+      <div class="form">
+        <input id="username" placeholder="Имя (уникальное)"/>
+        <input id="nickname" placeholder="Ник (опционально)"/>
+        <button id="btnRegister">Войти / Зарегистрироваться</button>
+        <div class="small">Имя привязывается к устройству (userId).</div>
+      </div>
+
+      <div class="controls">
+        <button id="toggleTheme">Тема</button>
+      </div>
+
+      <div class="users-block">
+        <div class="title">Участники</div>
+        <div id="usersList" class="usersList"></div>
+      </div>
+
+    </aside>
+
+    <main class="main">
+      <header class="top">
+        <div class="title-main">Общий чат</div>
+        <div id="status" class="status">Подключение...</div>
+      </header>
+
+      <div id="chat" class="chat"></div>
+
+      <div id="typing" class="typing"></div>
+
+      <div class="composer">
+        <input id="message" placeholder="Сообщение... (введите :party: или :wave:)">
+        <button id="send">Отправить</button>
+      </div>
+    </main>
+  </div>
+
+  <canvas id="confettiCanvas" class="confetti"></canvas>
+
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <script src="client.js"></script>
+</body>
+</html>
