@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eldivis Chat - Полный чат</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .server-panel {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .chat-panel {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            height: 80vh;
+        }
+        
+        .server-header {
+            background: #2d3748;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .server-status {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .server-status.running {
+            background: #c6f6d5;
+            color: #22543d;
+            border: 2px solid #9ae6b4;
+        }
+        
+        .server-status.stopped {
+            background: #fed7d7;
+            color: #742a2a;
+            border: 2px solid #feb2b2;
+        }
+        
+        .server-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .server-btn {
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .start-btn {
+            background: #48bb78;
+            color: white;
+        }
+        
+        .start-btn:hover {
+            background: #38a169;
+        }
+        
+        .stop-btn {
+            background: #f56565;
+            color: white;
+        }
+        
+        .stop-btn:hover {
+            background: #e53e3e;
+        }
+        
+        .server-log {
+            background: #1a202c;
+            color: #cbd5e0;
+            padding: 15px;
+            border-radius: 8px;
+            height: 200px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            margin-top: 20px;
+        }
+        
+        .log-entry {
+            margin-bottom: 5px;
+            padding: 2px 0;
+        }
+        
+        .log-time {
+            color: #718096;
+        }
+        
+        .log-info {
+            color: #68d391;
+        }
+        
+        .log-error {
+            color: #fc8181;
+        }
+        
+        .log-success {
+            color: #68d391;
+        }
+        
+        .chat-header {
+            background: #4a5568;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        
+        .connection-status {
+            padding: 12px 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .connection-status.connected {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .message {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            word-wrap: break-word;
+        }
+        
+        .message.own {
+            align-self: flex-end;
+            background: #667eea;
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+        
+        .message.other {
+            align-self: flex-start;
+            background: #f1f5f9;
+            color: #2d3748;
+            border-bottom-left-radius: 5px;
+        }
+        
+        .message-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            margin-top: 5px;
+            opacity: 0.8;
+        }
+        
+        .chat-input-container {
+            padding: 20px;
+            background: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .message-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #cbd5e0;
+            border-radius: 25px;
+            outline: none;
+        }
+        
+        .message-input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+        }
+        
+        .send-button {
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 12px 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        
+        .send-button:hover {
+            background: #5a6fd8;
+        }
+        
+        .send-button:disabled {
+            background: #a0aec0;
+            cursor: not-allowed;
+        }
+        
+        .login-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .login-form {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+        }
+        
+        .login-title {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2d3748;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #cbd5e0;
+            border-radius: 8px;
+            outline: none;
+            transition: all 0.3s;
+        }
+        
+        .form-input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+        }
+        
+        .login-button {
+            width: 100%;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        
+        .login-button:hover {
+            background: #5a6fd8;
+        }
+        
+        .login-button:disabled {
+            background: #a0aec0;
+            cursor: not-allowed;
+        }
+        
+        .error-message {
+            color: #e53e3e;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .users-online {
+            padding: 15px;
+            background: #f7fafc;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .users-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .user-badge {
+            background: #667eea;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .chat-panel {
+                height: 70vh;
+            }
+            
+            .message {
+                max-width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Модальное окно входа -->
+    <div class="login-modal" id="loginModal">
+        <div class="login-form">
+            <h2 class="login-title">Вход в Eldivis Chat</h2>
+            <div class="form-group">
+                <input type="text" class="form-input" id="nicknameInput" placeholder="Ваше имя" value="Пользователь">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-input" id="usernameInput" placeholder="Уникальный юзернейм">
+                <div class="error-message" id="usernameError">Этот юзернейм уже занят</div>
+            </div>
+            <button class="login-button" id="loginButton">Войти в чат</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Панель сервера -->
+        <div class="server-panel">
+            <div class="server-header">
+                <h2>🚀 Eldivis Chat Server</h2>
+                <p>Встроенный сервер реального времени</p>
+            </div>
+            
+            <div class="server-status running" id="serverStatus">
+                ✅ Сервер запущен и работает
+            </div>
+            
+            <div class="server-controls">
+                <button class="server-btn start-btn" onclick="startServer()">Запустить сервер</button>
+                <button class="server-btn stop-btn" onclick="stopServer()">Остановить сервер</button>
+            </div>
+            
+            <div>
+                <h3>📊 Статистика сервера:</h3>
+                <div id="serverStats">
+                    <p>👥 Пользователи онлайн: <span id="onlineUsers">0</span></p>
+                    <p>💬 Всего сообщений: <span id="totalMessages">0</span></p>
+                    <p>🔗 Подключения: <span id="connections">0</span></p>
+                </div>
+            </div>
+            
+            <div class="server-log" id="serverLog">
+                <div class="log-entry">
+                    <span class="log-time">[00:00:00]</span>
+                    <span class="log-info">Сервер инициализирован</span>
+                </div>
+                <div class="log-entry">
+                    <span class="log-time">[00:00:00]</span>
+                    <span class="log-success">Готов к подключениям</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Панель чата -->
+        <div class="chat-panel">
+            <div class="chat-header">
+                Eldivis Chat
+            </div>
+            
+            <div class="users-online">
+                <div class="users-list" id="usersList">
+                    <!-- Список пользователей -->
+                </div>
+            </div>
+            
+            <div class="connection-status" id="connectionStatus">
+                Подключение к серверу...
+            </div>
+            
+            <div class="chat-messages" id="chatMessages">
+                <div style="text-align: center; color: #718096; padding: 40px;">
+                    Добро пожаловать в Eldivis Chat!<br>
+                    Войдите в чат чтобы начать общение.
+                </div>
+            </div>
+            
+            <div class="chat-input-container">
+                <input type="text" class="message-input" id="messageInput" placeholder="Введите сообщение..." disabled>
+                <button class="send-button" id="sendButton" disabled>Отправить</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== СЕРВЕРНАЯ ЧАСТЬ ====================
+        class ChatServer {
+            constructor() {
+                this.users = new Map();
+                this.messages = [];
+                this.connections = new Set();
+                this.isRunning = false;
+                this.logEntries = [];
+            }
+
+            start() {
+                if (this.isRunning) return;
+                
+                this.isRunning = true;
+                this.addLog('Сервер запущен', 'success');
+                this.addLog('Порт: 10000', 'info');
+                this.addLog('Готов принимать подключения', 'success');
+                
+                // Имитация работы сервера
+                this.serverInterval = setInterval(() => {
+                    this.updateStats();
+                }, 2000);
+            }
+
+            stop() {
+                if (!this.isRunning) return;
+                
+                this.isRunning = false;
+                clearInterval(this.serverInterval);
+                this.users.clear();
+                this.connections.clear();
+                this.addLog('Сервер остановлен', 'error');
+            }
+
+            addLog(message, type = 'info') {
+                const time = new Date().toLocaleTimeString();
+                this.logEntries.push({ time, message, type });
+                
+                // Ограничиваем количество записей лога
+                if (this.logEntries.length > 50) {
+                    this.logEntries.shift();
+                }
+                
+                this.updateLogDisplay();
+            }
+
+            updateLogDisplay() {
+                const logContainer = document.getElementById('serverLog');
+                logContainer.innerHTML = this.logEntries.map(entry => `
+                    <div class="log-entry">
+                        <span class="log-time">[${entry.time}]</span>
+                        <span class="log-${entry.type}">${entry.message}</span>
+                    </div>
+                `).join('');
+                logContainer.scrollTop = logContainer.scrollHeight;
+            }
+
+            updateStats() {
+                document.getElementById('onlineUsers').textContent = this.users.size;
+                document.getElementById('totalMessages').textContent = this.messages.length;
+                document.getElementById('connections').textContent = this.connections.size;
+            }
+
+            // Методы для работы с WebSocket клиентами
+            handleConnection(socketId) {
+                this.connections.add(socketId);
+                this.addLog(`Новое подключение: ${socketId}`, 'info');
+                this.updateStats();
+            }
+
+            handleDisconnection(socketId) {
+                this.connections.delete(socketId);
+                
+                // Удаляем пользователя если он был зарегистрирован
+                for (let [username, user] of this.users.entries()) {
+                    if (user.socketId === socketId) {
+                        this.users.delete(username);
+                        this.addLog(`Пользователь отключился: ${user.name}`, 'info');
+                        break;
+                    }
+                }
+                
+                this.updateStats();
+            }
+
+            registerUser(socketId, userData) {
+                const username = userData.username.toLowerCase();
+                
+                if (this.users.has(username)) {
+                    return { success: false, message: 'Юзернейм уже занят' };
+                }
+
+                const user = {
+                    id: socketId,
+                    name: userData.name,
+                    username: username,
+                    connectedAt: new Date().toISOString()
+                };
+
+                this.users.set(username, user);
+                this.addLog(`Новый пользователь: ${user.name} (@${user.username})`, 'success');
+                this.updateStats();
+
+                return { 
+                    success: true, 
+                    user: user,
+                    messageHistory: this.messages.slice(-50)
+                };
+            }
+
+            sendMessage(userData, text) {
+                const message = {
+                    id: Date.now() + Math.random(),
+                    username: userData.username,
+                    name: userData.name,
+                    text: text.trim(),
+                    timestamp: new Date().toLocaleTimeString('ru-RU'),
+                    fullTimestamp: new Date().toISOString()
+                };
+
+                this.messages.push(message);
+
+                // Ограничиваем историю сообщений
+                if (this.messages.length > 200) {
+                    this.messages.shift();
+                }
+
+                this.addLog(`Сообщение от ${userData.name}: ${text.substring(0, 30)}...`, 'info');
+                this.updateStats();
+
+                return message;
+            }
+
+            getUsersList() {
+                return Array.from(this.users.values());
+            }
+        }
+
+        // ==================== КЛИЕНТСКАЯ ЧАСТЬ ====================
+        const chatServer = new ChatServer();
+        let socket = null;
+        let currentUser = null;
+        let isConnected = false;
+
+        // Элементы DOM
+        const loginModal = document.getElementById('loginModal');
+        const nicknameInput = document.getElementById('nicknameInput');
+        const usernameInput = document.getElementById('usernameInput');
+        const usernameError = document.getElementById('usernameError');
+        const loginButton = document.getElementById('loginButton');
+        const connectionStatus = document.getElementById('connectionStatus');
+        const chatMessages = document.getElementById('chatMessages');
+        const messageInput = document.getElementById('messageInput');
+        const sendButton = document.getElementById('sendButton');
+        const usersList = document.getElementById('usersList');
+        const serverStatus = document.getElementById('serverStatus');
+
+        // Запуск сервера при загрузке
+        function startServer() {
+            chatServer.start();
+            serverStatus.textContent = '✅ Сервер запущен и работает';
+            serverStatus.className = 'server-status running';
+            updateUsersList();
+        }
+
+        function stopServer() {
+            chatServer.stop();
+            serverStatus.textContent = '❌ Сервер остановлен';
+            serverStatus.className = 'server-status stopped';
+            
+            if (isConnected) {
+                disconnectFromServer();
+            }
+            
+            usersList.innerHTML = '';
+            updateUsersList();
+        }
+
+        function connectToServer() {
+            if (!chatServer.isRunning) {
+                alert('Сервер не запущен! Запустите сервер сначала.');
+                return;
+            }
+
+            console.log('🔄 Подключение к серверу...');
+            connectionStatus.textContent = 'Подключение к серверу...';
+            
+            // Имитация подключения к WebSocket
+            setTimeout(() => {
+                const socketId = 'socket_' + Date.now();
+                chatServer.handleConnection(socketId);
+                
+                isConnected = true;
+                connectionStatus.textContent = '✅ Подключено к серверу';
+                connectionStatus.classList.add('connected');
+                
+                messageInput.disabled = false;
+                sendButton.disabled = false;
+                
+                // Регистрация пользователя
+                const result = chatServer.registerUser(socketId, currentUser);
+                
+                if (result.success) {
+                    loginModal.style.display = 'none';
+                    currentUser.socketId = socketId;
+                    
+                    // Загружаем историю сообщений
+                    if (result.messageHistory && result.messageHistory.length > 0) {
+                        chatMessages.innerHTML = '';
+                        result.messageHistory.forEach(msg => addMessageToChat(msg));
+                    }
+                    
+                    updateUsersList();
+                    messageInput.focus();
+                } else {
+                    usernameError.textContent = result.message;
+                    usernameError.style.display = 'block';
+                    loginButton.disabled = false;
+                    loginButton.textContent = 'Войти в чат';
+                    disconnectFromServer();
+                }
+            }, 1000);
+        }
+
+        function disconnectFromServer() {
+            if (currentUser && currentUser.socketId) {
+                chatServer.handleDisconnection(currentUser.socketId);
+            }
+            
+            isConnected = false;
+            connectionStatus.textContent = '❌ Отключено от сервера';
+            connectionStatus.classList.remove('connected');
+            
+            messageInput.disabled = true;
+            sendButton.disabled = true;
+            
+            currentUser = null;
+            updateUsersList();
+        }
+
+        function sendMessage() {
+            if (!isConnected || !currentUser) {
+                alert('Сначала подключитесь к серверу!');
+                return;
+            }
+
+            const text = messageInput.value.trim();
+            if (!text) return;
+
+            const message = chatServer.sendMessage(currentUser, text);
+            addMessageToChat(message);
+            
+            messageInput.value = '';
+            scrollToBottom();
+        }
+
+        function addMessageToChat(message) {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message');
+            
+            const isOwnMessage = currentUser && message.username === currentUser.username;
+            messageElement.classList.add(isOwnMessage ? 'own' : 'other');
+            
+            messageElement.innerHTML = `
+                <div class="message-text">${message.text}</div>
+                <div class="message-info">
+                    <span class="message-sender">${message.name}</span>
+                    <span class="message-time">${message.timestamp}</span>
+                </div>
+            `;
+            
+            chatMessages.appendChild(messageElement);
+        }
+
+        function scrollToBottom() {
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function updateUsersList() {
+            const users = chatServer.getUsersList();
+            usersList.innerHTML = users.map(user => `
+                <div class="user-badge">${user.name}</div>
+            `).join('');
+        }
+
+        // Обработчики событий
+        loginButton.addEventListener('click', () => {
+            const nickname = nicknameInput.value.trim();
+            const username = usernameInput.value.trim();
+            
+            if (!nickname || !username) {
+                alert('Пожалуйста, заполните все поля');
+                return;
+            }
+
+            if (!/^[a-zA-Z0-9_]+$/.test(username)) {
+                usernameError.textContent = 'Юзернейм может содержать только буквы, цифры и подчеркивания';
+                usernameError.style.display = 'block';
+                return;
+            }
+
+            if (username.length < 3) {
+                usernameError.textContent = 'Юзернейм должен быть не менее 3 символов';
+                usernameError.style.display = 'block';
+                return;
+            }
+
+            loginButton.disabled = true;
+            loginButton.textContent = 'Подключение...';
+            usernameError.style.display = 'none';
+
+            currentUser = {
+                name: nickname,
+                username: username.toLowerCase()
+            };
+
+            connectToServer();
+        });
+
+        sendButton.addEventListener('click', sendMessage);
+        
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Автозаполнение и запуск при загрузке
+        window.addEventListener('load', () => {
+            startServer();
+            usernameInput.value = 'user_' + Math.floor(Math.random() * 1000);
+            nicknameInput.focus();
+        });
+    </script>
+</body>
+</html>
