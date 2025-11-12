@@ -1,0 +1,79 @@
+
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Eldivis — New Year Chat</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <header class="top">
+      <div class="brand">✨ Eldivis ✨ <span class="sub">New Year Edition</span></div>
+      <div id="headerControls"></div>
+    </header>
+
+    <main class="mainLayout">
+      <aside class="leftCol">
+        <div class="panel profilePanel" id="miniProfile">
+          <img id="miniAvatar" src="/assets/default-avatar.png" class="avatarSmall">
+          <div>
+            <div id="miniName">Гость</div>
+            <div id="miniCoins">💎 0</div>
+          </div>
+        </div>
+
+        <div class="panel searchPanel">
+          <input id="searchUsers" placeholder="Найти пользователя...">
+        </div>
+
+        <div class="panel usersPanel">
+          <h4>Пользователи</h4>
+          <div id="usersList"></div>
+        </div>
+
+        <div class="panel wheelPanel">
+          <h4>Ежедневное колесо фортуны</h4>
+          <button id="spinBtn">Крутить колесо</button>
+          <div id="spinResult"></div>
+        </div>
+      </aside>
+
+      <section class="centerCol">
+        <div class="panel chatHeader" id="chatHeader">Выберите пользователя слева</div>
+        <div class="panel chatWindow" id="chatWindow"></div>
+        <div class="panel composer" id="composer" style="display:none">
+          <input id="msgText" placeholder="Введите сообщение...">
+          <input type="file" id="fileInput">
+          <button id="sendBtn">Отправить</button>
+        </div>
+      </section>
+
+      <aside class="rightCol">
+        <div class="panel profileView" id="profileView" style="display:none">
+          <img id="profileAvatar" src="/assets/default-avatar.png" class="avatarBig">
+          <h3 id="profileName">Имя</h3>
+          <div id="profileCoins">💎 0</div>
+          <div id="profileGifts"></div>
+          <div class="profileActions">
+            <button id="editProfileBtn">Редактировать профиль</button>
+            <button id="blockBtn">Заблокировать</button>
+            <button id="deleteAccountBtn" style="display:none">Удалить аккаунт</button>
+          </div>
+        </div>
+
+        <div class="panel nftsPanel">
+          <h4>Подарки (NFT)</h4>
+          <div id="nftList"></div>
+        </div>
+      </aside>
+    </main>
+
+    <div id="toast" class="toast" style="display:none"></div>
+  </div>
+
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <script src="client.js"></script>
+</body>
+</html>
