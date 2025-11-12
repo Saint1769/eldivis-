@@ -1,0 +1,23 @@
+
+/* Very stylish modern CSS for CoolChat Pro */
+:root{ --bg:#0b1020; --panel:#0f1724; --accent:#7c3aed; --accent2:#06b6d4; --muted:#aab6cf; --glass: rgba(255,255,255,0.03); }
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--muted);font-family:Inter,system-ui,Arial;height:100vh}
+.topbar{height:68px;background:linear-gradient(90deg,#071027 0%, #081129 100%);display:flex;align-items:center;justify-content:space-between;padding:0 24px;box-shadow:0 6px 30px rgba(2,6,23,0.6)}
+.logo{font-weight:800;color:var(--accent);font-size:20px}
+.layout{display:flex;gap:16px;padding:18px;max-width:1200px;margin:18px auto}
+.leftpanel{width:320px;background:var(--panel);border-radius:12px;padding:14px;box-shadow:0 8px 30px rgba(0,0,0,0.6)}
+.chatpanel{flex:1;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;padding:14px;display:flex;flex-direction:column;height:70vh}
+.auth input, .wallet input, .composer input{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:inherit}
+.auth-actions{display:flex;gap:8px;margin-top:8px}
+.auth-actions button, .wallet-actions button, #sendBtn, #deleteAccount{padding:10px;border-radius:8px;border:0;background:var(--accent);color:#fff;cursor:pointer}
+.usersList{max-height:280px;overflow:auto;margin-top:8px}
+.userItem{display:flex;align-items:center;gap:8px;padding:8px;border-radius:8px;background:var(--glass);margin-bottom:8px;cursor:pointer}
+.userItem:hover{transform:translateY(-2px);transition:transform .15s ease}
+.avatar{width:44px;height:44;border-radius:8px;background:linear-gradient(90deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:700;color:#031}
+.nftItem{display:flex;gap:8px;align-items:center;padding:8px;background:var(--glass);border-radius:8px;margin-bottom:8px}
+.chatWindow{flex:1;overflow:auto;padding:10px;border-radius:8px;background:transparent}
+.msg{max-width:70%;padding:10px;border-radius:10px;margin:8px 0;display:inline-block}
+.msg.me{margin-left:auto;background:linear-gradient(90deg,var(--accent2),var(--accent));color:#021}
+.msg.other{background:rgba(255,255,255,0.02)}
+.meta{font-size:12px;color:var(--muted);margin-bottom:6px}
+.toast{position:fixed;right:20px;bottom:20px;background:#021;color:#fff;padding:10px 14px;border-radius:8px}
