@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>CoolChat Pro — ElDivis</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="root">
+    <header class="topbar">
+      <div class="logo">CoolChat Pro</div>
+      <div id="userArea"></div>
+    </header>
+
+    <main class="layout">
+      <!-- Left Sidebar -->
+      <aside class="leftpanel">
+        <!-- Auth Section -->
+        <section class="auth" id="authSection">
+          <h3>Войти / Регистрация</h3>
+          <input id="inpUser" placeholder="Имя пользователя">
+          <input id="inpPass" placeholder="Пароль" type="password">
+          <div class="auth-actions">
+            <button id="btnRegister">Зарегистрироваться</button>
+            <button id="btnLogin">Войти</button>
+          </div>
+        </section>
+
+        <!-- Wallet Section -->
+        <section class="wallet" id="walletSection" style="display:none">
+          <div class="wallet-header">
+            <div>Монеты: <span id="coinAmount">0</span>💎</div>
+            <div class="level">Уровень: <span id="userLevel">1</span></div>
+          </div>
+          <div class="wallet-actions">
+            <input id="buyAmount" placeholder="Сумма монет" type="number">
+            <button id="btnBuy">Купить монеты</button>
+          </div>
+          <div class="bonus-section">
+            <button id="dailyBonusBtn" onclick="claimDailyBonus()" class="bonus-btn">🎁 Ежедневный бонус</button>
+          </div>
+        </section>
+
+        <!-- Navigation Tabs -->
+        <section class="nav-tabs" id="navTabs" style="display:none">
+          <button class="tab-btn active" data-tab="users">👥 Пользователи</button>
+          <button class="tab-btn" data-tab="groups">👪 Группы</button>
+          <button class="tab-btn" data-tab="friends">🤝 Друзья</button>
+          <button class="tab-btn" data-tab="market">🛒 Маркет</button>
+        </section>
+
+        <!-- Users List -->
+        <section class="tab-content active" id="usersTab">
+          <div class="section-header">
+            <h4>Пользователи</h4>
+            <input type="text" id="userSearch" placeholder="Поиск..." class="search-input">
+          </div>
+          <div id="usersList" class="userslist"></div>
+        </section>
+
+        <!-- Groups List -->
+        <section class="tab-content" id="groupsTab">
+          <div class="section-header">
+            <h4>Группы</h4>
+            <button id="createGroupBtn" class="icon-btn">+</button>
+          </div>
+          <div id="groupsList" class="groupslist"></div>
+        </section>
+
+        <!-- Friends List -->
+        <section class="tab-content" id="friendsTab">
+          <div class="section-header">
+            <h4>Друзья</h4>
+            <div class="friend-stats">
+              <span id="friendsCount">0</span> друзей
+            </div>
+          </div>
+          <div id="friendsList" class="friendslist"></div>
+        </section>
+
+        <!-- Marketplace -->
+        <section class="tab-content" id="marketTab">
+          <div class="section-header">
+            <h4>Маркетплейс</h4>
+          </div>
+          <div class="market-tabs">
+            <button class="market-tab active" data-market="nfts">NFT</button>
+            <button class="market-tab" data-market="stickers">Стикеры</button>
+            <button class="market-tab" data-market="themes">Темы</button>
+          </div>
+          <div id="nftSection" class="market-content active">
+            <h4>NFT-коллекции</h4>
+            <div id="nftList" class="nftlist"></div>
+          </div>
+          <div id="stickersSection" class="market-content">
+            <h4>Стикеры</h4>
+            <div id="stickersList" class="stickerslist"></div>
+          </div>
+          <div id="themesSection" class="market-content">
+            <h4>Темы оформления</h4>
+            <div id="themesList" class="themeslist"></div>
+          </div>
+        </section>
+
+        <!-- Achievements -->
+        <section class="achievements-preview" id="achievementsSection" style="display:none">
+          <h4>Достижения</h4>
+          <div id="achievementsList" class="achievementslist"></div>
+          <button id="showAllAchievements" class="text-btn">Показать все</button>
+        </section>
+      </aside>
+
+      <!-- Main Chat Area -->
+      <section class="chatpanel">
+        <div class="chat-header">
+          <div id="chatsHeader" class="chat-title">Выберите чат для начала общения</div>
+          <div class="chat-actions" id="chatActions" style="display:none">
+            <button id="voiceCallBtn" class="icon-btn" title="Голосовой звонок">🎤</button>
+            <button id="videoCallBtn" class="icon-btn" title="Видеозвонок">📹</button>
+            <button id="stickerPickerBtn" class="icon-btn" title="Стикеры">😊</button>
+            <button id="moreActionsBtn" class="icon-btn" title="Еще">⋯</button>
+          </div>
+        </div>
+        
+        <div id="chatWindow" class="chatWindow"></div>
+        
+        <!-- Voice Call UI -->
+        <div id="voiceCallUI" class="call-ui" style="display:none">
+          <div class="call-info">
+            <div id="callStatus">Установка соединения...</div>
+            <div id="callTimer">00:00</div>
+          </div>
+          <div class="call-controls">
+            <button id="muteBtn" class="call-btn">🔇</button>
+            <button id="endCallBtn" class="call-btn end-call">📞</button>
+            <button id="speakerBtn" class="call-btn">🔊</button>
+          </div>
+        </div>
+
+        <!-- Message Composer -->
+        <div id="composer" class="composer" style="display:none">
+          <div class="composer-tools">
+            <button id="emojiBtn" class="tool-btn">😊</button>
+            <button id="attachBtn" class="tool-btn">📎</button>
+            <button id="scheduleBtn" class="tool-btn" title="Отложить сообщение">⏰</button>
+          </div>
+          <input id="msgInput" placeholder="Введите сообщение..." onkeypress="handleMessageKeypress(event)">
+          <div class="composer-actions">
+            <button id="sendBtn" class="send-btn">Отправить</button>
+            <button id="deleteAccount" class="danger-btn" title="Удалить аккаунт">🗑️</button>
+          </div>
+        </div>
+
+        <!-- Sticker Picker -->
+        <div id="stickerPicker" class="sticker-picker" style="display:none">
+          <div class="sticker-categories">
+            <button class="sticker-category active" data-category="emotions">Эмоции</button>
+            <button class="sticker-category" data-category="gestures">Жесты</button>
+            <button class="sticker-category" data-category="animals">Животные</button>
+          </div>
+          <div class="sticker-grid" id="stickerGrid">
+            <!-- Stickers will be loaded here -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Sidebar -->
+      <aside class="rightpanel" id="rightPanel" style="display:none">
+        <!-- User Profile -->
+        <section class="user-profile">
+          <div class="profile-header">
+            <div class="profile-avatar" id="profileAvatar">
+              <img src="" alt="Avatar" id="avatarImg">
+            </div>
+            <div class="profile-info">
+              <h3 id="profileUsername"></h3>
+              <div class="profile-status">
+                <span class="status-indicator" id="profileStatus"></span>
+                <span id="profileCustomStatus"></span>
+              </div>
+            </div>
+          </div>
+          <div class="profile-details">
+            <div class="detail-item">
+              <span class="detail-label">Уровень:</span>
+              <span class="detail-value" id="profileLevel">1</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Монеты:</span>
+              <span class="detail-value" id="profileCoins">0</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Сообщений:</span>
+              <span class="detail-value" id="profileMessages">0</span>
+            </div>
+          </div>
+          <div class="profile-bio" id="profileBio">
+            Пользователь еще не добавил информацию о себе.
+          </div>
+        </section>
+
+        <!-- Group Info -->
+        <section class="group-info" id="groupInfo" style="display:none">
+          <h4>Участники группы</h4>
+          <div id="groupMembers" class="group-members">
+            <!-- Group members will be listed here -->
+          </div>
+          <button id="inviteToGroup" class="action-btn">Пригласить</button>
+        </section>
+
+        <!-- Active Users -->
+        <section class="active-users">
+          <h4>Сейчас онлайн</h4>
+          <div id="activeUsersList" class="active-users-list">
+            <!-- Active users will be listed here -->
+          </div>
+        </section>
+      </aside>
+    </main>
+
+    <!-- Modals -->
+    <div id="createGroupModal" class="modal" style="display:none">
+      <div class="modal-content">
+        <h3>Создать группу</h3>
+        <input type="text" id="groupName" placeholder="Название группы">
+        <textarea id="groupDescription" placeholder="Описание группы"></textarea>
+        <label class="checkbox-label">
+          <input type="checkbox" id="groupPublic" checked>
+          Публичная группа
+        </label>
+        <div class="modal-actions">
+          <button id="createGroupConfirm" class="btn-primary">Создать</button>
+          <button onclick="closeModal('createGroupModal')" class="btn-secondary">Отмена</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="scheduleModal" class="modal" style="display:none">
+      <div class="modal-content">
+        <h3>Отложить сообщение</h3>
+        <input type="datetime-local" id="scheduleTime">
+        <div class="modal-actions">
+          <button id="scheduleConfirm" class="btn-primary">Запланировать</button>
+          <button onclick="closeModal('scheduleModal')" class="btn-secondary">Отмена</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="achievementsModal" class="modal" style="display:none">
+      <div class="modal-content">
+        <h3>Ваши достижения</h3>
+        <div id="allAchievements" class="achievements-grid">
+          <!-- All achievements will be listed here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast" class="toast" style="display:none"></div>
+
+    <!-- Audio Elements -->
+    <audio id="messageSound" src="/public/sounds/message.mp3" preload="auto"></audio>
+    <audio id="callSound" src="/public/sounds/call.mp3" preload="auto"></audio>
+    <audio id="achievementSound" src="/public/sounds/achievement.mp3" preload="auto"></audio>
+  </div>
+
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <script src="client.js"></script>
+</body>
+</html>
