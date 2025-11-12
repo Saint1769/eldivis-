@@ -1,0 +1,53 @@
+const express = require('express');
+const http = require('http');
+const socketIo = require('socket.io');
+const cors = require('cors');
+
+const app = express();
+const server = http.createServer(app);
+
+app.use(cors());
+app.use(express.static('public'));
+
+const io = socketIo(server, {
+  cors: { origin: "*" }
+});
+
+const users = new Map();
+const messages = [];
+
+io.on('connection', (socket) => {
+  console.log('User connected:', socket.id);
+  
+  socket.on('register', (userData) => {
+    if (users.has(userData.username)) {
+      socket.emit('error', 'Username taken');
+      return;
+    }
+    
+    users.set(userData.username, { ...userData, socketId: socket.id });
+    socket.emit('registered', { user: userData, messages });
+    io.emit('users', Array.from(users.values()));
+  });
+  
+  socket.on('message', (data) => {
+    const message = { ...data, timestamp: new Date() };
+    messages.push(message);
+    io.emit('newMessage', message);
+  });
+  
+  socket.on('disconnect', () => {
+    for (let [username, user] of users.entries()) {
+      if (user.socketId === socket.id) {
+        users.delete(username);
+        io.emit('users', Array.from(users.values()));
+        break;
+      }
+    }
+  });
+});
+
+const PORT = process.env.PORT || 10000;
+server.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
