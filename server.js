@@ -11,7 +11,7 @@ const { v4: uuidv4 } = require('uuid');
 const fs = require('fs');
 
 const PORT = process.env.PORT || 3000;
-const DATABASE_URL = process.env.DATABASE_URL;
+const DATABASE_URL = postgresql://eldivis_user:X5DkEz7FAFzqpN06D3KmCUgeXaeqT8cI@dpg-d4ap3mogjchc73f1hpl0-a/eldivis;
 const JWT_SECRET = process.env.JWT_SECRET || 'dev_jwt_secret_change_me';
 
 if (!DATABASE_URL) {
