@@ -1,0 +1,11 @@
+
+body{background:linear-gradient(180deg,#021026,#071124);color:#e6eef8;font-family:Inter,Arial;margin:0;padding:24px}
+.wrap{max-width:1100px;margin:0 auto;text-align:center}
+.wheel-wrap{position:relative;margin:18px auto;width:420px;height:420px}
+.wheel{width:420px;height:420px;border-radius:50%;box-shadow:0 12px 40px rgba(0,0,0,0.6)}
+.overlay{position:absolute;inset:0;border-radius:50%;pointer-events:none;transform-origin:50% 50%}
+.pointer{position:absolute;left:50%;top:6px;transform:translateX(-50%);font-size:28px;color:#ffd700;text-shadow:0 4px 14px rgba(0,0,0,0.6)}
+button{padding:12px 18px;border-radius:8px;border:0;background:linear-gradient(90deg,#ffd700,#06b6d4);color:#041;font-weight:700;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,0.6)}
+#result{margin-top:12px;font-weight:700;color:#ffd700}
+.features{margin-top:12px;text-align:left;max-height:300px;overflow:auto;padding:8px;background:rgba(255,255,255,0.02);border-radius:8px}
+.feature{padding:6px;border-bottom:1px solid rgba(255,255,255,0.02)}
