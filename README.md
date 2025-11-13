@@ -9,7 +9,7 @@ IMPORTANT:
 
 How to seed demo data:
 1. npm install
-2. export DATABASE_URL="postgresql://..."
+2. export DATABASE_URL="postgresql://eldivis_user:X5DkEz7FAFzqpN06D3KmCUgeXaeqT8cI@dpg-d4ap3mogjchc73f1hpl0-a/eldivis"
 3. node seed.js
 
 Deploy on Render:
